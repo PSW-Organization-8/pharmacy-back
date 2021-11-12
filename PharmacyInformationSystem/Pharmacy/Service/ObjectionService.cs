@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PharmacyClassLib.Service
 {
-    public class ObjectionService
+    public class ObjectionService   // Todo: Write interface for this class
     {
         private readonly IObjectionRepository objectionRepository;
 

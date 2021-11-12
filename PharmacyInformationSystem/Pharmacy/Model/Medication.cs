@@ -14,26 +14,25 @@ namespace PharmacyClassLib.Model
         public long Id { get; set; }
 
         public string Name { get; set; }
+        public string Manufacturer { get; set; }
         public MedicineApprovalStatus Status { get; set; }
         public int Quantity { get; set; }
-        public virtual ICollection<IngredientQuantity> IngredientQuantities { get; set; }
-                
-        public Medication(long Id, String Name, MedicineApprovalStatus Status, int Quantity, ICollection<IngredientQuantity> ingradientQuantities)
-        {
-            this.Id = Id;
-            this.Name = Name;
-            this.Status = Status;
-            this.Quantity = Quantity;
-            this.IngredientQuantities = ingradientQuantities;
-        }
+        public string Usage { get; set; }
+        public string Precautions { get; set; }
+        public string PotntialDangers { get; set; }
+        public virtual ICollection<MedicationIngredient> MedicationIngredients { get; set; }
 
-        public Medication(long Id, String Name, MedicineApprovalStatus Status, int Quantity)
+        public Medication(long id, string name, string manufacturer,
+            MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers)
         {
-            this.Id = Id;
-            this.Name = Name;
-            this.Status = Status;
-            this.Quantity = Quantity;
-            this.IngredientQuantities = new Collection<IngredientQuantity>();
+            Id = id;
+            Name = name;
+            Manufacturer = manufacturer;
+            Status = status;
+            Quantity = quantity;
+            Usage = usage;
+            Precautions = precautions;
+            PotntialDangers = potntialDangers;
         }
 
     }

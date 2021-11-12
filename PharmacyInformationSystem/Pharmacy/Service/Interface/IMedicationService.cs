@@ -8,5 +8,12 @@ namespace PharmacyClassLib.Service
     public interface IMedicationService
     {
         List<Medication> GetAll();
+
+        Medication Get(long id);
+
+        Medication Create(Medication newMedication);
+
+        Boolean Delete(long id);
+
     }
 }

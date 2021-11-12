@@ -20,16 +20,16 @@ namespace PharmacyClassLib
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            String connectionString = "Server=localhost; Port =5432; Database =Pharmacy; User Id = postgres; Password =2331;";
+            String connectionString = "Server=localhost; Port =5432; Database=Pharmacy; User Id=postgres; Password =2331;";
             optionsBuilder.UseNpgsql(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Pharmacy>().HasData(
-                new Pharmacy(1, "Jankovic", "Novi Sad", "Rumenačka", "15"),
-                new Pharmacy(2, "Jankovic", "Novi Sad", "Bulevar oslobođenja", "135"),
-                new Pharmacy(3, "Jankovic", "Beograd", "Olge Jovanović", "18a")
+                new Pharmacy(1, "Janković", "Novi Sad", "Rumenačka", "15"),
+                new Pharmacy(2, "Janković", "Novi Sad", "Bulevar oslobođenja", "135"),
+                new Pharmacy(3, "Janković", "Beograd", "Olge Jovanović", "18a")
                 );
 
             modelBuilder.Entity<Objection>().HasData(
@@ -39,21 +39,14 @@ namespace PharmacyClassLib
             modelBuilder.Entity<Response>().HasData(
                 new Response(1, 0, "Bolnica1", "Kleveta")
                 );
+
             modelBuilder.Entity<RegistratedHospital>().HasData(
                 new RegistratedHospital("Bolnica1", "http:localhost:7313", "fds15d4fs6")
                 );
 
             MedicationIngredient ingredient1 = new MedicationIngredient(1, "Vitamin C");
-            MedicationIngredient ingredient2 = new MedicationIngredient(2, "Fosfor");
-            MedicationIngredient ingredient3 = new MedicationIngredient(3, "Kalcijum");
-
-            IngredientQuantity quantity1 = new IngredientQuantity(1, 35.4, 1);
-            IngredientQuantity quantity2 = new IngredientQuantity(2, 48.7, 2);
-
-            List<IngredientQuantity> ingredientList = new List<IngredientQuantity>();
-
-            ingredientList.Add(quantity1);
-            ingredientList.Add(quantity2);
+            MedicationIngredient ingredient2 = new MedicationIngredient(2, "Phosphorus");
+            MedicationIngredient ingredient3 = new MedicationIngredient(3, "Calcium");
 
             modelBuilder.Entity<MedicationIngredient>().HasData(
                 ingredient1,
@@ -61,29 +54,18 @@ namespace PharmacyClassLib
                 ingredient3
                 );
 
-            modelBuilder.Entity<IngredientQuantity>().HasData(
-                quantity1,
-                quantity2
-                );
-
+            List<MedicationIngredient> ingredients = new List<MedicationIngredient>()
+            {
+                ingredient1, ingredient2, ingredient3
+            };
+                     
             modelBuilder.Entity<Medication>().HasData(
-                new Medication(1, "Paracetamol", MedicineApprovalStatus.Accepted, 150),
-                new Medication(2, "Analgin", MedicineApprovalStatus.Accepted, 50)
+                new Medication(1, "Synthroid", "J&J",MedicineApprovalStatus.Accepted, 150, "Taken once per day", "None.", "None."),
+                new Medication(2, "Ventolin", "Merck & Co. Inc.",  MedicineApprovalStatus.Waiting, 200, "Taken twice per day", "None.", "Not advised for pregnant women."),
+                new Medication(3, "Januvia", "Pfizer Inc.",  MedicineApprovalStatus.Accepted, 750, "Taken once once every 5 hours", "None.", "Not advised for children.")
                 );
 
         }
 
-        private List<IngredientQuantity> IngredientsQuantity()
-        {
-            IngredientQuantity quantity1 = new IngredientQuantity(1, 35.4, 1);
-            IngredientQuantity quantity2 = new IngredientQuantity(2, 48.7, 2);
-
-            List<IngredientQuantity> ingredientList = new List<IngredientQuantity>();
-
-            ingredientList.Add(quantity1);
-            ingredientList.Add(quantity2);
-
-            return ingredientList;
-        }
     }
 }

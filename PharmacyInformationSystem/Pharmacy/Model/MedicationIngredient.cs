@@ -14,12 +14,9 @@ namespace PharmacyClassLib.Model
 
         public string Name { get; set; }
 
-        public MedicationIngredient()
-        {
+        public virtual ICollection<Medication> Medications { get; set; }
 
-        }
-
-        public MedicationIngredient(long Id,String Name)
+        public MedicationIngredient(long Id, String Name)
         {
             this.Id = Id;
             this.Name = Name;

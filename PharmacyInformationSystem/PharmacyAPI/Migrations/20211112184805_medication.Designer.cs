@@ -9,7 +9,7 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20211108213439_medication")]
+    [Migration("20211112184805_medication")]
     partial class medication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,38 +20,19 @@ namespace PharmacyAPI.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("PharmacyClassLib.Model.IngredientQuantity", b =>
+            modelBuilder.Entity("MedicationMedicationIngredient", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision");
-
-                    b.Property<long>("MedicationId")
+                    b.Property<long>("MedicationIngredientsId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.Property<long>("MedicationsId")
+                        .HasColumnType("bigint");
 
-                    b.HasIndex("MedicationId");
+                    b.HasKey("MedicationIngredientsId", "MedicationsId");
 
-                    b.ToTable("IngredientQuantity");
+                    b.HasIndex("MedicationsId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Amount = 35.399999999999999,
-                            MedicationId = 1L
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Amount = 48.700000000000003,
-                            MedicationId = 2L
-                        });
+                    b.ToTable("MedicationMedicationIngredient");
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.Medication", b =>
@@ -61,7 +42,16 @@ namespace PharmacyAPI.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PotntialDangers")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Precautions")
                         .HasColumnType("text");
 
                     b.Property<int>("Quantity")
@@ -69,6 +59,9 @@ namespace PharmacyAPI.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Usage")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -78,16 +71,35 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            Name = "Paracetamol",
+                            Manufacturer = "J&J",
+                            Name = "Synthroid",
+                            PotntialDangers = "None.",
+                            Precautions = "None.",
                             Quantity = 150,
-                            Status = 0
+                            Status = 0,
+                            Usage = "Taken once per day"
                         },
                         new
                         {
                             Id = 2L,
-                            Name = "Analgin",
-                            Quantity = 50,
-                            Status = 0
+                            Manufacturer = "Merck & Co. Inc.",
+                            Name = "Ventolin",
+                            PotntialDangers = "Not advised for pregnant women.",
+                            Precautions = "None.",
+                            Quantity = 200,
+                            Status = 2,
+                            Usage = "Taken twice per day"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Manufacturer = "Pfizer Inc.",
+                            Name = "Januvia",
+                            PotntialDangers = "Not advised for children.",
+                            Precautions = "None.",
+                            Quantity = 750,
+                            Status = 0,
+                            Usage = "Taken once once every 5 hours"
                         });
                 });
 
@@ -114,12 +126,12 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 2L,
-                            Name = "Fosfor"
+                            Name = "Phosphorus"
                         },
                         new
                         {
                             Id = 3L,
-                            Name = "Kalcijum"
+                            Name = "Calcium"
                         });
                 });
 
@@ -183,7 +195,7 @@ namespace PharmacyAPI.Migrations
                             Adress = "Rumenačka",
                             AdressNumber = "15",
                             City = "Novi Sad",
-                            Name = "Jankovic"
+                            Name = "Janković"
                         },
                         new
                         {
@@ -191,7 +203,7 @@ namespace PharmacyAPI.Migrations
                             Adress = "Bulevar oslobođenja",
                             AdressNumber = "135",
                             City = "Novi Sad",
-                            Name = "Jankovic"
+                            Name = "Janković"
                         },
                         new
                         {
@@ -199,7 +211,7 @@ namespace PharmacyAPI.Migrations
                             Adress = "Olge Jovanović",
                             AdressNumber = "18a",
                             City = "Beograd",
-                            Name = "Jankovic"
+                            Name = "Janković"
                         });
                 });
 
@@ -257,18 +269,19 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PharmacyClassLib.Model.IngredientQuantity", b =>
+            modelBuilder.Entity("MedicationMedicationIngredient", b =>
                 {
-                    b.HasOne("PharmacyClassLib.Model.Medication", null)
-                        .WithMany("IngredientQuantities")
-                        .HasForeignKey("MedicationId")
+                    b.HasOne("PharmacyClassLib.Model.MedicationIngredient", null)
+                        .WithMany()
+                        .HasForeignKey("MedicationIngredientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("PharmacyClassLib.Model.Medication", b =>
-                {
-                    b.Navigation("IngredientQuantities");
+                    b.HasOne("PharmacyClassLib.Model.Medication", null)
+                        .WithMany()
+                        .HasForeignKey("MedicationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
