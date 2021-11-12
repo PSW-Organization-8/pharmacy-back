@@ -19,6 +19,7 @@ using PharmacyClassLib.Repository.MedicationIngredientRepository;
 using PharmacyClassLib.Repository.MedicationIngredientsRepository;
 using PharmacyClassLib.Repository.ObjectionRepository;
 using PharmacyClassLib.Repository.ResponseRepository;
+using PharmacyClassLib.Repository.IngredientMedicationRepository;
 
 namespace WebApplication1
 {
@@ -43,6 +44,8 @@ namespace WebApplication1
             services.AddTransient<IRegistratedHospitalRepository, RegistratedHospitalRepository>();
             services.AddTransient<IObjectionRepository, ObjectionRepository>();
             services.AddTransient<IResponseRepository, ResponseRepository>();
+            services.AddTransient<IIngredientsInMediactionRepository, IngredientsInMediactionRepository>();
+            services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
             services.AddScoped<IMedicationService, MedicationService>();
             services.AddScoped<IPharmacyService, PharmacyService>();
             services.AddScoped<IHospitalRegistrationService, HospitalRegistrationService>();

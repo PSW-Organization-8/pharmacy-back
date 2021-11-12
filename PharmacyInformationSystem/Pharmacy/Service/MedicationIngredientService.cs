@@ -16,9 +16,15 @@ namespace PharmacyClassLib.Service
             this.medicationIngredientRepository = medicationIngredientRepository;
         }
 
+        public MedicationIngredient Get(long id)
+        {
+            return medicationIngredientRepository.Get(id);
+        }
+
         public List<MedicationIngredient> GetAll()
         {
             return medicationIngredientRepository.GetAll();
         }
+
     }
 }

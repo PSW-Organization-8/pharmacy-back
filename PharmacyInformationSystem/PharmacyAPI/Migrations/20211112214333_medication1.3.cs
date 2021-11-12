@@ -3,12 +3,26 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class medication : Migration
+    public partial class medication13 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Medication",
+                name: "IngredientInMediaction",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MedicationID = table.Column<long>(type: "bigint", nullable: false),
+                    IngredientID = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IngredientInMediaction", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Medications",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -23,20 +37,7 @@ namespace PharmacyAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medication", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MedicationIngredient",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicationIngredient", x => x.Id);
+                    table.PrimaryKey("PK_Medications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -99,47 +100,53 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicationMedicationIngredient",
+                name: "MedicationIngredients",
                 columns: table => new
                 {
-                    MedicationIngredientsId = table.Column<long>(type: "bigint", nullable: false),
-                    MedicationsId = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    MedicationId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicationMedicationIngredient", x => new { x.MedicationIngredientsId, x.MedicationsId });
+                    table.PrimaryKey("PK_MedicationIngredients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MedicationMedicationIngredient_Medication_MedicationsId",
-                        column: x => x.MedicationsId,
-                        principalTable: "Medication",
+                        name: "FK_MedicationIngredients_Medications_MedicationId",
+                        column: x => x.MedicationId,
+                        principalTable: "Medications",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MedicationMedicationIngredient_MedicationIngredient_Medicat~",
-                        column: x => x.MedicationIngredientsId,
-                        principalTable: "MedicationIngredient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
-                table: "Medication",
+                table: "IngredientInMediaction",
+                columns: new[] { "Id", "IngredientID", "MedicationID" },
+                values: new object[,]
+                {
+                    { 1L, 1L, 1L },
+                    { 2L, 2L, 2L },
+                    { 3L, 2L, 1L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MedicationIngredients",
+                columns: new[] { "Id", "MedicationId", "Name" },
+                values: new object[,]
+                {
+                    { 1L, null, "Vitamin C" },
+                    { 2L, null, "Phosphorus" },
+                    { 3L, null, "Calcium" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Medications",
                 columns: new[] { "Id", "Manufacturer", "Name", "PotntialDangers", "Precautions", "Quantity", "Status", "Usage" },
                 values: new object[,]
                 {
                     { 1L, "J&J", "Synthroid", "None.", "None.", 150, 0, "Taken once per day" },
                     { 2L, "Merck & Co. Inc.", "Ventolin", "Not advised for pregnant women.", "None.", 200, 2, "Taken twice per day" },
                     { 3L, "Pfizer Inc.", "Januvia", "Not advised for children.", "None.", 750, 0, "Taken once once every 5 hours" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "MedicationIngredient",
-                columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1L, "Vitamin C" },
-                    { 2L, "Phosphorus" },
-                    { 3L, "Calcium" }
                 });
 
             migrationBuilder.InsertData(
@@ -168,15 +175,18 @@ namespace PharmacyAPI.Migrations
                 values: new object[] { 1L, "Kleveta", 0L, "Bolnica1" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicationMedicationIngredient_MedicationsId",
-                table: "MedicationMedicationIngredient",
-                column: "MedicationsId");
+                name: "IX_MedicationIngredients_MedicationId",
+                table: "MedicationIngredients",
+                column: "MedicationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MedicationMedicationIngredient");
+                name: "IngredientInMediaction");
+
+            migrationBuilder.DropTable(
+                name: "MedicationIngredients");
 
             migrationBuilder.DropTable(
                 name: "Objection");
@@ -191,10 +201,7 @@ namespace PharmacyAPI.Migrations
                 name: "Response");
 
             migrationBuilder.DropTable(
-                name: "Medication");
-
-            migrationBuilder.DropTable(
-                name: "MedicationIngredient");
+                name: "Medications");
         }
     }
 }

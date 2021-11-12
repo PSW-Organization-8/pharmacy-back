@@ -1,18 +1,14 @@
 ﻿using PharmacyClassLib.Model.Enums;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PharmacyClassLib.Model
+namespace PharmacyAPI.Dto
 {
-    public class Medication
+    public class MedicationDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
         public string Name { get; set; }
         public string Manufacturer { get; set; }
         public MedicineApprovalStatus Status { get; set; }
@@ -20,10 +16,11 @@ namespace PharmacyClassLib.Model
         public string Usage { get; set; }
         public string Precautions { get; set; }
         public string PotntialDangers { get; set; }
-        public List<MedicationIngredient> MedicationIngredients { get; set; }
+        public ICollection<String> MedicationIngredients { get; set; }
 
-        public Medication(long id, string name, string manufacturer,
-            MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers)
+        public MedicationDTO() { }
+
+        public MedicationDTO(long id, string name, string manufacturer, MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers, ICollection<string> medicationIngredients)
         {
             Id = id;
             Name = name;
@@ -33,7 +30,9 @@ namespace PharmacyClassLib.Model
             Usage = usage;
             Precautions = precautions;
             PotntialDangers = potntialDangers;
+            MedicationIngredients = medicationIngredients;
         }
-
     }
+
+
 }

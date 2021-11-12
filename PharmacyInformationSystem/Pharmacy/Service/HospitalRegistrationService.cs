@@ -37,4 +37,5 @@ namespace PharmacyClassLib.Service
             return regHospitalRepository.Create(newHospital);
         }
     }
+
 }

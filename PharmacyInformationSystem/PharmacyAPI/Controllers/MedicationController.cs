@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PharmacyAPI.Filters;
+using PharmacyAPI.Dto;
+using PharmacyAPI.Mapper;
 
 namespace PharmacyAPI.Controllers
 {
@@ -27,6 +29,31 @@ namespace PharmacyAPI.Controllers
         public List<Medication> GetAll()
         {
             return medicationService.GetAll();
+        }
+
+        [HttpGet("{id?}")]
+        public Medication Get(long id)
+        {
+            return medicationService.Get(id);
+        }
+
+        [HttpDelete("{id?}")]
+        public bool Delete(long id)
+        {
+            return medicationService.Delete(id);
+        }
+
+        [HttpPost]
+        public Medication Create(MedicationDTO dto)
+        {
+            return medicationService.Create(
+                MedicationMapper.DtoToMedication(dto));
+        }
+
+        [HttpPut]
+        public bool Update([FromBody]MedicationDTO dto)
+        {
+            return medicationService.Update(MedicationMapper.DtoToMedication(dto));
         }
 
     }

@@ -26,6 +26,12 @@ namespace PharmacyAPI.Controllers
         {
             return medicationIngredientService.GetAll();
         }
+
+        [HttpGet("{id?}")]
+        public MedicationIngredient Get(long id)
+        {
+            return medicationIngredientService.Get(id);
+        }
     }
 
 }

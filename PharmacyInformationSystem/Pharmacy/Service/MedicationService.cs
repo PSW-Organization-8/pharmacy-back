@@ -1,5 +1,7 @@
 ﻿using PharmacyClassLib.Model;
 using PharmacyClassLib.Repository;
+using PharmacyClassLib.Repository.MedicationIngredientRepository;
+using PharmacyClassLib.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +11,14 @@ namespace PharmacyClassLib.Service
     public class MedicationService : IMedicationService
     {
         private readonly IMedicationRepository medicationRepository;
+        private readonly IMedicationIngredientService ingredientService;
+        private readonly IIngredientInMedicationService ingredientInMedicationService;
 
-        public MedicationService(IMedicationRepository medicationRepository)
+        public MedicationService(IMedicationRepository medicationRepository, IMedicationIngredientService ingredientService, IIngredientInMedicationService ingredientInMedicationService)
         {
             this.medicationRepository = medicationRepository;
+            this.ingredientService = ingredientService;
+            this.ingredientInMedicationService = ingredientInMedicationService;
         }
 
         public Medication Create(Medication newMedication)
@@ -33,12 +39,32 @@ namespace PharmacyClassLib.Service
 
         public Medication Get(long id)
         {
-            return medicationRepository.Get(id);
+            Medication medication = medicationRepository.Get(id);
+            medication.MedicationIngredients = ingredientInMedicationService.GetIngredientByMedication(medication.Id);
+            return medication;
         }
 
         public List<Medication> GetAll()
         {
-            return medicationRepository.GetAll();
+            List<Medication> medications = new List<Medication>();
+            foreach (Medication medication in medicationRepository.GetAll())
+            {
+                medication.MedicationIngredients = ingredientInMedicationService.GetIngredientByMedication(medication.Id);
+                medications.Add(medication);
+            }
+            return medications;
         }
+
+        public bool Update(Medication medication)
+        {
+            bool success = false;
+            if (Get(medication.Id) != null)
+            {
+                success = true;
+                medicationRepository.Update(medication);
+            }
+            return success;
+        }
+
     }
 }

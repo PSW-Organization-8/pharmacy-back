@@ -14,12 +14,10 @@ namespace PharmacyClassLib.Model
 
         public string Name { get; set; }
 
-        public virtual ICollection<Medication> Medications { get; set; }
-
-        public MedicationIngredient(long Id, String Name)
+        public MedicationIngredient(long id, string name)
         {
-            this.Id = Id;
-            this.Name = Name;
+            Id = id;
+            Name = name;
         }
     }
 }

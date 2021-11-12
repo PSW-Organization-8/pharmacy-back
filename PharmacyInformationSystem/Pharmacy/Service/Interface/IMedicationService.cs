@@ -15,5 +15,7 @@ namespace PharmacyClassLib.Service
 
         Boolean Delete(long id);
 
+        Boolean Update(Medication medication);
+
     }
 }
