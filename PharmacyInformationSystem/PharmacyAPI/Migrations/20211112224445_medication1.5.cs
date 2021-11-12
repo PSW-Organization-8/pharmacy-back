@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class medication13 : Migration
+    public partial class medication15 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,21 @@ namespace PharmacyAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IngredientInMediaction", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryLog",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PharmacyID = table.Column<long>(type: "bigint", nullable: false),
+                    MedicationID = table.Column<long>(type: "bigint", nullable: false),
+                    Quantity = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InventoryLog", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +145,18 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "InventoryLog",
+                columns: new[] { "Id", "MedicationID", "PharmacyID", "Quantity" },
+                values: new object[,]
+                {
+                    { 4L, 3L, 2L, 120L },
+                    { 3L, 1L, 2L, 20L },
+                    { 5L, 1L, 3L, 14L },
+                    { 2L, 2L, 1L, 85L },
+                    { 1L, 1L, 1L, 65L }
+                });
+
+            migrationBuilder.InsertData(
                 table: "MedicationIngredients",
                 columns: new[] { "Id", "MedicationId", "Name" },
                 values: new object[,]
@@ -159,9 +186,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Adress", "AdressNumber", "City", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" },
+                    { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" },
                     { 2L, "Bulevar oslobođenja", "135", "Novi Sad", "Janković" },
-                    { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" }
+                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" }
                 });
 
             migrationBuilder.InsertData(
@@ -184,6 +211,9 @@ namespace PharmacyAPI.Migrations
         {
             migrationBuilder.DropTable(
                 name: "IngredientInMediaction");
+
+            migrationBuilder.DropTable(
+                name: "InventoryLog");
 
             migrationBuilder.DropTable(
                 name: "MedicationIngredients");

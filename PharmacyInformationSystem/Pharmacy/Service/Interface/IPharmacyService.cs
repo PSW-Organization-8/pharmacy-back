@@ -8,5 +8,7 @@ namespace PharmacyClassLib.Service
     public interface IPharmacyService
     {
         List<Pharmacy> GetAll();
+
+        Pharmacy Get(long id);
     }
 }

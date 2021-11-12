@@ -70,6 +70,15 @@ namespace PharmacyClassLib
                 new IngredientInMediaction(3, 1, 2)
                 );
 
+
+            modelBuilder.Entity<InventoryLog>().HasData(
+                new InventoryLog(1, 1, 1, 65),
+                new InventoryLog(2, 1, 2, 85),
+                new InventoryLog(3, 2, 1, 20),
+                new InventoryLog(4, 2, 3, 120),
+                new InventoryLog(5, 3, 1, 14)
+                );
+
         }
 
     }

@@ -266,6 +266,64 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PharmacyClassLib.Model.Relations.InventoryLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("MedicationID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PharmacyID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InventoryLog");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            MedicationID = 1L,
+                            PharmacyID = 1L,
+                            Quantity = 65L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            MedicationID = 2L,
+                            PharmacyID = 1L,
+                            Quantity = 85L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            MedicationID = 1L,
+                            PharmacyID = 2L,
+                            Quantity = 20L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            MedicationID = 3L,
+                            PharmacyID = 2L,
+                            Quantity = 120L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            MedicationID = 1L,
+                            PharmacyID = 3L,
+                            Quantity = 14L
+                        });
+                });
+
             modelBuilder.Entity("PharmacyClassLib.Model.Response", b =>
                 {
                     b.Property<long>("Id")

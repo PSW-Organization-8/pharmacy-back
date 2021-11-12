@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using PharmacyAPI.Filters;
 using PharmacyAPI.Dto;
 using PharmacyAPI.Mapper;
+using PharmacyClassLib.Service.Interface;
 
 namespace PharmacyAPI.Controllers
 {
@@ -19,10 +20,12 @@ namespace PharmacyAPI.Controllers
     {
 
         private readonly IMedicationService medicationService;
+        private readonly IInventoryLogService inventoryLogService;
 
-        public MedicationController(IMedicationService medicationService)
+        public MedicationController(IMedicationService medicationService, IInventoryLogService inventoryLogService)
         {
             this.medicationService = medicationService;
+            this.inventoryLogService = inventoryLogService;
         }
 
         [HttpGet]
@@ -61,6 +64,14 @@ namespace PharmacyAPI.Controllers
         public List<Medication> Search([FromBody]MedicationSearchFilterDto searchFilterDto)
         {
             return medicationService.Search(searchFilterDto.Text, searchFilterDto.Ingredients);
+        }
+
+
+        [HttpGet]
+        [Route("distribution/{id?}")]
+        public List<MedicationDistribution> GetMedicationDistribution(long id)
+        {
+            return inventoryLogService.GetMedicationDistribution(id);
         }
 
     }
