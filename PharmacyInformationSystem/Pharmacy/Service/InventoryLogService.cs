@@ -21,15 +21,65 @@ namespace PharmacyClassLib.Service
             this.pharmacyService = pharmacyService;
         }
 
-        public bool AddMedication(long pharmacyID, long medicationID, long Quantity)
+        public bool AddMedication(long pharmacyID, long medicationID, long quantity)
         {
-            throw new NotImplementedException();
+            bool success = false;
+            Medication medication = medicationService.Get(medicationID);
+            Pharmacy pharmacy = pharmacyService.Get(pharmacyID);
+
+            if (medication != null && pharmacy != null)
+            {
+                success = true;
+                InventoryLog log = GetLogByPharmacyAndMedication(pharmacyID, medicationID);
+                if (log == null)
+                {
+                    log = new InventoryLog(0, pharmacyID, medicationID, quantity);
+                    logRepository.Create(log);
+                } else
+                {
+                    log.Quantity += quantity;
+                    logRepository.Update(log);
+                }
+
+            }
+
+            return success;
+        }
+
+        private InventoryLog GetLogByPharmacyAndMedication(long pharmacyID, long medicationID)
+        {
+            InventoryLog log = null;
+            foreach (InventoryLog currentLog in logRepository.GetAll())
+            {
+                if (currentLog.MedicationID == medicationID && currentLog.PharmacyID == pharmacyID)
+                {
+                    log = currentLog;
+                    break;
+                }
+            }
+
+            return log;
         }
 
 
-        public bool RemoveMedication(long pharmacyID, long medicationID, int Quantity)
+        public bool RemoveMedication(long pharmacyID, long medicationID, long quantity)
         {
-            throw new NotImplementedException();
+            bool success = false;
+            Medication medication = medicationService.Get(medicationID);
+            Pharmacy pharmacy = pharmacyService.Get(pharmacyID);
+
+            if (medication != null && pharmacy != null)
+            {
+                InventoryLog log = GetLogByPharmacyAndMedication(pharmacyID, medicationID);
+                if (log != null && log.Quantity >= quantity)
+                {
+                    success = true;
+                    log.Quantity -= quantity;
+                    logRepository.Update(log);
+                }
+            }
+
+            return success;
         }
 
         public List<MedicationDistribution> GetMedicationDistribution(long id)

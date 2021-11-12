@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using PharmacyAPI.Filters;
 using PharmacyClassLib.Service.Interface;
+using PharmacyAPI.Dto;
 
 namespace PharmacyAPI.Controllers
 {
@@ -35,6 +36,7 @@ namespace PharmacyAPI.Controllers
         {
             return inventoryLogService.GetPharmacyInventory(id);
         }
+
 
     }
 }

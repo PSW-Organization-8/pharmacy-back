@@ -15,8 +15,8 @@ namespace PharmacyClassLib.Service.Interface
 
         public void RemovePharmacyReferences(long id);
 
-        public bool AddMedication(long pharmacyID, long medicationID, long Quantity);
+        public bool AddMedication(long pharmacyID, long medicationID, long quantity);
 
-        public bool RemoveMedication(long pharmacyID, long medicationID, int Quantity);
+        public bool RemoveMedication(long pharmacyID, long medicationID, long quantity);
     }
 }
