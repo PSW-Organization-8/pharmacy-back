@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace PharmacyAPI.Dto
 {
-    public class ObjectionDTO
+    public class ObjectionDto
     {
         public long Id { get; set; }
         public string PharmacyName { get; set; }
         public string TextObjection { get; set; }
 
-        public ObjectionDTO() { }
+        public ObjectionDto() { }
 
-        public ObjectionDTO(string text, string name)
+        public ObjectionDto(string text, string name)
         {
 
             TextObjection = text;

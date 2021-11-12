@@ -9,6 +9,8 @@ namespace PharmacyClassLib.Service
     {
         List<Medication> GetAll();
 
+        List<Medication> Search(string text, List<string> ingredients);
+
         Medication Get(long id);
 
         Medication Create(Medication newMedication);
@@ -16,6 +18,7 @@ namespace PharmacyClassLib.Service
         Boolean Delete(long id);
 
         Boolean Update(Medication medication);
+
 
     }
 }

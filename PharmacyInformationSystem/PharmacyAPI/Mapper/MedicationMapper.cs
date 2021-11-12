@@ -9,12 +9,12 @@ namespace PharmacyAPI.Mapper
 {
     public class MedicationMapper
     {
-        public static Medication DtoToMedication(MedicationDTO dto)
+        public static Medication DtoToMedication(MedicationDto dto)
         {
             return new Medication(dto.Id, dto.Name, dto.Manufacturer, dto.Status, dto.Quantity, dto.Usage, dto.Precautions, dto.PotntialDangers);
         }
 
-        public static MedicationDTO MedicationToDto(
+        public static MedicationDto MedicationToDto(
             Medication medication)
         {
             List<string> medicationIngredients = new List<string>();
@@ -22,7 +22,7 @@ namespace PharmacyAPI.Mapper
             {
                 medicationIngredients.Add(ingredient.Name);
             }
-            return new MedicationDTO(medication.Id, medication.Name, medication.Manufacturer, medication.Status, medication.Quantity, medication.Usage, medication.Precautions, 
+            return new MedicationDto(medication.Id, medication.Name, medication.Manufacturer, medication.Status, medication.Quantity, medication.Usage, medication.Precautions, 
                 medication.PotntialDangers, medicationIngredients);
         }
     }

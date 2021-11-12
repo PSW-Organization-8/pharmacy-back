@@ -10,5 +10,10 @@ namespace PharmacyClassLib.Service
         public List<Medication> GetMedicationByIngredient(long id);
 
         public List<MedicationIngredient> GetIngredientByMedication(long id);
+
+        public void RemoveMedicineReferences(long id);
+
+        public void RemoveIngredientReferences(long id);
+
     }
 }

@@ -36,7 +36,7 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPost]
-        public Objection Add(ObjectionDTO objection)
+        public Objection Add(ObjectionDto objection)
         {
             HttpContext.Request.Headers.TryGetValue("ApiKey",out var apiKey);
             Console.WriteLine(apiKey);
@@ -44,5 +44,6 @@ namespace PharmacyAPI.Controllers
             newObjection.HopsitalName = hospitalRegistrationService.GetByApiKey(apiKey).Name;
             return objectionService.Add(newObjection);
         }
+
     }
 }

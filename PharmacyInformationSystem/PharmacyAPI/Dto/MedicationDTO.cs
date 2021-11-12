@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PharmacyAPI.Dto
 {
-    public class MedicationDTO
+    public class MedicationDto
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -18,9 +18,9 @@ namespace PharmacyAPI.Dto
         public string PotntialDangers { get; set; }
         public ICollection<String> MedicationIngredients { get; set; }
 
-        public MedicationDTO() { }
+        public MedicationDto() { }
 
-        public MedicationDTO(long id, string name, string manufacturer, MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers, ICollection<string> medicationIngredients)
+        public MedicationDto(long id, string name, string manufacturer, MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers, ICollection<string> medicationIngredients)
         {
             Id = id;
             Name = name;

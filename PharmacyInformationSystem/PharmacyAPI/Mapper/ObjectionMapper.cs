@@ -9,7 +9,7 @@ namespace PharmacyAPI.Mapper
 {
     public class ObjectionMapper
     {
-        public Objection ObjectionDTOToObjection(ObjectionDTO objectionDTO) {
+        public Objection ObjectionDTOToObjection(ObjectionDto objectionDTO) {
 
             return new Objection(objectionDTO.Id, objectionDTO.TextObjection, objectionDTO.PharmacyName);
 

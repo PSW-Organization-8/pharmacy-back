@@ -32,6 +32,7 @@ namespace PharmacyClassLib.Service
             if (Get(id) != null)
             {
                 success = true;
+                ingredientInMedicationService.RemoveMedicineReferences(id);
                 medicationRepository.Delete(id);
             }
             return success;
@@ -51,6 +52,36 @@ namespace PharmacyClassLib.Service
             {
                 medication.MedicationIngredients = ingredientInMedicationService.GetIngredientByMedication(medication.Id);
                 medications.Add(medication);
+            }
+            return medications;
+        }
+
+        public List<Medication> Search(string text, List<string> ingredients)
+        {
+            List<Medication> medications = new List<Medication>();
+            foreach (Medication medication in GetAll())
+            {
+                if (medication.Name.ToUpper().Contains(text.ToUpper()))
+                {
+                    bool add = false;
+
+                    foreach (string ingredient in ingredients)
+                    {
+                        foreach(MedicationIngredient medIngredient in medication.MedicationIngredients)
+                        {
+                            if (medIngredient.Name.ToUpper().Contains(ingredient.ToUpper()))
+                            {
+                                add = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (add || ingredients.Count == 0)
+                    {
+                        medications.Add(medication);
+                    }
+                }
             }
             return medications;
         }

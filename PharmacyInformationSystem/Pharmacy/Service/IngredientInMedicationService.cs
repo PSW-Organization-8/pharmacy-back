@@ -48,5 +48,27 @@ namespace PharmacyClassLib.Service
             }
             return medication;
         }
+
+        public void RemoveIngredientReferences(long id)
+        {
+            foreach (IngredientInMediaction entity in repository.GetAll())
+            {
+                if (entity.IngredientID == id)
+                {
+                    repository.Delete(entity.Id);
+                }
+            }
+        }
+
+        public void RemoveMedicineReferences(long id)
+        {
+            foreach (IngredientInMediaction entity in repository.GetAll())
+            {
+                if (entity.MedicationID == id)
+                {
+                    repository.Delete(entity.Id);
+                }
+            }
+        }
     }
 }

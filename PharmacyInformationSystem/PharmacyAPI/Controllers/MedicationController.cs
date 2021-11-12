@@ -44,16 +44,23 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPost]
-        public Medication Create(MedicationDTO dto)
+        public Medication Create(MedicationDto dto)
         {
             return medicationService.Create(
                 MedicationMapper.DtoToMedication(dto));
         }
 
         [HttpPut]
-        public bool Update([FromBody]MedicationDTO dto)
+        public bool Update([FromBody]MedicationDto dto)
         {
             return medicationService.Update(MedicationMapper.DtoToMedication(dto));
+        }
+
+        [HttpGet]
+        [Route("search")]
+        public List<Medication> Search([FromBody]MedicationSearchFilterDto searchFilterDto)
+        {
+            return medicationService.Search(searchFilterDto.Text, searchFilterDto.Ingredients);
         }
 
     }
