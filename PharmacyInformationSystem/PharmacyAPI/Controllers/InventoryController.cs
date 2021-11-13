@@ -35,7 +35,5 @@ namespace PharmacyAPI.Controllers
         {
             return inventoryLogService.RemoveMedication(dto.PhamracyID, dto.MedicationID, dto.Quantity);
         }
-
-
     }
 }

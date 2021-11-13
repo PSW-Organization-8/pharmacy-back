@@ -10,5 +10,10 @@ namespace PharmacyClassLib.Service
         List<MedicationIngredient> GetAll();
 
         MedicationIngredient Get(long id);
+
+        MedicationIngredient Create(string name);
+
+        void Delete(long id);
+
     }
 }

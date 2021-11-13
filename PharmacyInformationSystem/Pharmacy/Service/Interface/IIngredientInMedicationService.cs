@@ -15,5 +15,9 @@ namespace PharmacyClassLib.Service
 
         public void RemoveIngredientReferences(long id);
 
+        public void AddIngredients(long medicationId, List<long> ids);
+
+        public void RemoveIngredients(long medicationId, List<long> ids);
+
     }
 }

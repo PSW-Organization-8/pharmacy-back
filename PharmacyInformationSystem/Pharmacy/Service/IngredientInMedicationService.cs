@@ -23,6 +23,50 @@ namespace PharmacyClassLib.Service
             this.ingredientRepository = ingredientRepository;
         }
 
+        public void AddIngredients(long medicationId, List<long> ids)
+        {
+            if (medicationRepository.Get(medicationId)!= null)
+            {
+                foreach(long id in ids)
+                {
+                    IngredientInMediaction ingredient = IngredientInMedication(GetListByMedication(medicationId), id);
+                    if (ingredient == null && ingredientRepository.Get(id) != null)
+                    {
+                        ingredient = new IngredientInMediaction(0, medicationId, id);
+                        repository.Create(ingredient);
+                    }
+                }
+
+            }
+        }
+
+        private static IngredientInMediaction IngredientInMedication(List<IngredientInMediaction> list, long id)
+        {
+            IngredientInMediaction ingredient = null;
+            foreach (IngredientInMediaction entity in list)
+            {
+                if (entity.IngredientID == id)
+                {
+                    ingredient = entity;
+                    break;
+                }
+            }
+            return ingredient;
+        }
+
+        private List<IngredientInMediaction> GetListByMedication(long medicationId)
+        {
+            List<IngredientInMediaction> listByMedication = new List<IngredientInMediaction>();
+            foreach (IngredientInMediaction entity in repository.GetAll())
+            {
+                if (entity.MedicationID == medicationId)
+                {
+                    listByMedication.Add(entity);
+                }
+            }
+            return listByMedication;
+        }
+
         public List<MedicationIngredient> GetIngredientByMedication(long id)
         {
             List<MedicationIngredient> ingredients = new List<MedicationIngredient>();
@@ -56,6 +100,21 @@ namespace PharmacyClassLib.Service
                 if (entity.IngredientID == id)
                 {
                     repository.Delete(entity.Id);
+                }
+            }
+        }
+
+        public void RemoveIngredients(long medicationId, List<long> ids)
+        {
+            if (medicationRepository.Get(medicationId) != null)
+            {
+                foreach (long id in ids)
+                {
+                    IngredientInMediaction ingredient = IngredientInMedication(GetListByMedication(medicationId), id);
+                    if (ingredient != null)
+                    {
+                        repository.Delete(ingredient.Id);
+                    }
                 }
             }
         }

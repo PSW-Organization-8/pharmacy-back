@@ -10,8 +10,8 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20211112224445_medication1.5")]
-    partial class medication15
+    [Migration("20211112235707_medication1.6")]
+    partial class medication16
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

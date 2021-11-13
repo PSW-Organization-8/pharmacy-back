@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class medication15 : Migration
+    public partial class medication16 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
