@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace PharmacyClassLib.Model
+namespace PharmacyAPI.Dto
 {
-    public class RegistratedHospital
+    public class RegisteredHospitalDto
     {
-        [Key]
         public string Name { get; set; }
         public string Url { get; set; }
         public string ApiKey { get; set; }
 
-        public RegistratedHospital() { }
+        public RegisteredHospitalDto() { }
 
-        public RegistratedHospital(string name, string url)
+        public RegisteredHospitalDto(string name, string url)
         {
             this.Name = name;
             this.Url = url;
         }
 
-        public RegistratedHospital(string name, string url, string apiKey)
+        public RegisteredHospitalDto(string name, string url, string apiKey)
         {
             this.Name = name;
             this.Url = url;

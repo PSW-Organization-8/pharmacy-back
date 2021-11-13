@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PharmacyClassLib.Repository.IngredientMedicationRepository
 {
-    public interface IIngredientsInMediactionRepository : IGenericRepository<IngredientInMediaction, long>
+    public interface IIngredientsInMedicationRepository : IGenericRepository<IngredientInMedication, long>
     {
 
     }

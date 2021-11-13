@@ -23,7 +23,7 @@ namespace PharmacyAPI.Filters
                 return;
             }
 
-            var regHospitalRepository = context.HttpContext.RequestServices.GetService<IRegistratedHospitalRepository>();
+            var regHospitalRepository = context.HttpContext.RequestServices.GetService<IRegisteredHospitalRepository>();
             if (!regHospitalRepository.ExistsByApiKey(receivedApiKey))
             {
                 context.Result = new UnauthorizedResult();

@@ -9,7 +9,7 @@ namespace PharmacyClassLib
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<RegistratedHospital> RegistratedHospitals { get; set; }
+        public DbSet<RegisteredHospital> RegistratedHospitals { get; set; }
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<MedicationIngredient> MedicationIngredients { get; set; }
         public DbSet<Medication> Medications { get; set; }
@@ -43,8 +43,8 @@ namespace PharmacyClassLib
                 new Response(1, 0, "Bolnica1", "Kleveta")
                 );
 
-            modelBuilder.Entity<RegistratedHospital>().HasData(
-                new RegistratedHospital("Bolnica1", "http:localhost:7313", "fds15d4fs6")
+            modelBuilder.Entity<RegisteredHospital>().HasData(
+                new RegisteredHospital("Bolnica1", "http:localhost:7313", "fds15d4fs6")
                 );
 
 
@@ -64,10 +64,10 @@ namespace PharmacyClassLib
                 ingredient3
                 );
 
-            modelBuilder.Entity<IngredientInMediaction>().HasData(
-                new IngredientInMediaction(1, 1, 1),
-                new IngredientInMediaction(2, 2, 2),
-                new IngredientInMediaction(3, 1, 2)
+            modelBuilder.Entity<IngredientInMedication>().HasData(
+                new IngredientInMedication(1, 1, 1),
+                new IngredientInMedication(2, 2, 2),
+                new IngredientInMedication(3, 1, 2)
                 );
 
 

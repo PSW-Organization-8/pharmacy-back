@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PharmacyClassLib.Model.Relations
 {
-    public class IngredientInMediaction
+    public class IngredientInMedication
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,7 +15,7 @@ namespace PharmacyClassLib.Model.Relations
         public long MedicationID { get; set; }
         public long IngredientID { get; set; }
 
-        public IngredientInMediaction(long id, long medicationID, long ingredientID)
+        public IngredientInMedication(long id, long medicationID, long ingredientID)
         {
             Id = id;
             MedicationID = medicationID;

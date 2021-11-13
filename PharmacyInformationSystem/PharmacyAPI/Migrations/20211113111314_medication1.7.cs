@@ -3,12 +3,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class medication16 : Migration
+    public partial class medication17 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "IngredientInMediaction",
+                name: "IngredientInMedication",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -18,7 +18,7 @@ namespace PharmacyAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IngredientInMediaction", x => x.Id);
+                    table.PrimaryKey("PK_IngredientInMedication", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,7 +48,7 @@ namespace PharmacyAPI.Migrations
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     Usage = table.Column<string>(type: "text", nullable: true),
                     Precautions = table.Column<string>(type: "text", nullable: true),
-                    PotntialDangers = table.Column<string>(type: "text", nullable: true)
+                    PotentialDangers = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,7 +135,7 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "IngredientInMediaction",
+                table: "IngredientInMedication",
                 columns: new[] { "Id", "IngredientID", "MedicationID" },
                 values: new object[,]
                 {
@@ -168,7 +168,7 @@ namespace PharmacyAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Medications",
-                columns: new[] { "Id", "Manufacturer", "Name", "PotntialDangers", "Precautions", "Quantity", "Status", "Usage" },
+                columns: new[] { "Id", "Manufacturer", "Name", "PotentialDangers", "Precautions", "Quantity", "Status", "Usage" },
                 values: new object[,]
                 {
                     { 1L, "J&J", "Synthroid", "None.", "None.", 150, 0, "Taken once per day" },
@@ -210,7 +210,7 @@ namespace PharmacyAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "IngredientInMediaction");
+                name: "IngredientInMedication");
 
             migrationBuilder.DropTable(
                 name: "InventoryLog");

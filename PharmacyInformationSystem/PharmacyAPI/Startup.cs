@@ -37,10 +37,10 @@ namespace WebApplication1
             services.AddTransient<IPharmacyRepository, PharmacyRepository>();
             services.AddTransient<IMedicationIngredientRepository, MedicationIngredientRepository>();
             services.AddTransient<IMedicationRepository, MedicationRepository>();
-            services.AddTransient<IRegistratedHospitalRepository, RegistratedHospitalRepository>();
+            services.AddTransient<IRegisteredHospitalRepository, RegisteredHospitalRepository>();
             services.AddTransient<IObjectionRepository, ObjectionRepository>();
             services.AddTransient<IResponseRepository, ResponseRepository>();
-            services.AddTransient<IIngredientsInMediactionRepository, IngredientsInMediactionRepository>();
+            services.AddTransient<IIngredientsInMedicationRepository, IngredientsInMedicationRepository>();
             services.AddTransient<IInventoryLogRepository, InventoryLogRepository>();
 
             services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
@@ -48,11 +48,9 @@ namespace WebApplication1
             services.AddScoped<IPharmacyService, PharmacyService>();
             services.AddScoped<IHospitalRegistrationService, HospitalRegistrationService>();
             services.AddScoped<IMedicationIngredientService, MedicationIngredientService>();
-            services.AddScoped<IInventoryLogService, InventoryLogService>();
-            
-
+            services.AddScoped<IInventoryLogService, InventoryLogService>();       
             services.AddScoped<ObjectionService>();
-            services.AddScoped<ResponseService>();
+            services.AddScoped<ResponseService>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

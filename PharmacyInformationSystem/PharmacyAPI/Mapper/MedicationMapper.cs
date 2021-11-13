@@ -23,7 +23,7 @@ namespace PharmacyAPI.Mapper
                 medicationIngredients.Add(ingredient.Name);
             }
             return new MedicationDto(medication.Id, medication.Name, medication.Manufacturer, medication.Status, medication.Quantity, medication.Usage, medication.Precautions, 
-                medication.PotntialDangers, medicationIngredients);
+                medication.PotentialDangers, medicationIngredients);
         }
     }
 }

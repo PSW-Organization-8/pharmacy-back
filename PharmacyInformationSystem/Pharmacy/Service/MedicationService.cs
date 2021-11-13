@@ -41,7 +41,10 @@ namespace PharmacyClassLib.Service
         public Medication Get(long id)
         {
             Medication medication = medicationRepository.Get(id);
-            medication.MedicationIngredients = ingredientInMedicationService.GetIngredientByMedication(medication.Id);
+            if (medication != null)
+            {
+                medication.MedicationIngredients = ingredientInMedicationService.GetIngredientByMedication(medication.Id);
+            }
             return medication;
         }
 

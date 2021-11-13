@@ -32,7 +32,7 @@ namespace PharmacyAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("PotntialDangers")
+                    b.Property<string>("PotentialDangers")
                         .HasColumnType("text");
 
                     b.Property<string>("Precautions")
@@ -57,7 +57,7 @@ namespace PharmacyAPI.Migrations
                             Id = 1L,
                             Manufacturer = "J&J",
                             Name = "Synthroid",
-                            PotntialDangers = "None.",
+                            PotentialDangers = "None.",
                             Precautions = "None.",
                             Quantity = 150,
                             Status = 0,
@@ -68,7 +68,7 @@ namespace PharmacyAPI.Migrations
                             Id = 2L,
                             Manufacturer = "Merck & Co. Inc.",
                             Name = "Ventolin",
-                            PotntialDangers = "Not advised for pregnant women.",
+                            PotentialDangers = "Not advised for pregnant women.",
                             Precautions = "None.",
                             Quantity = 200,
                             Status = 2,
@@ -79,7 +79,7 @@ namespace PharmacyAPI.Migrations
                             Id = 3L,
                             Manufacturer = "Pfizer Inc.",
                             Name = "Januvia",
-                            PotntialDangers = "Not advised for children.",
+                            PotentialDangers = "Not advised for children.",
                             Precautions = "None.",
                             Quantity = 750,
                             Status = 0,
@@ -204,7 +204,7 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PharmacyClassLib.Model.RegistratedHospital", b =>
+            modelBuilder.Entity("PharmacyClassLib.Model.RegisteredHospital", b =>
                 {
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -228,7 +228,7 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PharmacyClassLib.Model.Relations.IngredientInMediaction", b =>
+            modelBuilder.Entity("PharmacyClassLib.Model.Relations.IngredientInMedication", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +243,7 @@ namespace PharmacyAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IngredientInMediaction");
+                    b.ToTable("IngredientInMedication");
 
                     b.HasData(
                         new

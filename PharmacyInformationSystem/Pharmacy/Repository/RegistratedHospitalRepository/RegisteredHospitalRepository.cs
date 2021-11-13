@@ -6,14 +6,14 @@ using PharmacyClassLib.Model;
 
 namespace PharmacyClassLib.Repository.RegistratedHospitalRepository
 {
-    public class RegistratedHospitalRepository : AbstractSqlRepository<RegistratedHospital, string>, IRegistratedHospitalRepository
+    public class RegisteredHospitalRepository : AbstractSqlRepository<RegisteredHospital, string>, IRegisteredHospitalRepository
     {
-        public RegistratedHospitalRepository(MyDbContext dbContext) : base(dbContext)
+        public RegisteredHospitalRepository(MyDbContext dbContext) : base(dbContext)
         {
 
         }
 
-        protected override string GetId(RegistratedHospital entity)
+        protected override string GetId(RegisteredHospital entity)
         {
             return entity.Name;
         }

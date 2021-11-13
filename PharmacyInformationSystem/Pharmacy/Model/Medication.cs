@@ -19,11 +19,11 @@ namespace PharmacyClassLib.Model
         public int Quantity { get; set; }
         public string Usage { get; set; }
         public string Precautions { get; set; }
-        public string PotntialDangers { get; set; }
+        public string PotentialDangers { get; set; }
         public List<MedicationIngredient> MedicationIngredients { get; set; }
 
         public Medication(long id, string name, string manufacturer,
-            MedicineApprovalStatus status, int quantity, string usage, string precautions, string potntialDangers)
+            MedicineApprovalStatus status, int quantity, string usage, string precautions, string potentialDangers)
         {
             Id = id;
             Name = name;
@@ -32,7 +32,7 @@ namespace PharmacyClassLib.Model
             Quantity = quantity;
             Usage = usage;
             Precautions = precautions;
-            PotntialDangers = potntialDangers;
+            PotentialDangers = potentialDangers;
         }
 
     }

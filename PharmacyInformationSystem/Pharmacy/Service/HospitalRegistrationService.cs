@@ -8,22 +8,22 @@ namespace PharmacyClassLib.Service
 {
     public class HospitalRegistrationService : IHospitalRegistrationService
     {
-        private readonly IRegistratedHospitalRepository regHospitalRepository;
+        private readonly IRegisteredHospitalRepository regHospitalRepository;
 
-        public HospitalRegistrationService(IRegistratedHospitalRepository regHospitalRepository)
+        public HospitalRegistrationService(IRegisteredHospitalRepository regHospitalRepository)
         {
             this.regHospitalRepository = regHospitalRepository;
         }
 
-        public RegistratedHospital Get(string hospitalName)
+        public RegisteredHospital Get(string hospitalName)
         {
             return regHospitalRepository.Get(hospitalName);
         }
 
-        public RegistratedHospital GetByApiKey(string apyKey)
+        public RegisteredHospital GetByApiKey(string apyKey)
         {
-            List<RegistratedHospital> hospitals = regHospitalRepository.GetAll();
-            foreach (RegistratedHospital hospital in hospitals) {
+            List<RegisteredHospital> hospitals = regHospitalRepository.GetAll();
+            foreach (RegisteredHospital hospital in hospitals) {
                 if (hospital.ApiKey.Equals(apyKey)) {
                     return hospital;
                 }
@@ -31,7 +31,7 @@ namespace PharmacyClassLib.Service
             return null;
         }
 
-        public RegistratedHospital Register(RegistratedHospital newHospital)
+        public RegisteredHospital Register(RegisteredHospital newHospital)
         {
             newHospital.ApiKey = Guid.NewGuid().ToString();
             return regHospitalRepository.Create(newHospital);

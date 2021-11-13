@@ -5,7 +5,7 @@ using PharmacyClassLib.Model;
 
 namespace PharmacyClassLib.Repository.RegistratedHospitalRepository
 {
-    public interface IRegistratedHospitalRepository : IGenericRepository<RegistratedHospital, string>
+    public interface IRegisteredHospitalRepository : IGenericRepository<RegisteredHospital, string>
     {
         bool ExistsByApiKey(string apiKey);
     }

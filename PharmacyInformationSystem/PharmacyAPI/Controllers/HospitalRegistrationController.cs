@@ -22,16 +22,16 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpGet] //hospitalRegistration?hospitalName=ime
-        public RegistratedHospital Get(string? hospitalName)
+        public RegisteredHospital Get(string? hospitalName)
         {
             return hospitalRegistrationService.Get(hospitalName);
         }
 
         [HttpPost]
-        public RegistratedHospital Register(RegistratedHospitalDto newHospitalDto)
+        public RegisteredHospital Register(RegisteredHospitalDto newHospitalDto)
         {
             return hospitalRegistrationService.Register(
-                RegistratedHospitalMapper.RegistratedHospitalDtoToRegistratedHospital(newHospitalDto));
+                RegisteredHospitalMapper.RegisteredHospitalDtoToRegisteredHospital(newHospitalDto));
         }
     }
 }
