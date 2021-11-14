@@ -13,6 +13,7 @@ namespace PharmacyClassLib
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<MedicationIngredient> MedicationIngredients { get; set; }
         public DbSet<Medication> Medications { get; set; }
+        public DbSet<News> News { get; set; }
 
         public MyDbContext()
         {
@@ -23,7 +24,7 @@ namespace PharmacyClassLib
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            String connectionString = "Server=localhost; Port =5432; Database=Pharmacy; User Id=postgres; Password =2331;";
+            String connectionString = "Server=localhost; Port =5432; Database=Pharmacy; User Id=postgres; Password =root;";
             optionsBuilder.UseNpgsql(connectionString);
         }
 

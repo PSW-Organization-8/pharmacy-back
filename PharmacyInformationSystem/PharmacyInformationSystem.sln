@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyClassLib", "Pharmac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyAPI", "PharmacyAPI\PharmacyAPI.csproj", "{8CE13326-041E-4FB6-96F3-0E323985D9E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmacyTests", "PharmacyTests\PharmacyTests.csproj", "{D52591F9-1ACE-4405-8C29-CCED84B12FDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8CE13326-041E-4FB6-96F3-0E323985D9E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE13326-041E-4FB6-96F3-0E323985D9E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE13326-041E-4FB6-96F3-0E323985D9E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D52591F9-1ACE-4405-8C29-CCED84B12FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52591F9-1ACE-4405-8C29-CCED84B12FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52591F9-1ACE-4405-8C29-CCED84B12FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52591F9-1ACE-4405-8C29-CCED84B12FDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

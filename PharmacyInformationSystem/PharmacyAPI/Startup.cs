@@ -7,6 +7,7 @@ using PharmacyClassLib.Repository;
 using PharmacyClassLib.Service;
 using PharmacyClassLib;
 using Microsoft.EntityFrameworkCore;
+using PharmacyClassLib.Model;
 using PharmacyClassLib.Repository.MedicationIngredientRepository;
 using PharmacyClassLib.Repository.MedicationIngredientsRepository;
 using PharmacyClassLib.Repository.RegistratedHospitalRepository;
@@ -14,6 +15,7 @@ using PharmacyClassLib.Repository.ObjectionRepository;
 using PharmacyClassLib.Repository.IngredientMedicationRepository;
 using PharmacyClassLib.Repository.ResponseRepository;
 using PharmacyClassLib.Repository.InventoryLogRepository;
+using PharmacyClassLib.Repository.NewsRepository;
 using PharmacyClassLib.Service.Interface;
 
 namespace WebApplication1
@@ -42,6 +44,7 @@ namespace WebApplication1
             services.AddTransient<IResponseRepository, ResponseRepository>();
             services.AddTransient<IIngredientsInMedicationRepository, IngredientsInMedicationRepository>();
             services.AddTransient<IInventoryLogRepository, InventoryLogRepository>();
+            services.AddTransient<INewsRepository, NewsRepository>();
 
             services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
             services.AddScoped<IMedicationService, MedicationService>();
@@ -50,7 +53,9 @@ namespace WebApplication1
             services.AddScoped<IMedicationIngredientService, MedicationIngredientService>();
             services.AddScoped<IInventoryLogService, InventoryLogService>();       
             services.AddScoped<ObjectionService>();
-            services.AddScoped<ResponseService>(); 
+            services.AddScoped<ResponseService>();
+            services.AddScoped<IActionsAndNewsService, ActionsAndNewsService>();
+            services.AddScoped<ISendingNewsService, SendingNewsRabbitMQService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

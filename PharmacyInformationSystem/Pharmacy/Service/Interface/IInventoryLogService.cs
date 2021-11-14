@@ -7,16 +7,16 @@ namespace PharmacyClassLib.Service.Interface
 {
     public interface IInventoryLogService
     {
-        public List<InventoryItem> GetPharmacyInventory(long id);
+        List<InventoryItem> GetPharmacyInventory(long id);
 
-        public List<MedicationDistribution> GetMedicationDistribution(long id);
+        List<MedicationDistribution> GetMedicationDistribution(long id);
 
-        public void RemoveMedicineReferences(long id);
+        void RemoveMedicineReferences(long id);
 
-        public void RemovePharmacyReferences(long id);
+        void RemovePharmacyReferences(long id);
 
-        public bool AddMedication(long pharmacyID, long medicationID, long quantity);
+        bool AddMedication(long pharmacyID, long medicationID, long quantity);
 
-        public bool RemoveMedication(long pharmacyID, long medicationID, long quantity);
+        bool RemoveMedication(long pharmacyID, long medicationID, long quantity);
     }
 }
