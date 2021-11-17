@@ -14,6 +14,7 @@ namespace PharmacyClassLib
         public DbSet<MedicationIngredient> MedicationIngredients { get; set; }
         public DbSet<Medication> Medications { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<InventoryLog> InventoryLogs { get; set; }
 
         public MyDbContext()
         {

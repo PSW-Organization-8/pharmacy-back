@@ -34,6 +34,15 @@ namespace WebApplication1
         {
             services.AddControllers();
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+            services.AddMvc();
+
             services.AddDbContext<MyDbContext>(options => options.UseNpgsql(x => x.MigrationsAssembly("PharmacyAPI")));
 
             services.AddTransient<IPharmacyRepository, PharmacyRepository>();
@@ -67,6 +76,8 @@ namespace WebApplication1
             }
 
             app.UseRouting();
+
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 

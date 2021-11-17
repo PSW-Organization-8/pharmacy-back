@@ -131,5 +131,10 @@ namespace PharmacyClassLib.Service
                 }
             }
         }
+
+        public List<InventoryLog> GetLogsByPharmacyWithQuantity(long pharmacyId, int quantity)
+        {
+            return logRepository.GetLogsByPharmacyWithQuantity(pharmacyId, quantity);
+        }
     }
 }
