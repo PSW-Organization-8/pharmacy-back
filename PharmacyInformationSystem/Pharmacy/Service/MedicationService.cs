@@ -4,6 +4,7 @@ using PharmacyClassLib.Repository.MedicationIngredientRepository;
 using PharmacyClassLib.Service;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PharmacyClassLib.Service
@@ -62,30 +63,28 @@ namespace PharmacyClassLib.Service
         public List<Medication> Search(string text, List<string> ingredients)
         {
             List<Medication> medications = new List<Medication>();
-            foreach (Medication medication in GetAll())
+            List<Medication> nameFilter = GetAll().Where(medication => medication.Name.ToUpper().Contains(text.ToUpper())).ToList();
+
+            foreach (Medication medication in nameFilter)
             {
-                if (medication.Name.ToUpper().Contains(text.ToUpper()))
+                bool add = false;
+
+                foreach (string ingredient in ingredients)
                 {
-                    bool add = false;
-
-                    foreach (string ingredient in ingredients)
+                    List<MedicationIngredient> matchingIngredients = medication.MedicationIngredients.Where(medIngredient => medIngredient.Name.ToUpper().Contains(ingredient.ToUpper())).ToList();
+                    if (matchingIngredients.Count() > 0)
                     {
-                        foreach(MedicationIngredient medIngredient in medication.MedicationIngredients)
-                        {
-                            if (medIngredient.Name.ToUpper().Contains(ingredient.ToUpper()))
-                            {
-                                add = true;
-                                break;
-                            }
-                        }
-                    }
+                        add = true;
+                        break;
+                    }              
+                }
 
-                    if (add || ingredients.Count == 0)
-                    {
-                        medications.Add(medication);
-                    }
+                if (add || ingredients.Count == 0)
+                {
+                    medications.Add(medication);
                 }
             }
+
             return medications;
         }
 

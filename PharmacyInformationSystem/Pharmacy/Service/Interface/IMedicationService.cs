@@ -19,6 +19,5 @@ namespace PharmacyClassLib.Service
 
         Boolean Update(Medication medication);
 
-
     }
 }

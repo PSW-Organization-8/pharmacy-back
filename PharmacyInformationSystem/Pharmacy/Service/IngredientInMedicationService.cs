@@ -36,11 +36,10 @@ namespace PharmacyClassLib.Service
                         repository.Create(ingredient);
                     }
                 }
-
             }
         }
 
-        private static IngredientInMedication IngredientInMedication(List<IngredientInMedication> list, long id)
+        private IngredientInMedication IngredientInMedication(List<IngredientInMedication> list, long id)
         {
             IngredientInMedication ingredient = null;
             foreach (IngredientInMedication entity in list)
