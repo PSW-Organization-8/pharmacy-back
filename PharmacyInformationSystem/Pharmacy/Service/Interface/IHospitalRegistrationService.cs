@@ -10,5 +10,6 @@ namespace PharmacyClassLib.Service
         RegisteredHospital Get(string hospitalName);
         RegisteredHospital Register(RegisteredHospital newHospital);
         RegisteredHospital GetByApiKey(string apyKey);
+        RegisteredHospital GetByName(string name);
     }
 }

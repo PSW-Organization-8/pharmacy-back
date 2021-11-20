@@ -3,10 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PharmacyClassLib.Repository
+namespace PharmacyClassLib.Service.Interface
 {
-    public interface IResponseRepository : IGenericRepository<Response, long>
+    public interface IResponseService
     {
+        Response Add(Response response);
+
+        List<Response> GetAll();
+
         Response GetResponseByObjectionId(long id, string hospitalName);
     }
 }

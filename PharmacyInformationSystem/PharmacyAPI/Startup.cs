@@ -61,8 +61,8 @@ namespace WebApplication1
             services.AddScoped<IHospitalRegistrationService, HospitalRegistrationService>();
             services.AddScoped<IMedicationIngredientService, MedicationIngredientService>();
             services.AddScoped<IInventoryLogService, InventoryLogService>();       
-            services.AddScoped<ObjectionService>();
-            services.AddScoped<ResponseService>();
+            services.AddScoped<IObjectionService, ObjectionService>();
+            services.AddScoped<IResponseService, ResponseService>();
             services.AddScoped<IActionsAndNewsService, ActionsAndNewsService>();
             services.AddScoped<ISendingNewsService, SendingNewsRabbitMQService>();
         }

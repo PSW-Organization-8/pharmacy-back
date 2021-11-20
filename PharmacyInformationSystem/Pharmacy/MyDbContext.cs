@@ -15,6 +15,8 @@ namespace PharmacyClassLib
         public DbSet<Medication> Medications { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<InventoryLog> InventoryLogs { get; set; }
+        public DbSet<Objection> Objections { get; set; }
+        public DbSet<Response> Responses { get; set; }
 
         public MyDbContext()
         {
@@ -38,11 +40,11 @@ namespace PharmacyClassLib
                 );
 
             modelBuilder.Entity<Objection>().HasData(
-                new Objection(1, 0, "Bolnica1", "Ne valja nista")
+                new Objection(1, 0, "Ne valja nista", "Bolnica1")
                 );
 
             modelBuilder.Entity<Response>().HasData(
-                new Response(1, 0, "Bolnica1", "Kleveta")
+                new Response(1, 0, "Kleveta", "Bolnica1")
                 );
 
             modelBuilder.Entity<RegisteredHospital>().HasData(

@@ -1,12 +1,13 @@
 ﻿using PharmacyClassLib.Model;
 using PharmacyClassLib.Repository;
+using PharmacyClassLib.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PharmacyClassLib.Service
 {
-    public class ResponseService
+    public class ResponseService: IResponseService
     {
         private readonly IResponseRepository responseRepository;
 
@@ -23,6 +24,15 @@ namespace PharmacyClassLib.Service
         public List<Response> GetAll()
         {
             return responseRepository.GetAll();
+        }
+
+        public Response GetResponseByObjectionId(long id, string hospitalName)
+        {
+            Response response = responseRepository.GetResponseByObjectionId(id, hospitalName);
+            if (response == null) {
+                response = new Response();
+            }
+            return response;
         }
     }
 }

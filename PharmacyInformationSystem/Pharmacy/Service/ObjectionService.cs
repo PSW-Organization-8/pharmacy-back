@@ -1,12 +1,13 @@
 ﻿using PharmacyClassLib.Model;
 using PharmacyClassLib.Repository.ObjectionRepository;
+using PharmacyClassLib.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace PharmacyClassLib.Service
 {
-    public class ObjectionService   // Todo: Write interface for this class
+    public class ObjectionService: IObjectionService
     {
         private readonly IObjectionRepository objectionRepository;
 

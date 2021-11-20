@@ -28,5 +28,15 @@ namespace PharmacyClassLib.Repository.RegistratedHospitalRepository
 
             return true;
         }
+
+        public RegisteredHospital GetByApiKey(string apyKey)
+        {
+            return context.RegistratedHospitals.Where(h => h.ApiKey.Equals(apyKey)).FirstOrDefault();
+        }
+
+        public RegisteredHospital GetByName(string name)
+        {
+            return context.RegistratedHospitals.Where(h => h.Name.Equals(name)).FirstOrDefault();
+        }
     }
 }

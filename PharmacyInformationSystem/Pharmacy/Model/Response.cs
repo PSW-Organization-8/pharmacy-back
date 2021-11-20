@@ -26,5 +26,13 @@ namespace PharmacyClassLib.Model
             ObjectionIdFromHospitalDatabase = objectioHospitalId;
 
         }
+        public Response(long objectioHospitalId, string text, string name)
+        {
+
+            TextResponse = text;
+            HospitalName = name;
+            ObjectionIdFromHospitalDatabase = objectioHospitalId;
+
+        }
     }
 }
