@@ -14,6 +14,8 @@ namespace PharmacyClassLib.Service.Interface
 
         List<InventoryLog> GetLogsByPharmacyWithQuantity(long pharmacyId, int quantity);
 
+        List<InventoryLog> GetLogsByMedicationWithQuantity(long medicationId, int quantity);
+
         void RemoveMedicineReferences(long id);
 
         void RemovePharmacyReferences(long id);
@@ -21,5 +23,7 @@ namespace PharmacyClassLib.Service.Interface
         bool AddMedication(long pharmacyID, long medicationID, long quantity);
 
         bool RemoveMedication(long pharmacyID, long medicationID, long quantity);
+
+        bool CheckIfQuantityExists(string medicationName, int quantity);
     }
 }

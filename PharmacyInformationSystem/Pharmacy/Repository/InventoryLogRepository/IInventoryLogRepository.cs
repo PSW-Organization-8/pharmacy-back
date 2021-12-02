@@ -8,5 +8,7 @@ namespace PharmacyClassLib.Repository.InventoryLogRepository
     public interface IInventoryLogRepository : IGenericRepository<InventoryLog, long>
     {
         List<InventoryLog> GetLogsByPharmacyWithQuantity(long pharmacyId, int quantity);
+
+        List<InventoryLog> GetLogsByMedicationWithQuantity(long medicationId, int quantity);
     }
 }

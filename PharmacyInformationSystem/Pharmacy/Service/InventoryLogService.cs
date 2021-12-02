@@ -136,5 +136,26 @@ namespace PharmacyClassLib.Service
         {
             return logRepository.GetLogsByPharmacyWithQuantity(pharmacyId, quantity);
         }
+
+        public List<InventoryLog> GetLogsByMedicationWithQuantity(long medicationId, int quantity)
+        {
+            return logRepository.GetLogsByMedicationWithQuantity(medicationId, quantity);
+        }
+
+        public bool CheckIfQuantityExists(string medicationName, int quantity)
+        {
+            List<InventoryLog> logs;
+            foreach (Medication m in medicationService.Search(medicationName, new List<string>())) {
+                logs = GetLogsByMedicationWithQuantity(m.Id, quantity);
+                if (logs != null)
+                {
+                    if(logs.Count != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

@@ -58,5 +58,12 @@ namespace PharmacyAPI.Controllers
             }
             return retVal;
         }
+
+        [HttpGet]
+        [Route("medication_exists")]
+        public bool CheckIfMedicationExists(string name, int quantity)
+        {
+            return inventoryLogService.CheckIfQuantityExists(name, quantity);
+        }
     }
 }

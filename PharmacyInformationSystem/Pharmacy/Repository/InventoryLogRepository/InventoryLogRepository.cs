@@ -13,6 +13,12 @@ namespace PharmacyClassLib.Repository.InventoryLogRepository
 
         }
 
+        public List<InventoryLog> GetLogsByMedicationWithQuantity(long medicationId, int quantity)
+        {
+            var inventoryLog = context.InventoryLogs.Where(s => s.MedicationID.Equals(medicationId) && s.Quantity >= quantity).ToList();
+            return inventoryLog;
+        }
+
         public List<InventoryLog> GetLogsByPharmacyWithQuantity(long pharmacyId, int quantity)
         {
             var inventoryLog = context.InventoryLogs.Where(s => s.PharmacyID.Equals(pharmacyId) && s.Quantity >= quantity).ToList();
