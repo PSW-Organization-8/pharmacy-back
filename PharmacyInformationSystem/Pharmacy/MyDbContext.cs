@@ -17,6 +17,8 @@ namespace PharmacyClassLib
         public DbSet<InventoryLog> InventoryLogs { get; set; }
         public DbSet<Objection> Objections { get; set; }
         public DbSet<Response> Responses { get; set; }
+        public DbSet<PharmacyOffer> PharmacyOffers { get; set; }
+        public DbSet<PharmacyOfferComponent> PharmacyOfferComponents { get; set; }
 
         public MyDbContext()
         {
@@ -27,7 +29,13 @@ namespace PharmacyClassLib
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            String connectionString = "Server=localhost; Port =5432; Database=Pharmacy; User Id=postgres; Password =root;";
+            String server = Environment.GetEnvironmentVariable("SERVER") ?? "localhost";
+            String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+            String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
+            String username = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
+            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "root";
+
+            String connectionString = $"Server={server}; Port ={port}; Database ={databaseName}; User Id = {username}; Password ={password};";
             optionsBuilder.UseNpgsql(connectionString);
         }
 
@@ -81,6 +89,19 @@ namespace PharmacyClassLib
                 new InventoryLog(3, 2, 1, 20),
                 new InventoryLog(4, 2, 3, 120),
                 new InventoryLog(5, 3, 1, 14)
+                );
+
+            modelBuilder.Entity<PharmacyOffer>().HasData(
+                new PharmacyOffer(1, 1, 1, 15.5, false, "Bolnica1", new DateTime(2021, 5, 1, 8, 30, 52)),
+                new PharmacyOffer(2, 2, 2, 40.0, false, "Bolnica1", new DateTime(2021, 10, 12, 9, 28, 13))
+                );
+
+            modelBuilder.Entity<PharmacyOfferComponent>().HasData(
+                new PharmacyOfferComponent(1, 1, 1, 30),
+                new PharmacyOfferComponent(2, 1, 2, 18),
+                new PharmacyOfferComponent(3, 2, 3, 35),
+                new PharmacyOfferComponent(4, 2, 2, 31),
+                new PharmacyOfferComponent(5, 2, 1, 45)
                 );
 
         }

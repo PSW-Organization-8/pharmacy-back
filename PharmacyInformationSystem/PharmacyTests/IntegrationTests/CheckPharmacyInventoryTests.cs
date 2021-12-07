@@ -7,6 +7,7 @@ using PharmacyClassLib.Repository.IngredientMedicationRepository;
 using PharmacyClassLib.Repository.InventoryLogRepository;
 using PharmacyClassLib.Repository.MedicationIngredientRepository;
 using PharmacyClassLib.Repository.MedicationIngredientsRepository;
+using PharmacyClassLib.Repository.PharmacyOfferRepository;
 using PharmacyClassLib.Service;
 using PharmacyClassLib.Service.Interface;
 using Shouldly;
@@ -118,13 +119,14 @@ namespace PharmacyTests.IntegrationTests
         {
             MyDbContext dbContext = new MyDbContext();
             IMedicationRepository medicationRepository = new MedicationRepository(dbContext);
+            IPharmacyOfferComponentRepository pharmacyOfferComponentRepository = new PharmacyOfferComponentRepository(dbContext);
             IPharmacyRepository pharmacyRepository = new PharmacyRepository(dbContext);
             IInventoryLogRepository inventoryLogRepository = new InventoryLogRepository(dbContext);
             IMedicationIngredientRepository medicationIngredientRepository = new MedicationIngredientRepository(dbContext);
             IIngredientsInMedicationRepository ingredientsInMedicationRepository = new IngredientsInMedicationRepository(dbContext);
             IIngredientInMedicationService ingredientInMedicationService = new IngredientInMedicationService(ingredientsInMedicationRepository, medicationRepository, medicationIngredientRepository);
             IMedicationIngredientService medicationIngredientService = new MedicationIngredientService(medicationIngredientRepository, ingredientInMedicationService);
-            IMedicationService medicationService = new MedicationService(medicationRepository, medicationIngredientService, ingredientInMedicationService);
+            IMedicationService medicationService = new MedicationService(medicationRepository, medicationIngredientService, ingredientInMedicationService, pharmacyOfferComponentRepository);
             IPharmacyService pharmacyService = new PharmacyService(pharmacyRepository);
             IInventoryLogService inventoryLogService = new InventoryLogService(inventoryLogRepository, medicationService, pharmacyService);
             InventoryController controller = new InventoryController(pharmacyService, inventoryLogService, medicationService);

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class first : Migration
+    public partial class tendering : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,6 +104,24 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PharmacyOffers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PharmacyId = table.Column<long>(type: "bigint", nullable: false),
+                    OfferIdentification = table.Column<long>(type: "bigint", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    IsChosen = table.Column<bool>(type: "boolean", nullable: false),
+                    HospitalName = table.Column<string>(type: "text", nullable: true),
+                    TimePosted = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PharmacyOffers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RegistratedHospitals",
                 columns: table => new
                 {
@@ -151,14 +169,36 @@ namespace PharmacyAPI.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PharmacyOfferComponents",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OfferID = table.Column<long>(type: "bigint", nullable: false),
+                    MedicationID = table.Column<long>(type: "bigint", nullable: false),
+                    Quantity = table.Column<long>(type: "bigint", nullable: false),
+                    PharmacyOfferId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PharmacyOfferComponents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PharmacyOfferComponents_PharmacyOffers_PharmacyOfferId",
+                        column: x => x.PharmacyOfferId,
+                        principalTable: "PharmacyOffers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "IngredientInMedication",
                 columns: new[] { "Id", "IngredientID", "MedicationID" },
                 values: new object[,]
                 {
                     { 1L, 1L, 1L },
-                    { 2L, 2L, 2L },
-                    { 3L, 2L, 1L }
+                    { 3L, 2L, 1L },
+                    { 2L, 2L, 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -166,9 +206,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "MedicationID", "PharmacyID", "Quantity" },
                 values: new object[,]
                 {
+                    { 5L, 1L, 3L, 14L },
                     { 4L, 3L, 2L, 120L },
                     { 3L, 1L, 2L, 20L },
-                    { 5L, 1L, 3L, 14L },
                     { 2L, 2L, 1L, 85L },
                     { 1L, 1L, 1L, 65L }
                 });
@@ -189,8 +229,8 @@ namespace PharmacyAPI.Migrations
                 values: new object[,]
                 {
                     { 1L, "J&J", "Synthroid", "None.", "None.", 150, 0, "Taken once per day" },
-                    { 2L, "Merck & Co. Inc.", "Ventolin", "Not advised for pregnant women.", "None.", 200, 2, "Taken twice per day" },
-                    { 3L, "Pfizer Inc.", "Januvia", "Not advised for children.", "None.", 750, 0, "Taken once once every 5 hours" }
+                    { 3L, "Pfizer Inc.", "Januvia", "Not advised for children.", "None.", 750, 0, "Taken once once every 5 hours" },
+                    { 2L, "Merck & Co. Inc.", "Ventolin", "Not advised for pregnant women.", "None.", 200, 2, "Taken twice per day" }
                 });
 
             migrationBuilder.InsertData(
@@ -209,6 +249,27 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "PharmacyOfferComponents",
+                columns: new[] { "Id", "MedicationID", "OfferID", "PharmacyOfferId", "Quantity" },
+                values: new object[,]
+                {
+                    { 5L, 1L, 2L, null, 45L },
+                    { 1L, 1L, 1L, null, 30L },
+                    { 2L, 2L, 1L, null, 18L },
+                    { 3L, 3L, 2L, null, 35L },
+                    { 4L, 2L, 2L, null, 31L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PharmacyOffers",
+                columns: new[] { "Id", "HospitalName", "IsChosen", "OfferIdentification", "PharmacyId", "Price", "TimePosted" },
+                values: new object[,]
+                {
+                    { 1L, "Bolnica1", false, 1L, 1L, 15.5, new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) },
+                    { 2L, "Bolnica1", false, 2L, 2L, 40.0, new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "RegistratedHospitals",
                 columns: new[] { "Name", "ApiKey", "Url" },
                 values: new object[] { "Bolnica1", "fds15d4fs6", "http:localhost:7313" });
@@ -222,6 +283,11 @@ namespace PharmacyAPI.Migrations
                 name: "IX_MedicationIngredients_MedicationId",
                 table: "MedicationIngredients",
                 column: "MedicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PharmacyOfferComponents_PharmacyOfferId",
+                table: "PharmacyOfferComponents",
+                column: "PharmacyOfferId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -245,6 +311,9 @@ namespace PharmacyAPI.Migrations
                 name: "Pharmacies");
 
             migrationBuilder.DropTable(
+                name: "PharmacyOfferComponents");
+
+            migrationBuilder.DropTable(
                 name: "RegistratedHospitals");
 
             migrationBuilder.DropTable(
@@ -252,6 +321,9 @@ namespace PharmacyAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Medications");
+
+            migrationBuilder.DropTable(
+                name: "PharmacyOffers");
         }
     }
 }

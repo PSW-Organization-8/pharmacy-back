@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyAPI", "PharmacyAPI\PharmacyAPI.csproj", "{8CE13326-041E-4FB6-96F3-0E323985D9E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyTests", "PharmacyTests\PharmacyTests.csproj", "{D52591F9-1ACE-4405-8C29-CCED84B12FDE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4263ADAA-2486-48E0-BEAB-94CD281E9033} = {4263ADAA-2486-48E0-BEAB-94CD281E9033}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

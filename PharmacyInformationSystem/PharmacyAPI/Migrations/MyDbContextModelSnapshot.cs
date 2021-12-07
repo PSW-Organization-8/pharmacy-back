@@ -228,6 +228,58 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PharmacyClassLib.Model.PharmacyOffer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("HospitalName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsChosen")
+                        .HasColumnType("boolean");
+
+                    b.Property<long>("OfferIdentification")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("PharmacyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime>("TimePosted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PharmacyOffers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            HospitalName = "Bolnica1",
+                            IsChosen = false,
+                            OfferIdentification = 1L,
+                            PharmacyId = 1L,
+                            Price = 15.5,
+                            TimePosted = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            HospitalName = "Bolnica1",
+                            IsChosen = false,
+                            OfferIdentification = 2L,
+                            PharmacyId = 2L,
+                            Price = 40.0,
+                            TimePosted = new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
             modelBuilder.Entity("PharmacyClassLib.Model.RegisteredHospital", b =>
                 {
                     b.Property<string>("Name")
@@ -348,6 +400,69 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PharmacyClassLib.Model.Relations.PharmacyOfferComponent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("MedicationID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OfferID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PharmacyOfferId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Quantity")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PharmacyOfferId");
+
+                    b.ToTable("PharmacyOfferComponents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            MedicationID = 1L,
+                            OfferID = 1L,
+                            Quantity = 30L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            MedicationID = 2L,
+                            OfferID = 1L,
+                            Quantity = 18L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            MedicationID = 3L,
+                            OfferID = 2L,
+                            Quantity = 35L
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            MedicationID = 2L,
+                            OfferID = 2L,
+                            Quantity = 31L
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            MedicationID = 1L,
+                            OfferID = 2L,
+                            Quantity = 45L
+                        });
+                });
+
             modelBuilder.Entity("PharmacyClassLib.Model.Response", b =>
                 {
                     b.Property<long>("Id")
@@ -385,9 +500,21 @@ namespace PharmacyAPI.Migrations
                         .HasForeignKey("MedicationId");
                 });
 
+            modelBuilder.Entity("PharmacyClassLib.Model.Relations.PharmacyOfferComponent", b =>
+                {
+                    b.HasOne("PharmacyClassLib.Model.PharmacyOffer", null)
+                        .WithMany("Components")
+                        .HasForeignKey("PharmacyOfferId");
+                });
+
             modelBuilder.Entity("PharmacyClassLib.Model.Medication", b =>
                 {
                     b.Navigation("MedicationIngredients");
+                });
+
+            modelBuilder.Entity("PharmacyClassLib.Model.PharmacyOffer", b =>
+                {
+                    b.Navigation("Components");
                 });
 #pragma warning restore 612, 618
         }

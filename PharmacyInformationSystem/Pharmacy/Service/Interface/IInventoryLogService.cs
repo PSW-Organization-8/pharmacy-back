@@ -25,5 +25,7 @@ namespace PharmacyClassLib.Service.Interface
         bool RemoveMedication(long pharmacyID, long medicationID, long quantity);
 
         bool CheckIfQuantityExists(string medicationName, int quantity);
+
+        bool CheckIfLogExistsInPharmacy(long pharmacyId, long medicationId, long quantity);
     }
 }

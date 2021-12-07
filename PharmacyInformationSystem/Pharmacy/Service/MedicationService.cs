@@ -1,7 +1,10 @@
 ﻿using PharmacyClassLib.Model;
+using PharmacyClassLib.Model.Relations;
 using PharmacyClassLib.Repository;
 using PharmacyClassLib.Repository.MedicationIngredientRepository;
+using PharmacyClassLib.Repository.PharmacyOfferRepository;
 using PharmacyClassLib.Service;
+using PharmacyClassLib.Service.Interface;
 using Renci.SshNet;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
@@ -19,12 +22,17 @@ namespace PharmacyClassLib.Service
         private readonly IMedicationRepository medicationRepository;
         private readonly IMedicationIngredientService ingredientService;
         private readonly IIngredientInMedicationService ingredientInMedicationService;
+        private readonly IPharmacyOfferComponentRepository pharmacyOfferComponentRepository;
 
-        public MedicationService(IMedicationRepository medicationRepository, IMedicationIngredientService ingredientService, IIngredientInMedicationService ingredientInMedicationService)
+        public MedicationService(IMedicationRepository medicationRepository, 
+            IMedicationIngredientService ingredientService, 
+            IIngredientInMedicationService ingredientInMedicationService, 
+            IPharmacyOfferComponentRepository pharmacyOfferComponentRepository)
         {
             this.medicationRepository = medicationRepository;
             this.ingredientService = ingredientService;
             this.ingredientInMedicationService = ingredientInMedicationService;
+            this.pharmacyOfferComponentRepository = pharmacyOfferComponentRepository;
         }
 
         public Medication Create(Medication newMedication)
@@ -39,6 +47,7 @@ namespace PharmacyClassLib.Service
             {
                 success = true;
                 ingredientInMedicationService.RemoveMedicineReferences(id);
+                RemoveMedicineComponentReferences(id);
                 medicationRepository.Delete(id);
             }
             return success;
@@ -164,6 +173,14 @@ namespace PharmacyClassLib.Service
                 }
                 client.Disconnect();
             }
+        }
+
+        public void RemoveMedicineComponentReferences(long id)
+        {
+            foreach (PharmacyOfferComponent component in pharmacyOfferComponentRepository.GetAll())
+                if (component.MedicationID == id)
+                    pharmacyOfferComponentRepository.Delete(component.Id);
+
         }
 
     }
