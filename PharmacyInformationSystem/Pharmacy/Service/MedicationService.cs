@@ -20,17 +20,14 @@ namespace PharmacyClassLib.Service
     public class MedicationService : IMedicationService
     {
         private readonly IMedicationRepository medicationRepository;
-        private readonly IMedicationIngredientService ingredientService;
         private readonly IIngredientInMedicationService ingredientInMedicationService;
         private readonly IPharmacyOfferComponentRepository pharmacyOfferComponentRepository;
 
         public MedicationService(IMedicationRepository medicationRepository, 
-            IMedicationIngredientService ingredientService, 
             IIngredientInMedicationService ingredientInMedicationService, 
             IPharmacyOfferComponentRepository pharmacyOfferComponentRepository)
         {
             this.medicationRepository = medicationRepository;
-            this.ingredientService = ingredientService;
             this.ingredientInMedicationService = ingredientInMedicationService;
             this.pharmacyOfferComponentRepository = pharmacyOfferComponentRepository;
         }
@@ -64,7 +61,6 @@ namespace PharmacyClassLib.Service
         }
         public Medication GetMedication(string name)
         {
-            List<Medication> medications = medicationRepository.GetAll();
             foreach (Medication medication in medicationRepository.GetAll())
             {
                 if (medication.Name.Equals(name)) return medication;
@@ -96,7 +92,7 @@ namespace PharmacyClassLib.Service
                 foreach (string ingredient in ingredients)
                 {
                     List<MedicationIngredient> matchingIngredients = medication.MedicationIngredients.Where(medIngredient => medIngredient.Name.ToUpper().Contains(ingredient.ToUpper())).ToList();
-                    if (matchingIngredients.Count() > 0)
+                    if (matchingIngredients.Count > 0)
                     {
                         add = true;
                         break;

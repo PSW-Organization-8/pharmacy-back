@@ -100,7 +100,13 @@ namespace WebApplication1
             });
             MyDbContext dbContext = new MyDbContext();
             IPharmacyService pharmacyService = new PharmacyService(new PharmacyRepository(dbContext));
-            IMedicationService medicationService = new MedicationService(new MedicationRepository(dbContext), new MedicationIngredientService(new MedicationIngredientRepository(dbContext), new IngredientInMedicationService(new IngredientsInMedicationRepository(dbContext), new MedicationRepository(dbContext), new MedicationIngredientRepository(dbContext))), new IngredientInMedicationService(new IngredientsInMedicationRepository(dbContext), new MedicationRepository(dbContext), new MedicationIngredientRepository(dbContext)));
+            IMedicationService medicationService = new MedicationService(
+                new MedicationRepository(dbContext), 
+                new IngredientInMedicationService(
+                    new IngredientsInMedicationRepository(dbContext), 
+                    new MedicationRepository(dbContext), 
+                    new MedicationIngredientRepository(dbContext)),                 
+                new PharmacyOfferComponentRepository(dbContext));
             IInventoryLogService inventoryLogService = new InventoryLogService(new InventoryLogRepository(dbContext), medicationService, pharmacyService);
             GrpcApiKeyFilter grpcApiKeyFilter = new GrpcApiKeyFilter(new RegisteredHospitalRepository(dbContext));
             server = new Server

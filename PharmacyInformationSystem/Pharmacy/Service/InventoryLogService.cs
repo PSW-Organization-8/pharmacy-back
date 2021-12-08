@@ -160,7 +160,6 @@ namespace PharmacyClassLib.Service
 
         public bool CheckIfLogExistsInPharmacy(long pharmacyId, long medicationId, long quantity)
         {
-            List<InventoryLog> logs;
             foreach (InventoryItem inventoryItem in GetPharmacyInventory(pharmacyId))
             {                
                 if (inventoryItem.Medication.Id != medicationId)

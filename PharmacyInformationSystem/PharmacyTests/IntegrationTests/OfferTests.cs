@@ -37,10 +37,9 @@ namespace PharmacyTests.IntegrationTests
             IInventoryLogRepository logRepository = new InventoryLogRepository(dbContext);
 
             IIngredientInMedicationService ingredientInMedicationService = new IngredientInMedicationService(ingredientsInMedicationRepository, medicationRepository, ingredientRepository);
-            IMedicationIngredientService ingredientService = new MedicationIngredientService(ingredientRepository, ingredientInMedicationService);
             ISendingNewsService sendingNewsService = new SendingNewsRabbitMQService();
 
-            IMedicationService medicationService = new MedicationService(medicationRepository, ingredientService, ingredientInMedicationService, pharmacyOfferComponentRepository);
+            IMedicationService medicationService = new MedicationService(medicationRepository, ingredientInMedicationService, pharmacyOfferComponentRepository);
             IPharmacyService pharmacyService = new PharmacyService(pharmacyRepository);
             IHospitalRegistrationService hospitalService = new HospitalRegistrationService(regHospitalRepository, sendingNewsService);
             IInventoryLogService inventoryLogService = new InventoryLogService(logRepository, medicationService, pharmacyService);
@@ -75,12 +74,14 @@ namespace PharmacyTests.IntegrationTests
         public void Cant_create_offer()
         {
             PharmacyOfferController controller = GetOfferController();
-            PharmacyOfferDTO dto = new PharmacyOfferDTO();
-            dto.OfferIdentification = 1;
-            dto.PharmacyId = 999;
-            dto.Price = 40;
-            dto.IsChosen = false;
-            dto.HospitalName = "bolnica55";
+            PharmacyOfferDTO dto = new PharmacyOfferDTO
+            {
+                OfferIdentification = 1,
+                PharmacyId = 999,
+                Price = 40,
+                IsChosen = false,
+                HospitalName = "bolnica55"
+            };
 
             PharmacyOffer retVal = controller.Create(dto);
 

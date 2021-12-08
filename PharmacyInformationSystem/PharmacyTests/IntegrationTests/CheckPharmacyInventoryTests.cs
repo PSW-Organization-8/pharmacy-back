@@ -125,8 +125,7 @@ namespace PharmacyTests.IntegrationTests
             IMedicationIngredientRepository medicationIngredientRepository = new MedicationIngredientRepository(dbContext);
             IIngredientsInMedicationRepository ingredientsInMedicationRepository = new IngredientsInMedicationRepository(dbContext);
             IIngredientInMedicationService ingredientInMedicationService = new IngredientInMedicationService(ingredientsInMedicationRepository, medicationRepository, medicationIngredientRepository);
-            IMedicationIngredientService medicationIngredientService = new MedicationIngredientService(medicationIngredientRepository, ingredientInMedicationService);
-            IMedicationService medicationService = new MedicationService(medicationRepository, medicationIngredientService, ingredientInMedicationService, pharmacyOfferComponentRepository);
+            IMedicationService medicationService = new MedicationService(medicationRepository, ingredientInMedicationService, pharmacyOfferComponentRepository);
             IPharmacyService pharmacyService = new PharmacyService(pharmacyRepository);
             IInventoryLogService inventoryLogService = new InventoryLogService(inventoryLogRepository, medicationService, pharmacyService);
             InventoryController controller = new InventoryController(pharmacyService, inventoryLogService, medicationService);
