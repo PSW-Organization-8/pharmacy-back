@@ -14,6 +14,14 @@
       "launchBrowser": true,
       "launchUrl": "pharmacy",
       "environmentVariables": {
+<<<<<<< Updated upstream
+=======
+        "DB_USER": "postgres",
+        "DB_NAME": "Pharmacy",
+        "DB_PORT": "5432",
+        "DB_PASSWORD": "admin",
+        "SERVER": "localhost",
+>>>>>>> Stashed changes
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

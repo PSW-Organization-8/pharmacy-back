@@ -2,7 +2,10 @@ version: '3.4'
 
 services:
   pharmacy:
-    image: psw8org/pharmacy-back:latest
+    image: djordje1499/example_image:latest
+    networks:
+      - database_net
+    container_name: Pharmacy_Back
     environment:
        SERVER: "database"
        DB_PORT: "5432"
@@ -13,6 +16,7 @@ services:
       - "80"
     ports:
       - "5101:80"
+    restart: on-failure
     #extra hosts can be used for standalone SQL Server or services at the dev PC
     depends_on:
       - database
@@ -20,8 +24,17 @@ services:
   database:
     image: postgres:13
     restart: always
+    container_name: Pharmacy_Database
+    networks:
+      - database_net
     environment:
       POSTGRES_PASSWORD: "root"
       POSTGRES_USER: "postgres"
     ports:
-      - "5555:5432"
+      - "5432:5432"
+    restart: on-failure
+
+networks:
+  database_net:
+    name: database_net
+    driver: bridge
