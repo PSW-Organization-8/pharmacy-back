@@ -27,9 +27,7 @@ namespace PharmacyClassLib
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-<<<<<<< Updated upstream
-            String connectionString = "Server=localhost; Port =5432; Database=Pharmacy; User Id=postgres; Password =admin;";
-=======
+
             String server = Environment.GetEnvironmentVariable("SERVER") ?? "localhost";
             String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
             String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
@@ -42,7 +40,6 @@ namespace PharmacyClassLib
             Console.WriteLine("###############################################################################");
             Console.WriteLine(connectionString);
             Console.WriteLine("###############################################################################");
->>>>>>> Stashed changes
             optionsBuilder.UseNpgsql(connectionString);
         }
 
