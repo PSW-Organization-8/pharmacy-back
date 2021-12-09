@@ -129,8 +129,12 @@ namespace PharmacyClassLib.Service
             PdfDocument doc = new PdfDocument();
             PdfPageBase page = doc.Pages.Add();
             page.Canvas.DrawString(WriteContent(medicationName), new PdfFont(PdfFontFamily.Helvetica, 11f), new PdfSolidBrush(Color.Black), 10, 10);
+            if (System.IO.File.Exists(Path.Combine(filePath, fileName)))
+            {
+                System.IO.File.Delete(Path.Combine(filePath, fileName));
+            }
             StreamWriter File = new StreamWriter(Path.Combine(filePath, fileName), true);
-            //ne smeju da postoje dva fajla sa istim imenom i ovde izbacuje exception ako hocemo da dodamo fajl sa istim imenom
+            
             doc.SaveToStream(File.BaseStream);
             // File.Write(WriteContent(duration));
 

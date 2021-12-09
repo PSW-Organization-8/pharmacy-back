@@ -16,11 +16,10 @@ namespace PharmacyAPI.Controllers
         public ReceiptController() { }
 
         [HttpGet]
-        public IActionResult SaveReceipt(string patientName)
+        public IActionResult SaveReceipt(string fileName)
         {
             string filePath = Directory.GetCurrentDirectory();
-            string[] name = patientName.Split(" ");
-            string fileName = "Receipt" + name[0] + name[1] + ".pdf";
+            filePath = Path.Combine(filePath, @"..\DataFiles\Prescriptions");
             string localFile = Path.Combine(filePath, fileName);
             string fileServer = @"\public\"+fileName;
 
@@ -35,6 +34,19 @@ namespace PharmacyAPI.Controllers
             }
             return Ok();
 
+        }
+
+        [HttpPost]
+        public IActionResult SaveQRReceipt([FromBody] string file)
+        {
+            string filePath = Directory.GetCurrentDirectory();
+            filePath = Path.Combine(filePath, @"..\DataFiles\Prescriptions");
+            IEnumerable<string> headers = Request.Headers["fileName"];
+            var fileName = headers.FirstOrDefault();
+            string localFile = Path.Combine(filePath, fileName);
+            Byte[] bytes = Convert.FromBase64String(file);
+            System.IO.File.WriteAllBytes(localFile, bytes);
+            return Ok();
         }
     }
 }
