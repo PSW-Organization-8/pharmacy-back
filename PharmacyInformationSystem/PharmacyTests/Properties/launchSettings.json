@@ -6,7 +6,7 @@
         "DB_USER": "postgres",
         "DB_NAME": "Pharmacy",
         "DB_PORT": "5432",
-        "DB_PASSWORD": "2331",
+        "DB_PASSWORD": "root",
         "SERVER": "localhost"
       }
     }

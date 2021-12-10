@@ -19,7 +19,7 @@ namespace PharmacyAPI.BackgroundService
         {
             compressionTimer.Elapsed += new ElapsedEventHandler(CompressOldFiles);
             //compressionTimer.Interval = 10000;    // 10 sekundi
-            compressionTimer.Interval = 2592000000;  // 30 dana
+            compressionTimer.Interval = 259200000;  // 3 dana
             compressionTimer.Enabled = true;
             return Task.CompletedTask;
         }
@@ -38,7 +38,6 @@ namespace PharmacyAPI.BackgroundService
         {
             string filePathPrescriptions = Path.Combine(filePath, "DataFiles" + Path.DirectorySeparatorChar + "Prescriptions" + Path.DirectorySeparatorChar);
             List<string> allPrescriptions = GetPdfFilePathsFromFolder(filePathPrescriptions);
-            allPrescriptions = FilterForOlderFilesPaths(allPrescriptions);
             string zipFileNamePrescriptions = filePathPrescriptions + "prescriptions_" + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".zip";
             CreateZipFile(zipFileNamePrescriptions, allPrescriptions);
             DeleteZipeddFiles(allPrescriptions);
@@ -48,7 +47,6 @@ namespace PharmacyAPI.BackgroundService
         {
             string filePathReports = Path.Combine(filePath, "DataFiles" + Path.DirectorySeparatorChar + "Reports" + Path.DirectorySeparatorChar);
             List<string> allReports = GetPdfFilePathsFromFolder(filePathReports);
-            allReports = FilterForOlderFilesPaths(allReports);
             string zipFileNameReports = filePathReports + "reports_" + DateTime.Now.Date.ToString("dd-MM-yyyy") + ".zip";
             CreateZipFile(zipFileNameReports, allReports);
             DeleteZipeddFiles(allReports);
@@ -93,7 +91,7 @@ namespace PharmacyAPI.BackgroundService
 
         /// <param name="fileName">The full path and name to store the ZIP file at.</param>
         /// <param name="files">The list of files to be added.</param>
-        private void CreateZipFile(string fileName, IList<string> files)
+        public void CreateZipFile(string fileName, IList<string> files)
         {
             if (files.Count == 0) return;
 
