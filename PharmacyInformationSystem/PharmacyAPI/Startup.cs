@@ -93,23 +93,24 @@ namespace WebApplication1
                 app.UseDeveloperExceptionPage();
             }
 
-            using (var scope = app.ApplicationServices.CreateScope())
-            using (var context = scope.ServiceProvider.GetService<MyDbContext>())
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                
-
-                RelationalDatabaseCreator databaseCreator = (RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>();
-
+                var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
                 try
                 {
+                    Console.WriteLine("###############################################################################");
+                    Console.WriteLine("Migriram bazu podataka");
                     context.Database.Migrate();
+                    Console.WriteLine("###############################################################################");
                 }
-                catch (Exception)
+                catch(Exception e)
                 {
-                    Console.WriteLine("Failed to execute migration");
+                    Console.WriteLine("###############################################################################");
+                    Console.WriteLine("Greska prilikom kreiranja baze podataka");
+                    Console.WriteLine(e.Data);
+                    Console.WriteLine("###############################################################################");
                 }
                 
-               
             }
             app.UseRouting();
 
