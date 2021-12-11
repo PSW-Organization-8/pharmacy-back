@@ -23,7 +23,6 @@ services:
 
   database:
     image: postgres:13
-    restart: always
     container_name: Pharmacy_Database
     networks:
       - database_net
