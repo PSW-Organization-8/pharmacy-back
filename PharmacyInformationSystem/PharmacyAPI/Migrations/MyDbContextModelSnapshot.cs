@@ -516,17 +516,17 @@ namespace PharmacyAPI.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("HospitalName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("TenderDescription")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TenderStatus")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -537,17 +537,15 @@ namespace PharmacyAPI.Migrations
                         {
                             Id = 1L,
                             EndDate = new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
-                            TenderDescription = "Tender za Bolnicu zdravo",
-                            TenderStatus = 0
+                            Name = "Tender za Bolnicu zdravo",
+                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2L,
                             EndDate = new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
-                            TenderDescription = "Tender za neku drugu Bolnicu",
-                            TenderStatus = 0
+                            Name = "Tender za neku drugu Bolnicu",
+                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
                         });
                 });
 

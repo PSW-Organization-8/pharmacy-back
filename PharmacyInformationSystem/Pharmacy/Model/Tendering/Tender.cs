@@ -14,13 +14,15 @@ namespace PharmacyClassLib.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
+        public string Name { get; set; }
+
+        public string HospitalName { get; set; }
+
+        public long IdInHospital { get; set; }
+
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
-
-        public TenderStatus TenderStatus { get; set; }
-
-        public String TenderDescription { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public virtual List<TenderMedication> TenderMedications { get; set; }
 

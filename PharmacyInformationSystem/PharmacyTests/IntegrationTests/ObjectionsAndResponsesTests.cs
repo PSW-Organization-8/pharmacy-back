@@ -35,10 +35,10 @@ namespace PharmacyTests.IntegrationTests
             IObjectionRepository objectionRepository = new ObjectionRepository(dbContext);
             IResponseRepository responseRepository = new ResponseRepository(dbContext);
             IRegisteredHospitalRepository registeredHospitalRepository = new RegisteredHospitalRepository(dbContext);
-            ISendingNewsService sendingNewsService = new SendingNewsRabbitMQService();
+            IChannelsForCommunication channelsForCommunication = new RabbitMQChannelsForCommunication(registeredHospitalRepository);
             IObjectionService objectionService = new ObjectionService(objectionRepository);
             IResponseService responseService = new ResponseService(responseRepository);
-            IHospitalRegistrationService hospitalRegistrationService = new HospitalRegistrationService(registeredHospitalRepository, sendingNewsService);
+            IHospitalRegistrationService hospitalRegistrationService = new HospitalRegistrationService(registeredHospitalRepository, channelsForCommunication);
             ObjectionController controller = new ObjectionController(objectionService, hospitalRegistrationService, responseService);
             return controller;
         }

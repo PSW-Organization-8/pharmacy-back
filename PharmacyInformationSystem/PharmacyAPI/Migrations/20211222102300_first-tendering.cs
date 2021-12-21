@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class firsttendering : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -166,10 +166,10 @@ namespace PharmacyAPI.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    HospitalName = table.Column<string>(type: "text", nullable: true),
                     StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    TenderStatus = table.Column<int>(type: "integer", nullable: false),
-                    TenderDescription = table.Column<string>(type: "text", nullable: true)
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -328,11 +328,11 @@ namespace PharmacyAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Tenders",
-                columns: new[] { "Id", "EndDate", "StartDate", "TenderDescription", "TenderStatus" },
+                columns: new[] { "Id", "EndDate", "HospitalName", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), "Tender za Bolnicu zdravo", 0 },
-                    { 2L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), "Tender za neku drugu Bolnicu", 0 }
+                    { 1L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), null, "Tender za Bolnicu zdravo", new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) },
+                    { 2L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), null, "Tender za neku drugu Bolnicu", new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

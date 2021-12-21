@@ -37,7 +37,7 @@ namespace PharmacyClassLib
             String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
             String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
             String username = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "admin";
+            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "root";
 
             String connectionString = $"Server={server}; Port ={port}; Database ={databaseName}; User Id = {username}; Password ={password};";
             optionsBuilder.UseNpgsql(connectionString);
@@ -113,8 +113,8 @@ namespace PharmacyClassLib
                 );
 
             modelBuilder.Entity<Tender>().HasData(
-                new Tender { Id = 1, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), TenderDescription = "Tender za Bolnicu zdravo", TenderMedications = new List<TenderMedication>(), TenderStatus = TenderStatus.OPEN },
-                new Tender { Id = 2, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), TenderDescription = "Tender za neku drugu Bolnicu", TenderMedications = new List<TenderMedication>(), TenderStatus = TenderStatus.OPEN }
+                new Tender { Id = 1, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), Name = "Tender za Bolnicu zdravo", TenderMedications = new List<TenderMedication>()},
+                new Tender { Id = 2, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), Name = "Tender za neku drugu Bolnicu", TenderMedications = new List<TenderMedication>()}
                 ) ;
             modelBuilder.Entity<TenderMedication>().HasData(
                 new TenderMedication { Id = 1, MedicationName = "Paracetamol", Quantity = 10, TenderId = 1 },

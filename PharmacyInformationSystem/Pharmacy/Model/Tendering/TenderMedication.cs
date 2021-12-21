@@ -17,11 +17,17 @@ namespace PharmacyClassLib.Model
         public long TenderId { get; set; }
 
         public TenderMedication() { }
-        
+
+        public TenderMedication(string medicationName, int quantity)
+        {
+            this.MedicationName = medicationName;
+            this.Quantity = quantity;
+        }
+
         public TenderMedication(long id, string medicationName, int quantity){
             this.Id = id;
             this.MedicationName=medicationName;
             this.Quantity = quantity;
         }
-}
+    }
 }

@@ -10,12 +10,12 @@ namespace PharmacyClassLib.Service
     public class HospitalRegistrationService : IHospitalRegistrationService
     {
         private readonly IRegisteredHospitalRepository regHospitalRepository;
-        private readonly ISendingNewsService sendingNewsService;
+        private readonly IChannelsForCommunication channelsForCommunication;
 
-        public HospitalRegistrationService(IRegisteredHospitalRepository regHospitalRepository, ISendingNewsService sendingNewsService)
+        public HospitalRegistrationService(IRegisteredHospitalRepository regHospitalRepository, IChannelsForCommunication channelsForCommunication)
         {
             this.regHospitalRepository = regHospitalRepository;
-            this.sendingNewsService = sendingNewsService;
+            this.channelsForCommunication = channelsForCommunication;
         }
 
         public RegisteredHospital Get(string hospitalName)
@@ -36,7 +36,7 @@ namespace PharmacyClassLib.Service
         public RegisteredHospital Register(RegisteredHospital newHospital)
         {
             newHospital.ApiKey = Guid.NewGuid().ToString();
-            sendingNewsService.CreateChannel(newHospital);
+            channelsForCommunication.CreateChannelsForHospital(newHospital);
             return regHospitalRepository.Create(newHospital);
         }
     }

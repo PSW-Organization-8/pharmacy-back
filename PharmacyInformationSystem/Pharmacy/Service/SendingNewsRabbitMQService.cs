@@ -10,27 +10,11 @@ namespace PharmacyClassLib.Service
 {
     public class SendingNewsRabbitMQService : ISendingNewsService
     {
-        public void CreateChannel(RegisteredHospital registeredHospital)
-        {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: registeredHospital.Name,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
-
-                channel.QueueBind(queue: registeredHospital.Name,
-                    exchange: "newsExchange",
-                    routingKey: "");
-            }
-        }
+        private readonly string _hostName = Environment.GetEnvironmentVariable("RabbitHostName") ?? "localhost";
 
         public void SendNews(News newNews)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = _hostName };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {

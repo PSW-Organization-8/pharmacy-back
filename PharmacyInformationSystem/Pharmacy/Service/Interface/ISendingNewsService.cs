@@ -8,6 +8,5 @@ namespace PharmacyClassLib.Service.Interface
     public interface ISendingNewsService
     {
         void SendNews(News newNews);
-        void CreateChannel(RegisteredHospital registeredHospital);
     }
 }

@@ -81,7 +81,9 @@ namespace WebApplication1
             services.AddScoped<IActionsAndNewsService, ActionsAndNewsService>();
             services.AddScoped<ISendingNewsService, SendingNewsRabbitMQService>();
             services.AddScoped<IPharmacyOfferService, PharmacyOfferService>();
+            services.AddScoped<IChannelsForCommunication, RabbitMQChannelsForCommunication>();
             services.AddScoped<MedicationConsumptionService>();
+            services.AddScoped<TenderCommunicationRabbitMQ>();
 
             services.AddHostedService<CompressionOfOldFiles>();
         }
@@ -142,6 +144,22 @@ namespace WebApplication1
                 Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
             };
             server.Start();
+
+            // kreiranje svih RabbitMQ kanala i exchange-ova
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                try
+                {
+                    serviceScope.ServiceProvider.GetService<IChannelsForCommunication>().CreateAllChannels();
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("*******************************************************************************");
+                    System.Diagnostics.Debug.WriteLine("Greska prilikom kreiranja konekcija za RabbitMQ");
+                    System.Diagnostics.Debug.WriteLine(e.Data);
+                    System.Diagnostics.Debug.WriteLine("*******************************************************************************");
+                }
+            }
 
             applicationLifetime.ApplicationStopping.Register(OnShutDown);
         }

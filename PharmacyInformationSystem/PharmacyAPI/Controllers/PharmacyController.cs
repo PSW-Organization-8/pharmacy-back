@@ -37,6 +37,13 @@ namespace PharmacyAPI.Controllers
             return inventoryLogService.GetPharmacyInventory(id);
         }
 
-
+        [HttpGet]
+        [Route("receiveMessage")]
+        public IActionResult ReceiveMessages()
+        {
+            TenderCommunicationRabbitMQ tenderCommunication = new TenderCommunicationRabbitMQ();
+            
+            return Ok(tenderCommunication.ReceiveNewTenders());
+        }
     }
 }
