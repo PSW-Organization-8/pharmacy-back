@@ -54,6 +54,23 @@ namespace PharmacyClassLib.Service
             return receivedTenders;
         }
 
+        public void SendTenderOfferToAppropriateHospital(PharmacyOffer pharmacyOffer)
+        {
+            var factory = new ConnectionFactory() { HostName = _hostName };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.ExchangeDeclare(exchange: "tenderOfferExchange", type: ExchangeType.Fanout);
+
+                var body = Encoding.UTF8.GetBytes("SALJE SE PONUDA odgovarajucoj BOLNICI");
+                // var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newNews));
+                channel.BasicPublish(exchange: "tenderOfferExchange",
+                    routingKey: "Bolnica1TenderOffer",      // TODO: preuzeti ime bolnice kada se to doda u model PharmacyOffer
+                    basicProperties: null,
+                    body: body);
+            }
+        }
+
         private static List<TenderMedication> CreateTenderMedications(Tender arrivedTender)
         {
             List<TenderMedication> tenderMedications = new();

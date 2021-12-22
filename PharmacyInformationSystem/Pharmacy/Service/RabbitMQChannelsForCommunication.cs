@@ -41,7 +41,7 @@ namespace PharmacyClassLib.Service
 
         private void CreateChannelForSendingActionsAndNews(RegisteredHospital hospital)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { HostName = _hostName };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
