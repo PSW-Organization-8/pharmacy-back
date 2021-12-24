@@ -127,6 +127,8 @@ namespace PharmacyAPI.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PharmacyId = table.Column<long>(type: "bigint", nullable: false),
                     TenderId = table.Column<long>(type: "bigint", nullable: false),
+                    TenderIdInHospital = table.Column<long>(type: "bigint", nullable: false),
+                    PharmacyName = table.Column<string>(type: "text", nullable: true),
                     HospitalName = table.Column<string>(type: "text", nullable: true),
                     TimePosted = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -207,6 +209,7 @@ namespace PharmacyAPI.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     MedicationId = table.Column<long>(type: "bigint", nullable: false),
+                    MedicationName = table.Column<string>(type: "text", nullable: true),
                     Quantity = table.Column<long>(type: "bigint", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     PharmacyOfferId = table.Column<long>(type: "bigint", nullable: false)
@@ -214,12 +217,6 @@ namespace PharmacyAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PharmacyOfferComponents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PharmacyOfferComponents_Medications_MedicationId",
-                        column: x => x.MedicationId,
-                        principalTable: "Medications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PharmacyOfferComponents_PharmacyOffers_PharmacyOfferId",
                         column: x => x.PharmacyOfferId,
@@ -313,11 +310,11 @@ namespace PharmacyAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "PharmacyOffers",
-                columns: new[] { "Id", "HospitalName", "PharmacyId", "TenderId", "TimePosted" },
+                columns: new[] { "Id", "HospitalName", "PharmacyId", "PharmacyName", "TenderId", "TenderIdInHospital", "TimePosted" },
                 values: new object[,]
                 {
-                    { 2L, "Bolnica1", 0L, 0L, new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified) },
-                    { 1L, "Bolnica1", 0L, 0L, new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) }
+                    { 2L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified) },
+                    { 1L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -335,20 +332,20 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), null, 0L, "Tender za Bolnicu zdravo", new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) },
-                    { 2L, new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified), null, 0L, "Tender za neku drugu Bolnicu", new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) }
+                    { 1L, new DateTime(2022, 2, 12, 13, 17, 55, 800, DateTimeKind.Local).AddTicks(9999), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2021, 12, 24, 13, 17, 55, 798, DateTimeKind.Local).AddTicks(9473) },
+                    { 2L, new DateTime(2022, 1, 23, 13, 17, 55, 801, DateTimeKind.Local).AddTicks(1256), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2021, 12, 24, 13, 17, 55, 801, DateTimeKind.Local).AddTicks(1245) }
                 });
 
             migrationBuilder.InsertData(
                 table: "PharmacyOfferComponents",
-                columns: new[] { "Id", "MedicationId", "PharmacyOfferId", "Price", "Quantity" },
+                columns: new[] { "Id", "MedicationId", "MedicationName", "PharmacyOfferId", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { 1L, 1L, 1L, 100.0, 10L },
-                    { 2L, 2L, 1L, 1000.0, 150L },
-                    { 3L, 3L, 1L, 2000.0, 150L },
-                    { 4L, 2L, 2L, 1000.0, 15L },
-                    { 5L, 3L, 2L, 2000.0, 2L }
+                    { 1L, 1L, null, 1L, 100.0, 10L },
+                    { 2L, 2L, null, 1L, 1000.0, 150L },
+                    { 3L, 3L, null, 1L, 2000.0, 150L },
+                    { 4L, 2L, null, 2L, 1000.0, 15L },
+                    { 5L, 3L, null, 2L, 2000.0, 2L }
                 });
 
             migrationBuilder.InsertData(
@@ -365,11 +362,6 @@ namespace PharmacyAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MedicationIngredients_MedicationId",
                 table: "MedicationIngredients",
-                column: "MedicationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PharmacyOfferComponents_MedicationId",
-                table: "PharmacyOfferComponents",
                 column: "MedicationId");
 
             migrationBuilder.CreateIndex(

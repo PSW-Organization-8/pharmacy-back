@@ -10,7 +10,7 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20211224091247_first")]
+    [Migration("20211224121756_first")]
     partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,7 +271,13 @@ namespace PharmacyAPI.Migrations
                     b.Property<long>("PharmacyId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("PharmacyName")
+                        .HasColumnType("text");
+
                     b.Property<long>("TenderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TenderIdInHospital")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimePosted")
@@ -285,17 +291,19 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            HospitalName = "Bolnica1",
                             PharmacyId = 0L,
+                            PharmacyName = "Apoteka1",
                             TenderId = 0L,
+                            TenderIdInHospital = 0L,
                             TimePosted = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2L,
-                            HospitalName = "Bolnica1",
                             PharmacyId = 0L,
+                            PharmacyName = "Apoteka1",
                             TenderId = 0L,
+                            TenderIdInHospital = 0L,
                             TimePosted = new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -430,6 +438,9 @@ namespace PharmacyAPI.Migrations
                     b.Property<long>("MedicationId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("MedicationName")
+                        .HasColumnType("text");
+
                     b.Property<long>("PharmacyOfferId")
                         .HasColumnType("bigint");
 
@@ -440,8 +451,6 @@ namespace PharmacyAPI.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MedicationId");
 
                     b.HasIndex("PharmacyOfferId");
 
@@ -550,18 +559,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2022, 2, 12, 13, 17, 55, 800, DateTimeKind.Local).AddTicks(9999),
+                            HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2021, 12, 24, 13, 17, 55, 798, DateTimeKind.Local).AddTicks(9473)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2021, 8, 1, 8, 30, 52, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2022, 1, 23, 13, 17, 55, 801, DateTimeKind.Local).AddTicks(1256),
+                            HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified)
+                            StartDate = new DateTime(2021, 12, 24, 13, 17, 55, 801, DateTimeKind.Local).AddTicks(1245)
                         });
                 });
 
@@ -653,19 +664,11 @@ namespace PharmacyAPI.Migrations
 
             modelBuilder.Entity("PharmacyClassLib.Model.Relations.PharmacyOfferComponent", b =>
                 {
-                    b.HasOne("PharmacyClassLib.Model.Medication", "Medication")
-                        .WithMany()
-                        .HasForeignKey("MedicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PharmacyClassLib.Model.PharmacyOffer", null)
                         .WithMany("Components")
                         .HasForeignKey("PharmacyOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Medication");
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.TenderMedication", b =>

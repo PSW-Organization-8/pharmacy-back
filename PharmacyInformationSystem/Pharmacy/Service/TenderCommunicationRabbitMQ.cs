@@ -62,10 +62,9 @@ namespace PharmacyClassLib.Service
             {
                 channel.ExchangeDeclare(exchange: "tenderOfferExchange", type: ExchangeType.Fanout);
 
-                var body = Encoding.UTF8.GetBytes("SALJE SE PONUDA odgovarajucoj BOLNICI");
-                // var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(newNews));
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(pharmacyOffer));
                 channel.BasicPublish(exchange: "tenderOfferExchange",
-                    routingKey: "Bolnica1TenderOffer",      // TODO: preuzeti ime bolnice kada se to doda u model PharmacyOffer
+                    routingKey: pharmacyOffer.HospitalName + "TenderOffer",
                     basicProperties: null,
                     body: body);
             }

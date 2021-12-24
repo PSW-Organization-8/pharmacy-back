@@ -45,15 +45,5 @@ namespace PharmacyAPI.Controllers
             
             return Ok(tenderCommunication.ReceiveNewTenders());
         }
-
-        [HttpPost]
-        [Route("sendTestTenedrOffer")]
-        public IActionResult SendTestTenderOffer()
-        {
-            TenderCommunicationRabbitMQ tenderCommunication = new TenderCommunicationRabbitMQ();
-            tenderCommunication.SendTenderOfferToAppropriateHospital(new PharmacyOffer());
-
-            return Ok();
-        }
     }
 }

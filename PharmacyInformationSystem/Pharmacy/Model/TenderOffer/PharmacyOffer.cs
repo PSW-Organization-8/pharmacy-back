@@ -15,7 +15,9 @@ namespace PharmacyClassLib.Model
         public long Id { get; set; }
         public long PharmacyId { get; set; }
         public long TenderId { get; set; }
-        public string HospitalName { get; set; } = "Bolnica1";
+        public long TenderIdInHospital { get; set; }
+        public string PharmacyName { get; set; } = "Apoteka1";
+        public string HospitalName { get; set; }
         public DateTime TimePosted { get; set; }
         public virtual IEnumerable<PharmacyOfferComponent> Components { get; set; }
 

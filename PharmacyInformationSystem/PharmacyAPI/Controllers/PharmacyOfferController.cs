@@ -17,18 +17,21 @@ namespace PharmacyAPI.Controllers
     public class PharmacyOfferController
     {
         private readonly IPharmacyOfferService pharmacyOfferService;
+        private readonly ITenderingService tenderingService;
         private readonly IPharmacyService pharmacyService;
 
-        public PharmacyOfferController(IPharmacyOfferService pharmacyOfferService, IPharmacyService pharmacyService)
+        public PharmacyOfferController(IPharmacyOfferService pharmacyOfferService, IPharmacyService pharmacyService, ITenderingService tenderingService)
         {
             this.pharmacyOfferService = pharmacyOfferService;
+            this.tenderingService = tenderingService;
             this.pharmacyService = pharmacyService;
         }
 
         [HttpPost]
         public PharmacyOffer Create(PharmacyOfferDTO dto)
         {
-            PharmacyOffer offer = PharmacyOfferMapper.PharmacyDTOToOffer(dto);
+            Tender tender = tenderingService.Get(dto.TenderId);
+            PharmacyOffer offer = PharmacyOfferMapper.PharmacyDTOToOffer(dto, tender);
             List<PharmacyOfferComponent> components = new List<PharmacyOfferComponent>();
             dto.Components.ForEach(c => components.Add(OfferComponentMapper.OfferComponentDtoToOfferComponent(c)));
             offer.Components = components;

@@ -9,7 +9,7 @@ namespace PharmacyClassLib.Service.Interface
     public interface IPharmacyOfferService
     {
         PharmacyOffer Create(PharmacyOffer offer);
-        PharmacyOffer CreateOffer(List<PharmacyOfferComponent> pharmacyOfferComponents);
+        //PharmacyOffer CreateOffer(List<PharmacyOfferComponent> pharmacyOfferComponents);
 
         bool Delete(long id);
 

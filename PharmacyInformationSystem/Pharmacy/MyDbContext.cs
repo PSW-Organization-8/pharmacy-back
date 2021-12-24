@@ -117,8 +117,8 @@ namespace PharmacyClassLib
                 );
 
             modelBuilder.Entity<Tender>().HasData(
-                new Tender { Id = 1, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), Name = "Tender za Bolnicu zdravo", TenderMedications = new List<TenderMedication>()},
-                new Tender { Id = 2, StartDate = new DateTime(2021, 5, 1, 8, 30, 52), EndDate = new DateTime(2021, 8, 1, 8, 30, 52), Name = "Tender za neku drugu Bolnicu", TenderMedications = new List<TenderMedication>()}
+                new Tender { Id = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(50), Name = "Tender za Bolnicu zdravo", TenderMedications = new List<TenderMedication>(), HospitalName = "Bolnica1"},
+                new Tender { Id = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), Name = "Tender za neku drugu Bolnicu", TenderMedications = new List<TenderMedication>(), HospitalName = "Bolnica1"}
                 ) ;
             modelBuilder.Entity<TenderMedication>().HasData(
                 new TenderMedication { Id = 1, MedicationName = "Paracetamol", Quantity = 10, TenderId = 1 },
