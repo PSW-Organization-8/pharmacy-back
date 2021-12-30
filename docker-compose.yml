@@ -30,7 +30,7 @@ services:
         dotnet tool install --local dotnet-ef --version 5.0.11 &&
         apt-get update && apt-get -y install libxml2 libgdiplus libc6-dev &&
         dotnet restore PharmacyInformationSystem &&
-        dotnet dotnet-ef migrations add InitialCreate1 --project PharmacyInformationSystem/Pharmacy &&
+        dotnet dotnet-ef migrations add TestingMigration1 --project PharmacyInformationSystem/Pharmacy &&
         dotnet dotnet-ef database update --project PharmacyInformationSystem/Pharmacy &&
         dotnet test PharmacyInformationSystem
         "
