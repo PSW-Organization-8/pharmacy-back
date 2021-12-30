@@ -13,7 +13,7 @@ namespace PharmacyClassLib.Service
 
         }
 
-        public void SaveReport()
+        public string  SaveReport()
         {
             String filePath = Directory.GetCurrentDirectory();
             filePath = Path.Combine(filePath, @"..\DataFiles\Reports");
@@ -33,6 +33,8 @@ namespace PharmacyClassLib.Service
                 }
                 client.Disconnect();
             }
+            filePath += @"\MedicationConsumptionReport.pdf";
+            return filePath;
 
         }
     }

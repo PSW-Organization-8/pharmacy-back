@@ -11,19 +11,21 @@ namespace PharmacyClassLib.Model.Relations
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
-
-        public long OfferID { get; set; }
-        public long MedicationID { get; set; }
+        public long MedicationId { get; set; }
+        public string MedicationName { get; set; }
         public long Quantity { get; set; }
+        public Double Price { get; set; }
+        [ForeignKey("PharmacyOffer")]
+        public long PharmacyOfferId { get; set; }
+
 
         public PharmacyOfferComponent() { }
 
-        public PharmacyOfferComponent(long id, long offerID, long medicationID, long quantity)
+        public PharmacyOfferComponent(long medicationId,long quantity,Double price)
         {
-            Id = id;
-            OfferID = offerID;
-            MedicationID = medicationID;
-            Quantity = quantity;
+            this.MedicationId = medicationId;
+            this.Quantity = quantity;
+            this.Price = price;
         }
     }
 }

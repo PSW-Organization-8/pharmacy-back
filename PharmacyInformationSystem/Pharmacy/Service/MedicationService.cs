@@ -44,7 +44,7 @@ namespace PharmacyClassLib.Service
             {
                 success = true;
                 ingredientInMedicationService.RemoveMedicineReferences(id);
-                RemoveMedicineComponentReferences(id);
+                //RemoveMedicineComponentReferences(id);
                 medicationRepository.Delete(id);
             }
             return success;
@@ -175,13 +175,13 @@ namespace PharmacyClassLib.Service
             }
         }
 
-        public void RemoveMedicineComponentReferences(long id)
+        /*public void RemoveMedicineComponentReferences(long id)
         {
             foreach (PharmacyOfferComponent component in pharmacyOfferComponentRepository.GetAll())
                 if (component.MedicationID == id)
                     pharmacyOfferComponentRepository.Delete(component.Id);
 
-        }
+        }*/
 
     }
 }

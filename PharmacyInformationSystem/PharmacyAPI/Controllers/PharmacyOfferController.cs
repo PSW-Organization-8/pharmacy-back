@@ -2,6 +2,7 @@
 using PharmacyAPI.Dto;
 using PharmacyAPI.Mapper;
 using PharmacyClassLib.Model;
+using PharmacyClassLib.Model.Relations;
 using PharmacyClassLib.Service;
 using PharmacyClassLib.Service.Interface;
 using System;
@@ -12,20 +13,33 @@ using System.Threading.Tasks;
 namespace PharmacyAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PharmacyOfferController
     {
         private readonly IPharmacyOfferService pharmacyOfferService;
+        private readonly ITenderingService tenderingService;
         private readonly IPharmacyService pharmacyService;
 
-        public PharmacyOfferController(IPharmacyOfferService pharmacyOfferService, IPharmacyService pharmacyService)
+        public PharmacyOfferController(IPharmacyOfferService pharmacyOfferService, IPharmacyService pharmacyService, ITenderingService tenderingService)
         {
             this.pharmacyOfferService = pharmacyOfferService;
+            this.tenderingService = tenderingService;
             this.pharmacyService = pharmacyService;
         }
 
-        [HttpGet]
-        public List<PharmacyOfferViewDTO> GetAll()
+        [HttpPost]
+        public PharmacyOffer Create(PharmacyOfferDTO dto)
+        {
+            Tender tender = tenderingService.Get(dto.TenderId);
+            PharmacyOffer offer = PharmacyOfferMapper.PharmacyDTOToOffer(dto, tender);
+            List<PharmacyOfferComponent> components = new List<PharmacyOfferComponent>();
+            dto.Components.ForEach(c => components.Add(OfferComponentMapper.OfferComponentDtoToOfferComponent(c)));
+            offer.Components = components;
+            return pharmacyOfferService.Create(offer);
+        }
+
+        //[HttpGet]
+        /*public List<PharmacyOfferViewDTO> GetAll()
         {
             List<PharmacyOfferViewDTO> retval = new List<PharmacyOfferViewDTO>();
             foreach (PharmacyOffer offer in pharmacyOfferService.GetAll())
@@ -58,11 +72,7 @@ namespace PharmacyAPI.Controllers
             return retval;
         }
 
-        [HttpPost]
-        public PharmacyOffer Create([FromBody] PharmacyOfferDTO dto)
-        {
-            return pharmacyOfferService.Create(PharmacyOfferMapper.PharmacyDTOToOffer(dto));
-        }
+        
 
         [HttpDelete("{id?}")]
         public void Delete(long id)
@@ -91,7 +101,7 @@ namespace PharmacyAPI.Controllers
             }
 
             return null;
-        }
+        } */
 
     }
 }

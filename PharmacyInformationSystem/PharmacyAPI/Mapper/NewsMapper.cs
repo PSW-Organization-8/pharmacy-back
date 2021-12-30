@@ -16,7 +16,7 @@ namespace PharmacyAPI.Mapper
 
         public static NewsDto NewsToNewsDto(News news)
         {
-            return new NewsDto(news.Id, news.Title, news.Text, news.DurationStart, news.DurationEnd);
+            return new NewsDto(news.Id, news.Title, news.Text, news.DateRange.Start, news.DateRange.End);
         }
     }
 }

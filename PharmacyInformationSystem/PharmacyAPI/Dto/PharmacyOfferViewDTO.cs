@@ -8,7 +8,7 @@ namespace PharmacyAPI.Dto
 {
     public class PharmacyOfferViewDTO
     {
-        public long Id { get; set; }
+        /*public long Id { get; set; }
         public long OfferIdentification { get; set; }
         public string PharmacyName { get; set; }
         public double Price { get; set; }
@@ -32,7 +32,7 @@ namespace PharmacyAPI.Dto
             HospitalName = hospitalName;
             TimePosted = timePosted;
             ComponentsView = componentsView;
-        }
+        }*/
 
     }
 }

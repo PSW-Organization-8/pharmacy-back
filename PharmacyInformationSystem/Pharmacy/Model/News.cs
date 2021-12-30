@@ -13,8 +13,7 @@ namespace PharmacyClassLib.Model
         public long Id { get; set; }
         public string Title { get; set; }
         public string Text { get; set; }
-        public DateTime DurationStart { get; set; }
-        public DateTime DurationEnd { get; set; }
+        public DateRange DateRange { get; set; }
 
         public News()
         {
@@ -25,8 +24,7 @@ namespace PharmacyClassLib.Model
         {
             Title = title;
             Text = text;
-            DurationStart = start;
-            DurationEnd = end;
+            DateRange = new DateRange(start, end);
         }
 
         public News(long id, string title, string text, DateTime start, DateTime end)
@@ -34,8 +32,7 @@ namespace PharmacyClassLib.Model
             Id = id;
             Title = title;
             Text = text;
-            DurationStart = start;
-            DurationEnd = end;
+            DateRange = new DateRange(start, end);
         }
     }
 }

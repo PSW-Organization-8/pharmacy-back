@@ -17,6 +17,7 @@ using PharmacyClassLib.Repository.IngredientMedicationRepository;
 using PharmacyClassLib.Repository.ResponseRepository;
 using PharmacyClassLib.Repository.InventoryLogRepository;
 using PharmacyClassLib.Repository.NewsRepository;
+using PharmacyClassLib.Repository.TenderingRepository;
 using PharmacyClassLib.Service.Interface;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -27,6 +28,7 @@ using PharmacyAPI;
 using PharmacyAPI.Controllers;
 using PharmacyAPI.Filters;
 using PharmacyClassLib.Repository.PharmacyOfferRepository;
+using PharmacyClassLib.Repository.NotificationRepository;
 
 namespace WebApplication1
 {
@@ -66,9 +68,12 @@ namespace WebApplication1
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<IPharmacyOfferRepository, PharmacyOfferRepository>();
             services.AddTransient<IPharmacyOfferComponentRepository, PharmacyOfferComponentRepository>();
+            services.AddTransient<INotificationRepository, NotificationRepository>();
+            services.AddTransient<ITenderingRepository, TenderingRepository>();
 
             services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
             services.AddScoped<IMedicationService, MedicationService>();
+            services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IPharmacyService, PharmacyService>();
             services.AddScoped<IHospitalRegistrationService, HospitalRegistrationService>();
             services.AddScoped<IMedicationIngredientService, MedicationIngredientService>();
@@ -78,7 +83,10 @@ namespace WebApplication1
             services.AddScoped<IActionsAndNewsService, ActionsAndNewsService>();
             services.AddScoped<ISendingNewsService, SendingNewsRabbitMQService>();
             services.AddScoped<IPharmacyOfferService, PharmacyOfferService>();
+            services.AddScoped<IChannelsForCommunication, RabbitMQChannelsForCommunication>();
             services.AddScoped<MedicationConsumptionService>();
+            services.AddScoped<TenderCommunicationRabbitMQ>();
+            services.AddScoped<ITenderingService, TenderingService>();
 
             services.AddHostedService<CompressionOfOldFiles>();
         }
@@ -139,6 +147,22 @@ namespace WebApplication1
                 Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
             };
             server.Start();
+
+            // kreiranje svih RabbitMQ kanala i exchange-ova
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                try
+                {
+                    serviceScope.ServiceProvider.GetService<IChannelsForCommunication>().CreateAllChannels();
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine("*******************************************************************************");
+                    System.Diagnostics.Debug.WriteLine("Greska prilikom kreiranja konekcija za RabbitMQ");
+                    System.Diagnostics.Debug.WriteLine(e.Data);
+                    System.Diagnostics.Debug.WriteLine("*******************************************************************************");
+                }
+            }
 
             applicationLifetime.ApplicationStopping.Register(OnShutDown);
         }

@@ -12,7 +12,7 @@ using PharmacyAPI.Dto;
 namespace PharmacyAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PharmacyController : ControllerBase
     {
         private readonly IPharmacyService pharmacyService;
@@ -37,6 +37,13 @@ namespace PharmacyAPI.Controllers
             return inventoryLogService.GetPharmacyInventory(id);
         }
 
-
+        [HttpGet]
+        [Route("receiveMessage")]
+        public IActionResult ReceiveMessages()
+        {
+            TenderCommunicationRabbitMQ tenderCommunication = new TenderCommunicationRabbitMQ();
+            
+            return Ok(tenderCommunication.ReceiveNewTenders());
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace PharmacyTests.IntegrationTests
 {
     public class OfferTests
     {
-        private PharmacyOfferController GetOfferController()
+        /*(private PharmacyOfferController GetOfferController()
         {
             MyDbContext dbContext = new MyDbContext();
 
@@ -86,7 +86,7 @@ namespace PharmacyTests.IntegrationTests
             PharmacyOffer retVal = controller.Create(dto);
 
             retVal.ShouldBe(null);
-        }
+        } */
 
 
     }
