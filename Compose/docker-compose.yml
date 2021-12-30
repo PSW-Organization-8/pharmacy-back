@@ -25,6 +25,7 @@ services:
       - pharmacy-application_net
     container_name: Pharmacy_Back
     environment:
+       RabbitHostName: "rabbitmq"
        SERVER: "database-pharmacy"
        DB_PORT: "5432"
        DB_NAME: "Pharmacy"
@@ -63,7 +64,11 @@ services:
   rabbitmq:
         image: rabbitmq:3-management-alpine
         container_name: rabbitmq
+        hostname: "rabbitmq"
+        labels:
+          NAME: "rabbitmq"
         networks:
+        - pharmacy-application_net
         - integrations-application_net
         environment:
             RABBITMQ_DEFAULT_USER: "guest"
@@ -79,6 +84,7 @@ services:
       - integrations-application_net
     container_name: Integrations_Back
     environment:
+       RabbitHostName: "rabbitmq"
        SERVER: "database-integration"
        DB_PORT: "5432"
        DB_NAME: "Integration"
