@@ -107,6 +107,17 @@ namespace WebApplication1
                 var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
                 try
                 {
+                    PharmacySeeder seeder = new PharmacySeeder(context);
+
+                    seeder.SeedData();
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to seed data");
+                }
+                try
+                {
                     Console.WriteLine("###############################################################################");
                     Console.WriteLine("Migriram bazu podataka");
                     context.Database.Migrate();
@@ -120,17 +131,7 @@ namespace WebApplication1
                     Console.WriteLine("###############################################################################");
                 }
 
-                try
-                {
-                    PharmacySeeder seeder = new PharmacySeeder(context);
-                    
-                    seeder.SeedData();
-
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Failed to seed data");
-                }
+                
 
             }
             app.UseRouting();

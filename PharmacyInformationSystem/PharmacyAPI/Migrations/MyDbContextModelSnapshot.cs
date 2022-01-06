@@ -555,20 +555,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 21, 54, 9, 916, DateTimeKind.Local).AddTicks(7685),
+                            EndDate = new DateTime(2022, 2, 25, 22, 45, 40, 742, DateTimeKind.Local).AddTicks(2700),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 21, 54, 9, 906, DateTimeKind.Local).AddTicks(3492)
+                            StartDate = new DateTime(2022, 1, 6, 22, 45, 40, 725, DateTimeKind.Local).AddTicks(2222)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(395),
+                            EndDate = new DateTime(2022, 2, 5, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(216),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(274)
+                            StartDate = new DateTime(2022, 1, 6, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(85)
                         });
                 });
 

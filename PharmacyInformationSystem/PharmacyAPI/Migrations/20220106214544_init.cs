@@ -362,8 +362,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 2, 25, 21, 54, 9, 916, DateTimeKind.Local).AddTicks(7685), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 21, 54, 9, 906, DateTimeKind.Local).AddTicks(3492) },
-                    { 2L, new DateTime(2022, 2, 5, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(395), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(274) }
+                    { 1L, new DateTime(2022, 2, 25, 22, 45, 40, 742, DateTimeKind.Local).AddTicks(2700), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 22, 45, 40, 725, DateTimeKind.Local).AddTicks(2222) },
+                    { 2L, new DateTime(2022, 2, 5, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(216), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(85) }
                 });
 
             migrationBuilder.InsertData(
