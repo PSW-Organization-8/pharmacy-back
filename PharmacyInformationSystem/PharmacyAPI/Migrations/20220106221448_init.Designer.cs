@@ -10,7 +10,7 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220106220031_init")]
+    [Migration("20220106221448_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -592,20 +592,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 23, 0, 28, 46, DateTimeKind.Local).AddTicks(1292),
+                            EndDate = new DateTime(2022, 2, 25, 23, 14, 45, 837, DateTimeKind.Local).AddTicks(3034),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 23, 0, 28, 26, DateTimeKind.Local).AddTicks(353)
+                            StartDate = new DateTime(2022, 1, 6, 23, 14, 45, 823, DateTimeKind.Local).AddTicks(7025)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 23, 0, 28, 53, DateTimeKind.Local).AddTicks(6832),
+                            EndDate = new DateTime(2022, 2, 5, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5384),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 23, 0, 28, 53, DateTimeKind.Local).AddTicks(6699)
+                            StartDate = new DateTime(2022, 1, 6, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5263)
                         });
                 });
 

@@ -105,17 +105,7 @@ namespace WebApplication1
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
-                try
-                {
-                    PharmacySeeder seeder = new PharmacySeeder(context);
-
-                    seeder.SeedData();
-
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Failed to seed data");
-                }
+                
                 try
                 {
                     Console.WriteLine("###############################################################################");
@@ -131,7 +121,19 @@ namespace WebApplication1
                     Console.WriteLine("###############################################################################");
                 }
 
-                
+                try
+                {
+                    PharmacySeeder seeder = new PharmacySeeder(context);
+
+                    seeder.SeedData();
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to seed data");
+                }
+
+
 
             }
             app.UseRouting();
