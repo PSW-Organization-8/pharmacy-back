@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace PharmacyAPI.Migrations
+namespace PharmacyAPI.Migrations.EventsDb
 {
     public partial class eventsMigration10 : Migration
     {
@@ -32,9 +32,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EventApplicationName", "EventClass", "OptionalEventNumInfo", "OptionalEventNumInfo2", "OptionalEventStrInfo", "TimeStamp", "UserId" },
                 values: new object[,]
                 {
-                    { 1L, 0, 1, 0.0, 0.0, null, new DateTime(2022, 1, 6, 15, 36, 52, 520, DateTimeKind.Local).AddTicks(3467), "username1" },
-                    { 2L, 0, 2, 0.0, 0.0, null, new DateTime(2022, 1, 6, 15, 36, 52, 522, DateTimeKind.Local).AddTicks(5060), "username2" },
-                    { 3L, 0, 0, 1.0, 0.0, null, new DateTime(2022, 1, 6, 15, 36, 52, 522, DateTimeKind.Local).AddTicks(5083), "username1" }
+                    { 1L, 0, 1, 0.0, 0.0, null, new DateTime(2022, 1, 6, 16, 20, 40, 643, DateTimeKind.Local).AddTicks(1396), "username1" },
+                    { 2L, 0, 2, 0.0, 0.0, null, new DateTime(2022, 1, 6, 16, 20, 40, 645, DateTimeKind.Local).AddTicks(2741), "username2" },
+                    { 3L, 0, 0, 1.0, 0.0, null, new DateTime(2022, 1, 6, 16, 20, 40, 645, DateTimeKind.Local).AddTicks(2770), "username1" }
                 });
         }
 

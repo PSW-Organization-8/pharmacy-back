@@ -128,7 +128,7 @@ namespace WebApplication1
                 {
                     Console.WriteLine("###############################################################################");
                     Console.WriteLine("Migriram bazu podataka dogadjaja");
-                    context.Database.Migrate();
+                    eventsContext.Database.Migrate();
                     Console.WriteLine("###############################################################################");
                 }
                 catch (Exception e)
@@ -137,7 +137,7 @@ namespace WebApplication1
                     Console.WriteLine("Greska prilikom kreiranja baze podataka dogadjaja");
                     Console.WriteLine(e.Data);
                     Console.WriteLine("###############################################################################");
-                }
+                } 
 
             }
             app.UseRouting();

@@ -22,7 +22,14 @@ namespace PharmacyAPI.Controllers
         [HttpGet]
         public List<Event> GetAll()
         {
-            return null;
+            return eventService.GetAll();
         }
+
+        [HttpPost]
+        public Event Create(Event @event)
+        {
+            return eventService.Create(@event);
+        }
+
     }
 }

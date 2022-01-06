@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyClassLib;
 
-namespace PharmacyAPI.Migrations
+namespace PharmacyAPI.Migrations.EventsDb
 {
     [DbContext(typeof(EventsDbContext))]
-    [Migration("20220106143652_eventsMigration1.0")]
+    [Migration("20220106152040_eventsMigration1.0")]
     partial class eventsMigration10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace PharmacyAPI.Migrations
                             EventClass = 1,
                             OptionalEventNumInfo = 0.0,
                             OptionalEventNumInfo2 = 0.0,
-                            TimeStamp = new DateTime(2022, 1, 6, 15, 36, 52, 520, DateTimeKind.Local).AddTicks(3467),
+                            TimeStamp = new DateTime(2022, 1, 6, 16, 20, 40, 643, DateTimeKind.Local).AddTicks(1396),
                             UserId = "username1"
                         },
                         new
@@ -71,7 +71,7 @@ namespace PharmacyAPI.Migrations
                             EventClass = 2,
                             OptionalEventNumInfo = 0.0,
                             OptionalEventNumInfo2 = 0.0,
-                            TimeStamp = new DateTime(2022, 1, 6, 15, 36, 52, 522, DateTimeKind.Local).AddTicks(5060),
+                            TimeStamp = new DateTime(2022, 1, 6, 16, 20, 40, 645, DateTimeKind.Local).AddTicks(2741),
                             UserId = "username2"
                         },
                         new
@@ -81,7 +81,7 @@ namespace PharmacyAPI.Migrations
                             EventClass = 0,
                             OptionalEventNumInfo = 1.0,
                             OptionalEventNumInfo2 = 0.0,
-                            TimeStamp = new DateTime(2022, 1, 6, 15, 36, 52, 522, DateTimeKind.Local).AddTicks(5083),
+                            TimeStamp = new DateTime(2022, 1, 6, 16, 20, 40, 645, DateTimeKind.Local).AddTicks(2770),
                             UserId = "username1"
                         });
                 });

@@ -2,16 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyClassLib;
 
-namespace PharmacyAPI.Migrations.MyDb
+namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220106152025_eventsMigration1.1")]
+    partial class eventsMigration11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -557,20 +559,20 @@ namespace PharmacyAPI.Migrations.MyDb
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(695),
+                            EndDate = new DateTime(2022, 2, 25, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(4250),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 15, 37, 12, 837, DateTimeKind.Local).AddTicks(7994)
+                            StartDate = new DateTime(2022, 1, 6, 16, 20, 25, 160, DateTimeKind.Local).AddTicks(2349)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(1837),
+                            EndDate = new DateTime(2022, 2, 5, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(5339),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(1827)
+                            StartDate = new DateTime(2022, 1, 6, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(5328)
                         });
                 });
 

@@ -1,4 +1,5 @@
-﻿using PharmacyClassLib.Repository.EventRepository;
+﻿using PharmacyClassLib.Model;
+using PharmacyClassLib.Repository.EventRepository;
 using PharmacyClassLib.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,14 @@ namespace PharmacyClassLib.Service
             this.eventRepository = eventRepository;
         }
 
+        public Event Create(Event @event)
+        {
+            return this.eventRepository.Create(@event);
+        }
 
-
+        public List<Event> GetAll()
+        {
+            return this.eventRepository.GetAll();
+        }
     }
 }

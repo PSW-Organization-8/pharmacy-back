@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace PharmacyAPI.Migrations.MyDb
+namespace PharmacyAPI.Migrations
 {
     public partial class eventsMigration11 : Migration
     {
@@ -332,8 +332,8 @@ namespace PharmacyAPI.Migrations.MyDb
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 2, 25, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(695), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 15, 37, 12, 837, DateTimeKind.Local).AddTicks(7994) },
-                    { 2L, new DateTime(2022, 2, 5, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(1837), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 15, 37, 12, 840, DateTimeKind.Local).AddTicks(1827) }
+                    { 1L, new DateTime(2022, 2, 25, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(4250), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 16, 20, 25, 160, DateTimeKind.Local).AddTicks(2349) },
+                    { 2L, new DateTime(2022, 2, 5, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(5339), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 16, 20, 25, 162, DateTimeKind.Local).AddTicks(5328) }
                 });
 
             migrationBuilder.InsertData(
