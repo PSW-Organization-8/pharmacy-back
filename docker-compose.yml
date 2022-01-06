@@ -31,8 +31,8 @@ services:
         dpkg --configure -a &&
         apt-get update && apt-get -y install libxml2 libgdiplus libc6-dev &&
         dotnet restore PharmacyInformationSystem &&
-        dotnet dotnet-ef migrations add TestingMigration1 --project PharmacyInformationSystem/Pharmacy &&
-        dotnet dotnet-ef database update --project PharmacyInformationSystem/Pharmacy &&
+        dotnet dotnet-ef migrations add TestingMigration1 --project PharmacyInformationSystem/PharmacyAPI &&
+        dotnet dotnet-ef database update --project PharmacyInformationSystem/PharmacyAPI &&
         dotnet test PharmacyInformationSystem
         "
       depends_on:
