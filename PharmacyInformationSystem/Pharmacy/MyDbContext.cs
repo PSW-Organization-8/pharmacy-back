@@ -72,7 +72,6 @@ namespace PharmacyClassLib
                 new RegisteredHospital("Bolnica1", "http:localhost:7313", "fds15d4fs6")
                 );
 
-
             modelBuilder.Entity<Medication>().HasData(
                 new Medication(1, "Synthroid", "J&J", MedicineApprovalStatus.Accepted, 150, "Taken once per day", "None.", "None."),
                 new Medication(2, "Ventolin", "Merck & Co. Inc.", MedicineApprovalStatus.Waiting, 200, "Taken twice per day", "None.", "Not advised for pregnant women."),
@@ -94,7 +93,6 @@ namespace PharmacyClassLib
                 new IngredientInMedication(2, 2, 2),
                 new IngredientInMedication(3, 1, 2)
                 );
-
 
             modelBuilder.Entity<InventoryLog>().HasData(
                 new InventoryLog(1, 1, 1, 65),
@@ -121,6 +119,7 @@ namespace PharmacyClassLib
                 new Tender { Id = 1, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(50), Name = "Tender za Bolnicu zdravo", TenderMedications = new List<TenderMedication>(), HospitalName = "Bolnica1"},
                 new Tender { Id = 2, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), Name = "Tender za neku drugu Bolnicu", TenderMedications = new List<TenderMedication>(), HospitalName = "Bolnica1"}
                 ) ;
+
             modelBuilder.Entity<TenderMedication>().HasData(
                 new TenderMedication { Id = 1, MedicationName = "Paracetamol", Quantity = 10, TenderId = 1 },
                 new TenderMedication { Id = 2, MedicationName = "Vitamin C", Quantity = 10, TenderId = 1 },
@@ -129,8 +128,6 @@ namespace PharmacyClassLib
                 );
 
         }
-
-        
 
     }
 }

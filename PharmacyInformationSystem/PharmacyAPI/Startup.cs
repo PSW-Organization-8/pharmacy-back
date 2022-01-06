@@ -29,6 +29,7 @@ using PharmacyAPI.Controllers;
 using PharmacyAPI.Filters;
 using PharmacyClassLib.Repository.PharmacyOfferRepository;
 using PharmacyClassLib.Repository.NotificationRepository;
+using PharmacyClassLib.Repository.EventRepository;
 
 namespace WebApplication1
 {
@@ -56,8 +57,10 @@ namespace WebApplication1
             services.AddMvc();
 
             services.AddDbContext<MyDbContext>(options => options.UseNpgsql(x => x.MigrationsAssembly("PharmacyAPI")));
+            services.AddDbContext<EventsDbContext>(options => options.UseNpgsql(x => x.MigrationsAssembly("PharmacyAPI")));
 
             services.AddTransient<IPharmacyRepository, PharmacyRepository>();
+            services.AddTransient<IEventRepository, EventRepository>();
             services.AddTransient<IMedicationIngredientRepository, MedicationIngredientRepository>();
             services.AddTransient<IMedicationRepository, MedicationRepository>();
             services.AddTransient<IRegisteredHospitalRepository, RegisteredHospitalRepository>();
@@ -73,6 +76,7 @@ namespace WebApplication1
 
             services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
             services.AddScoped<IMedicationService, MedicationService>();
+            services.AddScoped<IEventService, EventService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IPharmacyService, PharmacyService>();
             services.AddScoped<IHospitalRegistrationService, HospitalRegistrationService>();
@@ -118,7 +122,23 @@ namespace WebApplication1
                     Console.WriteLine(e.Data);
                     Console.WriteLine("###############################################################################");
                 }
-                
+
+                var eventsContext = serviceScope.ServiceProvider.GetRequiredService<EventsDbContext>();
+                try
+                {
+                    Console.WriteLine("###############################################################################");
+                    Console.WriteLine("Migriram bazu podataka dogadjaja");
+                    context.Database.Migrate();
+                    Console.WriteLine("###############################################################################");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("###############################################################################");
+                    Console.WriteLine("Greska prilikom kreiranja baze podataka dogadjaja");
+                    Console.WriteLine(e.Data);
+                    Console.WriteLine("###############################################################################");
+                }
+
             }
             app.UseRouting();
 

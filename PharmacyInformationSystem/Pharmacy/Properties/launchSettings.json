@@ -7,7 +7,8 @@
         "DB_NAME": "Pharmacy",
         "DB_PORT": "5432",
         "DB_PASSWORD": "2331",
-        "SERVER": "localhost"
+        "SERVER": "localhost",
+        "DB_NAME_EVENTS": "PharmacyEvents"
       }
     }
   }
