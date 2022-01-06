@@ -34,5 +34,14 @@ namespace PharmacyClassLib.Model
             Text = text;
             DateRange = new DateRange(start, end);
         }
+
+        public News(long id,string title, string text, DateRange range)
+        {
+            Id = id;
+            Title = title;
+            Text = text;
+            DateRange = range;
+
+        }
     }
 }

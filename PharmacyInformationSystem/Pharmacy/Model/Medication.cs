@@ -1,4 +1,5 @@
-﻿using PharmacyClassLib.Model.Enums;
+﻿using PharmacyClassLib.Model.Commercials;
+using PharmacyClassLib.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +22,7 @@ namespace PharmacyClassLib.Model
         public string Precautions { get; set; }
         public string PotentialDangers { get; set; }
         public List<MedicationIngredient> MedicationIngredients { get; set; }
+        public virtual  List<MedicationPromotion> medicationPromotions { get; set; }
 
         public Medication(long id, string name, string manufacturer,
             MedicineApprovalStatus status, int quantity, string usage, string precautions, string potentialDangers)
@@ -34,6 +36,10 @@ namespace PharmacyClassLib.Model
             Precautions = precautions;
             PotentialDangers = potentialDangers;
         }
+
+        
+
+
 
     }
 }
