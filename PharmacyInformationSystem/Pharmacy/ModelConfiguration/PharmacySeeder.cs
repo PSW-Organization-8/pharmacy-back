@@ -24,7 +24,8 @@ namespace PharmacyClassLib.ModelConfiguration
             SeedNews();
             SeedMedicationPromotion();
             SeedMedication();
-            SeedIngradients();
+            //SeedIngradients();
+            //SeedIngradientsInMedications();
         }
 
         private void SeedNews()
@@ -55,6 +56,11 @@ namespace PharmacyClassLib.ModelConfiguration
             context.Add(ingredient3);
             context.SaveChanges();
 
+            
+        }
+
+        private void SeedIngradientsInMedications()
+        {
             context.Add(new IngredientInMedication(1, 1, 1));
             context.Add(new IngredientInMedication(2, 2, 2));
             context.Add(new IngredientInMedication(3, 1, 2));

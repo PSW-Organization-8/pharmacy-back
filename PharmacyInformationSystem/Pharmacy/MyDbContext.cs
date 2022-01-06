@@ -25,6 +25,7 @@ namespace PharmacyClassLib
         public DbSet<TenderMedication> TenderMedications { get; set; }
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<MedicationPromotion> MedicationPromotions { get; set; }
+        public DbSet<IngredientInMedication> IngredientInMedications { get; set; }
         
 
         public MyDbContext()
@@ -59,7 +60,23 @@ namespace PharmacyClassLib
                 new Pharmacy(3, "Janković", "Beograd", "Olge Jovanović", "18a")
                 );
 
-            
+            MedicationIngredient ingredient1 = new MedicationIngredient(1, "Vitamin C");
+            MedicationIngredient ingredient2 = new MedicationIngredient(2, "Phosphorus");
+            MedicationIngredient ingredient3 = new MedicationIngredient(3, "Calcium");
+
+            modelBuilder.Entity<MedicationIngredient>().HasData(
+                ingredient1,
+                ingredient2,
+                ingredient3
+                );
+
+            modelBuilder.Entity<IngredientInMedication>().HasData(
+                new IngredientInMedication(1, 1, 1),
+                new IngredientInMedication(2, 2, 2),
+                new IngredientInMedication(3, 1, 2)
+                );
+
+
 
             modelBuilder.Entity<Notification>().HasData(
                 new Notification(1, "Izvestaj", true, "Ovde ce da bude tekst nekog izvestaja", "MedicationSpecifiation.pdf")

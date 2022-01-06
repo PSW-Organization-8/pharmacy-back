@@ -9,6 +9,20 @@ namespace PharmacyAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "IngredientInMedications",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MedicationID = table.Column<long>(type: "bigint", nullable: false),
+                    IngredientID = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IngredientInMedications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InventoryLogs",
                 columns: table => new
                 {
@@ -273,15 +287,35 @@ namespace PharmacyAPI.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "IngredientInMedications",
+                columns: new[] { "Id", "IngredientID", "MedicationID" },
+                values: new object[,]
+                {
+                    { 3L, 2L, 1L },
+                    { 2L, 2L, 2L },
+                    { 1L, 1L, 1L }
+                });
+
+            migrationBuilder.InsertData(
                 table: "InventoryLogs",
                 columns: new[] { "Id", "MedicationID", "PharmacyID", "Quantity" },
                 values: new object[,]
                 {
-                    { 1L, 1L, 1L, 65L },
-                    { 2L, 2L, 1L, 85L },
-                    { 3L, 1L, 2L, 20L },
                     { 4L, 3L, 2L, 120L },
-                    { 5L, 1L, 3L, 14L }
+                    { 2L, 2L, 1L, 85L },
+                    { 1L, 1L, 1L, 65L },
+                    { 5L, 1L, 3L, 14L },
+                    { 3L, 1L, 2L, 20L }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MedicationIngredients",
+                columns: new[] { "Id", "MedicationId", "Name" },
+                values: new object[,]
+                {
+                    { 1L, null, "Vitamin C" },
+                    { 3L, null, "Calcium" },
+                    { 2L, null, "Phosphorus" }
                 });
 
             migrationBuilder.InsertData(
@@ -299,8 +333,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Adress", "AdressNumber", "City", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" },
                     { 2L, "Bulevar oslobođenja", "135", "Novi Sad", "Janković" },
+                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" },
                     { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" }
                 });
 
@@ -309,8 +343,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "HospitalName", "PharmacyId", "PharmacyName", "TenderId", "TenderIdInHospital", "TimePosted" },
                 values: new object[,]
                 {
-                    { 1L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) },
-                    { 2L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified) }
+                    { 2L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 10, 12, 9, 28, 13, 0, DateTimeKind.Unspecified) },
+                    { 1L, null, 0L, "Apoteka1", 0L, 0L, new DateTime(2021, 5, 1, 8, 30, 52, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -328,8 +362,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 2, 25, 21, 10, 18, 328, DateTimeKind.Local).AddTicks(3706), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 21, 10, 18, 317, DateTimeKind.Local).AddTicks(8631) },
-                    { 2L, new DateTime(2022, 2, 5, 21, 10, 18, 329, DateTimeKind.Local).AddTicks(3130), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 21, 10, 18, 329, DateTimeKind.Local).AddTicks(3019) }
+                    { 1L, new DateTime(2022, 2, 25, 21, 54, 9, 916, DateTimeKind.Local).AddTicks(7685), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 21, 54, 9, 906, DateTimeKind.Local).AddTicks(3492) },
+                    { 2L, new DateTime(2022, 2, 5, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(395), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(274) }
                 });
 
             migrationBuilder.InsertData(
@@ -378,6 +412,9 @@ namespace PharmacyAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "IngredientInMedications");
+
             migrationBuilder.DropTable(
                 name: "InventoryLogs");
 

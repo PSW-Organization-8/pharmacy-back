@@ -10,7 +10,7 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220106201021_init")]
+    [Migration("20220106205412_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -105,6 +105,23 @@ namespace PharmacyAPI.Migrations
                     b.HasIndex("MedicationId");
 
                     b.ToTable("MedicationIngredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Vitamin C"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Phosphorus"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Calcium"
+                        });
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.News", b =>
@@ -313,6 +330,44 @@ namespace PharmacyAPI.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PharmacyClassLib.Model.Relations.IngredientInMedication", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("IngredientID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("MedicationID")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IngredientInMedications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            IngredientID = 1L,
+                            MedicationID = 1L
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            IngredientID = 2L,
+                            MedicationID = 2L
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            IngredientID = 2L,
+                            MedicationID = 1L
+                        });
+                });
+
             modelBuilder.Entity("PharmacyClassLib.Model.Relations.InventoryLog", b =>
                 {
                     b.Property<long>("Id")
@@ -502,20 +557,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 21, 10, 18, 328, DateTimeKind.Local).AddTicks(3706),
+                            EndDate = new DateTime(2022, 2, 25, 21, 54, 9, 916, DateTimeKind.Local).AddTicks(7685),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 21, 10, 18, 317, DateTimeKind.Local).AddTicks(8631)
+                            StartDate = new DateTime(2022, 1, 6, 21, 54, 9, 906, DateTimeKind.Local).AddTicks(3492)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 21, 10, 18, 329, DateTimeKind.Local).AddTicks(3130),
+                            EndDate = new DateTime(2022, 2, 5, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(395),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 21, 10, 18, 329, DateTimeKind.Local).AddTicks(3019)
+                            StartDate = new DateTime(2022, 1, 6, 21, 54, 9, 918, DateTimeKind.Local).AddTicks(274)
                         });
                 });
 
