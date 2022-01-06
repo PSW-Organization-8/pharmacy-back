@@ -28,6 +28,7 @@ services:
       command: bash -c "
         dotnet new tool-manifest --force && 
         dotnet tool install --local dotnet-ef --version 5.0.11 &&
+        dpkg --configure -a &&
         apt-get update && apt-get -y install libxml2 libgdiplus libc6-dev &&
         dotnet restore PharmacyInformationSystem &&
         dotnet dotnet-ef migrations add TestingMigration1 --project PharmacyInformationSystem/Pharmacy &&
