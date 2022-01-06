@@ -25,7 +25,7 @@ namespace PharmacyClassLib
         public DbSet<TenderMedication> TenderMedications { get; set; }
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<MedicationPromotion> MedicationPromotions { get; set; }
-        public DbSet<IngredientInMedication> IngredientInMedications { get; set; }
+        
         
 
         public MyDbContext()
@@ -41,7 +41,7 @@ namespace PharmacyClassLib
             String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
             String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
             String username = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "root";
+            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "admin";
 
 
             String connectionString = $"Server={server}; Port ={port}; Database ={databaseName}; User Id = {username}; Password ={password};";
@@ -55,28 +55,10 @@ namespace PharmacyClassLib
 
 
             modelBuilder.Entity<Pharmacy>().HasData(
-                new Pharmacy(1, "Janković", "Novi Sad", "Rumenačka", "15"),
-                new Pharmacy(2, "Janković", "Novi Sad", "Bulevar oslobođenja", "135"),
-                new Pharmacy(3, "Janković", "Beograd", "Olge Jovanović", "18a")
-                );
-
-            MedicationIngredient ingredient1 = new MedicationIngredient(1, "Vitamin C");
-            MedicationIngredient ingredient2 = new MedicationIngredient(2, "Phosphorus");
-            MedicationIngredient ingredient3 = new MedicationIngredient(3, "Calcium");
-
-            modelBuilder.Entity<MedicationIngredient>().HasData(
-                ingredient1,
-                ingredient2,
-                ingredient3
-                );
-
-            modelBuilder.Entity<IngredientInMedication>().HasData(
-                new IngredientInMedication(1, 1, 1),
-                new IngredientInMedication(2, 2, 2),
-                new IngredientInMedication(3, 1, 2)
-                );
-
-
+                 new Pharmacy(1, "Janković", "Novi Sad", "Rumenačka", "15"),
+                 new Pharmacy(2, "Janković", "Novi Sad", "Bulevar oslobođenja", "135"),
+                 new Pharmacy(3, "Janković", "Beograd", "Olge Jovanović", "18a")
+                 );
 
             modelBuilder.Entity<Notification>().HasData(
                 new Notification(1, "Izvestaj", true, "Ovde ce da bude tekst nekog izvestaja", "MedicationSpecifiation.pdf")
@@ -95,13 +77,27 @@ namespace PharmacyClassLib
                 );
 
 
-            
+            modelBuilder.Entity<Medication>().HasData(
+                new Medication(1, "Synthroid", "J&J", MedicineApprovalStatus.Accepted, 150, "Taken once per day", "None.", "None."),
+                new Medication(2, "Ventolin", "Merck & Co. Inc.", MedicineApprovalStatus.Waiting, 200, "Taken twice per day", "None.", "Not advised for pregnant women."),
+                new Medication(3, "Januvia", "Pfizer Inc.", MedicineApprovalStatus.Accepted, 750, "Taken once once every 5 hours", "None.", "Not advised for children.")
+                );
 
-            
+            MedicationIngredient ingredient1 = new MedicationIngredient(1, "Vitamin C");
+            MedicationIngredient ingredient2 = new MedicationIngredient(2, "Phosphorus");
+            MedicationIngredient ingredient3 = new MedicationIngredient(3, "Calcium");
 
-            
+            modelBuilder.Entity<MedicationIngredient>().HasData(
+                ingredient1,
+                ingredient2,
+                ingredient3
+                );
 
-            
+            modelBuilder.Entity<IngredientInMedication>().HasData(
+                new IngredientInMedication(1, 1, 1),
+                new IngredientInMedication(2, 2, 2),
+                new IngredientInMedication(3, 1, 2)
+                );
 
 
             modelBuilder.Entity<InventoryLog>().HasData(
@@ -135,11 +131,11 @@ namespace PharmacyClassLib
                 new TenderMedication { Id = 3, MedicationName = "Longacef", Quantity = 100, TenderId = 2 },
                 new TenderMedication { Id = 4, MedicationName = "Zavoj", Quantity = 100, TenderId = 1 }
                 );
-            
+
 
         }
 
-        
+
 
     }
 }

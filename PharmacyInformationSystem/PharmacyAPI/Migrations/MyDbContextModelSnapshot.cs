@@ -83,6 +83,41 @@ namespace PharmacyAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medications");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Manufacturer = "J&J",
+                            Name = "Synthroid",
+                            PotentialDangers = "None.",
+                            Precautions = "None.",
+                            Quantity = 150,
+                            Status = 0,
+                            Usage = "Taken once per day"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Manufacturer = "Merck & Co. Inc.",
+                            Name = "Ventolin",
+                            PotentialDangers = "Not advised for pregnant women.",
+                            Precautions = "None.",
+                            Quantity = 200,
+                            Status = 2,
+                            Usage = "Taken twice per day"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Manufacturer = "Pfizer Inc.",
+                            Name = "Januvia",
+                            PotentialDangers = "Not advised for children.",
+                            Precautions = "None.",
+                            Quantity = 750,
+                            Status = 0,
+                            Usage = "Taken once once every 5 hours"
+                        });
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.MedicationIngredient", b =>
@@ -343,7 +378,7 @@ namespace PharmacyAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IngredientInMedications");
+                    b.ToTable("IngredientInMedication");
 
                     b.HasData(
                         new
@@ -555,20 +590,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 22, 45, 40, 742, DateTimeKind.Local).AddTicks(2700),
+                            EndDate = new DateTime(2022, 2, 25, 23, 0, 28, 46, DateTimeKind.Local).AddTicks(1292),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 22, 45, 40, 725, DateTimeKind.Local).AddTicks(2222)
+                            StartDate = new DateTime(2022, 1, 6, 23, 0, 28, 26, DateTimeKind.Local).AddTicks(353)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(216),
+                            EndDate = new DateTime(2022, 2, 5, 23, 0, 28, 53, DateTimeKind.Local).AddTicks(6832),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 22, 45, 40, 745, DateTimeKind.Local).AddTicks(85)
+                            StartDate = new DateTime(2022, 1, 6, 23, 0, 28, 53, DateTimeKind.Local).AddTicks(6699)
                         });
                 });
 
