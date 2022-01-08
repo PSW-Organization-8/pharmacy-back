@@ -13,5 +13,9 @@ namespace PharmacyClassLib.Service.Interface
 
         bool Delete(long id);
 
+        PharmacyOffer GetOffer(long id);
+
+        bool ExecuteExchange(long offerId);
+
     }
 }

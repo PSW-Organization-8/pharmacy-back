@@ -7,6 +7,7 @@ namespace PharmacyClassLib.Repository.PharmacyOfferRepository
 {
     public interface IPharmacyOfferRepository : IGenericRepository<PharmacyOffer, long>
     {
+        PharmacyOffer GetOfferWithComponents(long id);
 
     }
 }
