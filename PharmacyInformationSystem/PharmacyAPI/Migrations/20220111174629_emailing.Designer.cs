@@ -10,8 +10,8 @@ using PharmacyClassLib;
 namespace PharmacyAPI.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20220106221448_init")]
-    partial class init
+    [Migration("20220111174629_emailing")]
+    partial class emailing
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -349,6 +349,9 @@ namespace PharmacyAPI.Migrations
                     b.Property<string>("ApiKey")
                         .HasColumnType("text");
 
+                    b.Property<string>("EmailAddress")
+                        .HasColumnType("text");
+
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
@@ -361,6 +364,7 @@ namespace PharmacyAPI.Migrations
                         {
                             Name = "Bolnica1",
                             ApiKey = "fds15d4fs6",
+                            EmailAddress = "psworganisation8+Bolnica1@outlook.com",
                             Url = "http:localhost:7313"
                         });
                 });
@@ -592,20 +596,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 2, 25, 23, 14, 45, 837, DateTimeKind.Local).AddTicks(3034),
+                            EndDate = new DateTime(2022, 3, 2, 18, 46, 27, 288, DateTimeKind.Local).AddTicks(9210),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 6, 23, 14, 45, 823, DateTimeKind.Local).AddTicks(7025)
+                            StartDate = new DateTime(2022, 1, 11, 18, 46, 27, 279, DateTimeKind.Local).AddTicks(7852)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 5, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5384),
+                            EndDate = new DateTime(2022, 2, 10, 18, 46, 27, 289, DateTimeKind.Local).AddTicks(5822),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 6, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5263)
+                            StartDate = new DateTime(2022, 1, 11, 18, 46, 27, 289, DateTimeKind.Local).AddTicks(5733)
                         });
                 });
 

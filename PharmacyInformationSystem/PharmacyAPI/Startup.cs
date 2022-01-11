@@ -88,6 +88,7 @@ namespace WebApplication1
             services.AddScoped<MedicationConsumptionService>();
             services.AddScoped<TenderCommunicationRabbitMQ>();
             services.AddScoped<ITenderingService, TenderingService>();
+            services.AddScoped<EmailService>();
 
             services.AddHostedService<CompressionOfOldFiles>();
         }
@@ -157,9 +158,11 @@ namespace WebApplication1
                 new PharmacyOfferComponentRepository(dbContext));
             IInventoryLogService inventoryLogService = new InventoryLogService(new InventoryLogRepository(dbContext), medicationService, pharmacyService);
             GrpcApiKeyFilter grpcApiKeyFilter = new GrpcApiKeyFilter(new RegisteredHospitalRepository(dbContext));
+            EmailService emailService = new EmailService(new RegisteredHospitalRepository(dbContext),
+                new PharmacyRepository(dbContext), new MedicationRepository(dbContext));
             server = new Server
             {
-                Services = { MedicationGrpcService.BindService(new MedicationGrpcController(pharmacyService, inventoryLogService, medicationService, grpcApiKeyFilter)) },
+                Services = { MedicationGrpcService.BindService(new MedicationGrpcController(pharmacyService, inventoryLogService, medicationService, grpcApiKeyFilter, emailService)) },
                 Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
             };
             server.Start();

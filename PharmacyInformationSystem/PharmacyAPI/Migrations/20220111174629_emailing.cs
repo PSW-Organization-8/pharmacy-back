@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class emailing : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -159,7 +159,8 @@ namespace PharmacyAPI.Migrations
                 {
                     Name = table.Column<string>(type: "text", nullable: false),
                     Url = table.Column<string>(type: "text", nullable: true),
-                    ApiKey = table.Column<string>(type: "text", nullable: true)
+                    ApiKey = table.Column<string>(type: "text", nullable: true),
+                    EmailAddress = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -359,8 +360,8 @@ namespace PharmacyAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "RegistratedHospitals",
-                columns: new[] { "Name", "ApiKey", "Url" },
-                values: new object[] { "Bolnica1", "fds15d4fs6", "http:localhost:7313" });
+                columns: new[] { "Name", "ApiKey", "EmailAddress", "Url" },
+                values: new object[] { "Bolnica1", "fds15d4fs6", "psworganisation8+Bolnica1@outlook.com", "http:localhost:7313" });
 
             migrationBuilder.InsertData(
                 table: "Responses",
@@ -372,8 +373,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 2, 25, 23, 14, 45, 837, DateTimeKind.Local).AddTicks(3034), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 6, 23, 14, 45, 823, DateTimeKind.Local).AddTicks(7025) },
-                    { 2L, new DateTime(2022, 2, 5, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5384), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 6, 23, 14, 45, 838, DateTimeKind.Local).AddTicks(5263) }
+                    { 1L, new DateTime(2022, 3, 2, 18, 46, 27, 288, DateTimeKind.Local).AddTicks(9210), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 11, 18, 46, 27, 279, DateTimeKind.Local).AddTicks(7852) },
+                    { 2L, new DateTime(2022, 2, 10, 18, 46, 27, 289, DateTimeKind.Local).AddTicks(5822), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 11, 18, 46, 27, 289, DateTimeKind.Local).AddTicks(5733) }
                 });
 
             migrationBuilder.InsertData(

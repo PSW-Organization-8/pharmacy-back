@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PharmacyClassLib.Repository.RegistratedHospitalRepository;
 using Xunit;
 
 namespace PharmacyTests.IntegrationTests
@@ -128,7 +129,9 @@ namespace PharmacyTests.IntegrationTests
             IMedicationService medicationService = new MedicationService(medicationRepository, ingredientInMedicationService, pharmacyOfferComponentRepository);
             IPharmacyService pharmacyService = new PharmacyService(pharmacyRepository);
             IInventoryLogService inventoryLogService = new InventoryLogService(inventoryLogRepository, medicationService, pharmacyService);
-            InventoryController controller = new InventoryController(pharmacyService, inventoryLogService, medicationService);
+            EmailService emailService = new EmailService(new RegisteredHospitalRepository(dbContext),
+                pharmacyRepository, medicationRepository);
+            InventoryController controller = new InventoryController(pharmacyService, inventoryLogService, medicationService, emailService);
             return controller;
         }
     }

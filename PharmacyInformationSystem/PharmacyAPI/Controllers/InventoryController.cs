@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace PharmacyAPI.Controllers
 {
@@ -21,12 +22,14 @@ namespace PharmacyAPI.Controllers
         private readonly IPharmacyService pharmacyService;
         private readonly IInventoryLogService inventoryLogService;
         private readonly IMedicationService medicationService;
+        private readonly EmailService emailService;
 
-        public InventoryController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService, IMedicationService medicationService)
+        public InventoryController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService, IMedicationService medicationService, EmailService emailService)
         {
             this.pharmacyService = pharmacyService;
             this.inventoryLogService = inventoryLogService;
             this.medicationService = medicationService;
+            this.emailService = emailService;
         }
 
         [HttpPut]
@@ -38,9 +41,15 @@ namespace PharmacyAPI.Controllers
 
         [HttpPut]
         [Route("remove_medication")]
-        public bool RemoveMedication(InventoryManagementDto dto)
+        public bool RemoveMedication(InventoryManagementDto dto, [FromHeader] string ApiKey)
         {
-            return inventoryLogService.RemoveMedication(dto.PhamracyID, dto.MedicationID, dto.Quantity);
+            if (inventoryLogService.RemoveMedication(dto.PhamracyID, dto.MedicationID, dto.Quantity))
+            {
+                emailService.EmailHospitalThatMedicinesDelivered("Apoteka1", ApiKey, dto.PhamracyID, dto.MedicationID, dto.Quantity);
+                return true;
+            }
+
+            return false;
         }
 
         [HttpGet]

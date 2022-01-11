@@ -11,6 +11,7 @@ namespace PharmacyClassLib.Model
         public string Name { get; set; }
         public string Url { get; set; }
         public string ApiKey { get; set; }
+        public string EmailAddress { get; set; }
 
         public RegisteredHospital() { }
 
@@ -20,11 +21,12 @@ namespace PharmacyClassLib.Model
             this.Url = url;
         }
 
-        public RegisteredHospital(string name, string url, string apiKey)
+        public RegisteredHospital(string name, string url, string apiKey, string emailAddress)
         {
             this.Name = name;
             this.Url = url;
             this.ApiKey = apiKey;
+            this.EmailAddress = emailAddress;
         }
     }
 }

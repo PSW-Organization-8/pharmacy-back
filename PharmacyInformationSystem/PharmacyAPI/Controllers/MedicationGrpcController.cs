@@ -13,27 +13,30 @@ using System.Threading.Tasks;
 
 namespace PharmacyAPI.Controllers
 {
-
     public class MedicationGrpcController : MedicationGrpcService.MedicationGrpcServiceBase
     {
         private readonly IPharmacyService pharmacyService;
         private readonly IInventoryLogService inventoryLogService;
         private readonly IMedicationService medicationService;
         private readonly GrpcApiKeyFilter grpcApiKeyFilter;
+        private readonly EmailService emailService;
 
         public MedicationGrpcController()
         {
         }
 
-        public MedicationGrpcController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService, IMedicationService medicationService, GrpcApiKeyFilter grpcApiKeyFilter)
+        public MedicationGrpcController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService,
+            IMedicationService medicationService, GrpcApiKeyFilter grpcApiKeyFilter, EmailService emailService)
         {
             this.pharmacyService = pharmacyService;
             this.inventoryLogService = inventoryLogService;
             this.medicationService = medicationService;
             this.grpcApiKeyFilter = grpcApiKeyFilter;
+            this.emailService = emailService;
         }
 
-        public override Task<CheckMedicationAvailabilityResponseProto> CheckMedicationQuantity(CheckMedicationAvailabilityProto request, ServerCallContext context)
+        public override Task<CheckMedicationAvailabilityResponseProto> CheckMedicationQuantity(
+            CheckMedicationAvailabilityProto request, ServerCallContext context)
         {
             CheckMedicationAvailabilityResponseProto response = new CheckMedicationAvailabilityResponseProto();
             if (grpcApiKeyFilter.ApiKeyIsOk(request.ApiKey))
@@ -43,8 +46,10 @@ namespace PharmacyAPI.Controllers
 
                 foreach (Pharmacy p in allPharmacies)
                 {
-                    DataForMapperDTO dataForMapper = new DataForMapperDTO(medications, p, inventoryLogService.GetLogsByPharmacyWithQuantity(p.Id, request.Quantity));
-                    MedicationAvailabilityProto pharmacyWithInventory = PharmacyWithInventoryMapper.PharmacyAndInventoryToPharmacyWithInventoryGrpc(dataForMapper);
+                    DataForMapperDTO dataForMapper = new DataForMapperDTO(medications, p,
+                        inventoryLogService.GetLogsByPharmacyWithQuantity(p.Id, request.Quantity));
+                    MedicationAvailabilityProto pharmacyWithInventory =
+                        PharmacyWithInventoryMapper.PharmacyAndInventoryToPharmacyWithInventoryGrpc(dataForMapper);
                     if (pharmacyWithInventory != null)
                     {
                         response.MedicationAvailability.Add(pharmacyWithInventory);
@@ -59,11 +64,17 @@ namespace PharmacyAPI.Controllers
         {
             OrderResponseProto response = new OrderResponseProto();
             if (grpcApiKeyFilter.ApiKeyIsOk(order.ApiKey))
-                response.Response = inventoryLogService.RemoveMedication(order.PharmacyID, order.MedicationID, order.Quantity);
+            {
+                response.Response =
+                    inventoryLogService.RemoveMedication(order.PharmacyID, order.MedicationID, order.Quantity);
+                emailService.EmailHospitalThatMedicinesDelivered("Apoteka2", order.ApiKey, order.PharmacyID, order.MedicationID, order.Quantity);
+            }
             else
+
             {
                 response.Response = false;
             }
+
             return Task.FromResult(response);
         }
 
@@ -71,11 +82,13 @@ namespace PharmacyAPI.Controllers
         {
             OrderResponseProto response = new OrderResponseProto();
             if (grpcApiKeyFilter.ApiKeyIsOk(order.ApiKey))
-                response.Response = inventoryLogService.AddMedication(order.PharmacyID, order.MedicationID, order.Quantity);
+                response.Response =
+                    inventoryLogService.AddMedication(order.PharmacyID, order.MedicationID, order.Quantity);
             else
             {
                 response.Response = false;
             }
+
             return Task.FromResult(response);
         }
     }
