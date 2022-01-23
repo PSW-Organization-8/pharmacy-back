@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PharmacyClassLib.Model;
+using PharmacyClassLib.Model.Tendering;
 
 namespace PharmacyClassLib.Service
 {
@@ -34,15 +35,14 @@ namespace PharmacyClassLib.Service
                     }
                     var body = basicGetResult.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    Tender arrivedTender = JsonConvert.DeserializeObject<Tender>(message);
-
+                    TenderDTO arrivedTender = JsonConvert.DeserializeObject<TenderDTO>(message);
                     newTender = new Tender()
                     {
                         Name = arrivedTender.Name,
                         HospitalName = arrivedTender.HospitalName,
                         IdInHospital = arrivedTender.Id,
-                        StartDate = arrivedTender.StartDate,
-                        EndDate = arrivedTender.EndDate,
+                        StartDate = arrivedTender.DateRange.Start,
+                        EndDate = arrivedTender.DateRange.End,
                         TenderMedications = CreateTenderMedications(arrivedTender)
                     };
 
@@ -70,7 +70,7 @@ namespace PharmacyClassLib.Service
             }
         }
 
-        private static List<TenderMedication> CreateTenderMedications(Tender arrivedTender)
+        private static List<TenderMedication> CreateTenderMedications(TenderDTO arrivedTender)
         {
             List<TenderMedication> tenderMedications = new();
             foreach (TenderMedication medication in arrivedTender.TenderMedications)
