@@ -2,8 +2,11 @@ version: '3.4'
 
 services:
   fronts:
+      sysctls:
+        - net.ipv4.ip_unprivileged_port_start=1024
       build:
         context: .
+        
         dockerfile: Dockerfile_fronts
         target: gatewayWithFront
       restart: on-failure
@@ -19,6 +22,8 @@ services:
         - integration
 
   pharmacy:
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/pharmacy-back:latest
     networks:
       - pharmacy_database_net
@@ -32,15 +37,17 @@ services:
        DB_USER: "postgres"
        DB_PASSWORD: "root"
     expose:
-      - "80"
+      - "8080"
     ports:
-      - "5110:80"
+      - "5110:8080"
     restart: on-failure
     #extra hosts can be used for standalone SQL Server or services at the dev PC
     depends_on:
       - database-pharmacy
 
   patients-portal:
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/patients-portal-back:latest
     networks:
       - patients_database_net
@@ -53,9 +60,9 @@ services:
        DB_USER: "postgres"
        DB_PASSWORD: "wasd"
     expose:
-      - "80"
+      - "8080"
     ports:
-      - "5111:80"
+      - "5111:8080"
     restart: on-failure
     #extra hosts can be used for standalone SQL Server or services at the dev PC
     depends_on:
@@ -78,6 +85,8 @@ services:
             - 15672:15672
   
   integration:
+    sysctls:
+      - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/integration-app:latest
     networks:
       - integrations_database_net
@@ -91,9 +100,9 @@ services:
        DB_USER: "postgres"
        DB_PASSWORD: "root"
     expose:
-      - "80"
+      - "8080"
     ports:
-      - "5112:80"
+      - "5112:8080"
     restart: on-failure
     #extra hosts can be used for standalone SQL Server or services at the dev PC
     depends_on:
