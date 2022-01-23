@@ -1,0 +1,42 @@
+version: "3.4"
+services:
+  database-pharmacy:
+    image: postgres:13
+    restart: always
+    container_name: database-pharmacy
+    networks:
+      - pharmacy_database_net
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_USER: "postgres"
+    ports:
+      - "7001:5432"
+  integration-tests:
+      container_name: integration-tests
+      environment:
+        DB_USER: "postgres"
+        DB_PASSWORD: "root"
+        DB_PORT: "5432"
+        DB_NAME: "Pharmacy"
+        SERVER: "database-pharmacy"
+      networks:
+      - pharmacy_database_net
+      image: mcr.microsoft.com/dotnet/sdk:5.0
+      working_dir: /PharmacyInformationSystem
+      volumes:
+      - .:/PharmacyInformationSystem
+      command: bash -c "
+        dotnet new tool-manifest --force && 
+        dotnet tool install --local dotnet-ef --version 5.0.11 &&
+        apt-get update && apt-get -y install libxml2 libgdiplus libc6-dev &&
+        dotnet restore PharmacyInformationSystem &&
+        dotnet dotnet-ef migrations add TestingMigration1 --project PharmacyInformationSystem/Pharmacy &&
+        dotnet dotnet-ef database update --project PharmacyInformationSystem/Pharmacy &&
+        dotnet test PharmacyInformationSystem
+        "
+      depends_on:
+        - database-pharmacy
+networks:
+  pharmacy_database_net:
+    name: pharmacy_database_net
+    driver: bridge

@@ -20,19 +20,28 @@ namespace PharmacyClassLib.Model
 
         }
 
-        public News(string title, string text, DateTime start, DateTime end)
+        public News(string title, string text, DateTime start, DateTime? end)
         {
             Title = title;
             Text = text;
             DateRange = new DateRange(start, end);
         }
 
-        public News(long id, string title, string text, DateTime start, DateTime end)
+        public News(long id, string title, string text, DateTime start, DateTime? end)
         {
             Id = id;
             Title = title;
             Text = text;
             DateRange = new DateRange(start, end);
+        }
+
+        public News(long id,string title, string text, DateRange range)
+        {
+            Id = id;
+            Title = title;
+            Text = text;
+            DateRange = range;
+
         }
     }
 }

@@ -15,12 +15,14 @@ namespace PharmacyClassLib.Service
         private readonly IPharmacyOfferRepository pharmacyOfferRepository;
         private readonly IMedicationRepository medicationRepository;
         private readonly TenderCommunicationRabbitMQ tenderCommunicationRabbitMq;
+        private readonly IInventoryLogService inventoryLogService;
 
-        public PharmacyOfferService(IPharmacyOfferRepository pharmacyOfferRepository, IMedicationRepository medicationRepository, TenderCommunicationRabbitMQ tenderCommunicationRabbitMq)
+        public PharmacyOfferService(IPharmacyOfferRepository pharmacyOfferRepository, IMedicationRepository medicationRepository, TenderCommunicationRabbitMQ tenderCommunicationRabbitMq, IInventoryLogService inventoryLogService)
         {
             this.pharmacyOfferRepository = pharmacyOfferRepository;
             this.medicationRepository = medicationRepository;
             this.tenderCommunicationRabbitMq = tenderCommunicationRabbitMq;
+            this.inventoryLogService = inventoryLogService;
         }
 
         public PharmacyOffer Create(PharmacyOffer offer) {
@@ -44,5 +46,22 @@ namespace PharmacyClassLib.Service
             return pharmacyOfferRepository.Delete(id);
         }
 
+        public bool ExecuteExchange(long offerId)
+        {
+            PharmacyOffer pharmacyOffer = GetOffer(offerId);
+            foreach (PharmacyOfferComponent offerComponent in pharmacyOffer.Components)
+            {
+                if (!inventoryLogService.RemoveMedication(pharmacyOffer.PharmacyId, offerComponent.MedicationId, offerComponent.Quantity))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public PharmacyOffer GetOffer(long id)
+        {
+            return pharmacyOfferRepository.GetOfferWithComponents(id);
+        }
     }
 }

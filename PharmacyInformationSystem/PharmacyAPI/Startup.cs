@@ -29,6 +29,7 @@ using PharmacyAPI.Controllers;
 using PharmacyAPI.Filters;
 using PharmacyClassLib.Repository.PharmacyOfferRepository;
 using PharmacyClassLib.Repository.NotificationRepository;
+using PharmacyClassLib.ModelConfiguration;
 
 namespace WebApplication1
 {
@@ -87,6 +88,7 @@ namespace WebApplication1
             services.AddScoped<MedicationConsumptionService>();
             services.AddScoped<TenderCommunicationRabbitMQ>();
             services.AddScoped<ITenderingService, TenderingService>();
+            services.AddScoped<EmailService>();
 
             services.AddHostedService<CompressionOfOldFiles>();
         }
@@ -104,6 +106,7 @@ namespace WebApplication1
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<MyDbContext>();
+                
                 try
                 {
                     Console.WriteLine("###############################################################################");
@@ -118,7 +121,21 @@ namespace WebApplication1
                     Console.WriteLine(e.Data);
                     Console.WriteLine("###############################################################################");
                 }
-                
+
+                try
+                {
+                    PharmacySeeder seeder = new PharmacySeeder(context);
+
+                    seeder.SeedData();
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Failed to seed data");
+                }
+
+
+
             }
             app.UseRouting();
 
@@ -141,9 +158,11 @@ namespace WebApplication1
                 new PharmacyOfferComponentRepository(dbContext));
             IInventoryLogService inventoryLogService = new InventoryLogService(new InventoryLogRepository(dbContext), medicationService, pharmacyService);
             GrpcApiKeyFilter grpcApiKeyFilter = new GrpcApiKeyFilter(new RegisteredHospitalRepository(dbContext));
+            EmailService emailService = new EmailService(new RegisteredHospitalRepository(dbContext),
+                new PharmacyRepository(dbContext), new MedicationRepository(dbContext));
             server = new Server
             {
-                Services = { MedicationGrpcService.BindService(new MedicationGrpcController(pharmacyService, inventoryLogService, medicationService, grpcApiKeyFilter)) },
+                Services = { MedicationGrpcService.BindService(new MedicationGrpcController(pharmacyService, inventoryLogService, medicationService, grpcApiKeyFilter, emailService)) },
                 Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
             };
             server.Start();

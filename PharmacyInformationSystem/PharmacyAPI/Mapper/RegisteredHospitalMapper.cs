@@ -11,13 +11,13 @@ namespace PharmacyAPI.Mapper
     {
         public static RegisteredHospital RegisteredHospitalDtoToRegisteredHospital(RegisteredHospitalDto dto)
         {
-            return new RegisteredHospital(dto.Name, dto.Url, dto.ApiKey);
+            return new RegisteredHospital(dto.Name, dto.Url, dto.ApiKey, dto.EmailAddress);
         }
 
         public static RegisteredHospitalDto RegisteredHospitalToRegisteredHospitalDto(
             RegisteredHospital rh)
         {
-            return new RegisteredHospitalDto(rh.Name, rh.Url, rh.ApiKey);
+            return new RegisteredHospitalDto(rh.Name, rh.Url, rh.ApiKey, rh.EmailAddress);
         }
     }
 }

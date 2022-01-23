@@ -1,11 +1,13 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal AS base
 
-RUN groupadd -g 999 appuser && \
-    useradd -r -u 999 -g appuser appuser
-USER appuser
+RUN groupadd -g 5000 appuser && \
+    useradd -u 5000 -g appuser appuser
+
+USER appuser:appuser
 
 WORKDIR /app
-EXPOSE 80
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 WORKDIR /src

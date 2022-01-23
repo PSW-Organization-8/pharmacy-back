@@ -10,6 +10,7 @@ namespace PharmacyAPI.Dto
         public string Name { get; set; }
         public string Url { get; set; }
         public string ApiKey { get; set; }
+        public string EmailAddress { get; set; }
 
         public RegisteredHospitalDto() { }
 
@@ -19,11 +20,12 @@ namespace PharmacyAPI.Dto
             this.Url = url;
         }
 
-        public RegisteredHospitalDto(string name, string url, string apiKey)
+        public RegisteredHospitalDto(string name, string url, string apiKey, string emailAddress)
         {
             this.Name = name;
             this.Url = url;
             this.ApiKey = apiKey;
+            this.EmailAddress = emailAddress;
         }
     }
 }
