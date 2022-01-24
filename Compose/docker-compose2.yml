@@ -1,14 +1,13 @@
 version: '3.4'
+
 services:
   fronts:
       sysctls:
         - net.ipv4.ip_unprivileged_port_start=1024
-      build:
-        context: .
-        
-        dockerfile: Dockerfile_fronts
-        target: gatewayWithFront
-      restart: on-failure
+      image: psw8org/compose_fronts:latest
+      deploy:
+        restart_policy:
+          condition: on-failure
       networks:
         - pharmacy-application_net
         - patients-application_net
@@ -24,23 +23,30 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/pharmacy-back:latest
+    volumes:
+      - ./data:/data/
     networks:
       - pharmacy_database_net
       - pharmacy-application_net
-    container_name: Pharmacy_Back
     environment:
        RabbitHostName: "rabbitmq"
        SERVER: "database-pharmacy"
        DB_PORT: "5432"
        DB_NAME: "Pharmacy"
-       DB_USER: "postgres"
-       DB_PASSWORD: "root"
+       DB_USER: DOCKER-SECRET->db_user_pharmacy
+       DB_PASSWORD: DOCKER-SECRET->db_pass_pharmacy
+    secrets:
+      - db_pass_pharmacy
+      - db_user_pharmacy
+    entrypoint: ['/bin/bash', '-c' , '/data/wait-for-it.sh database-pharmacy:5432 -t 60  && source /data/env_secrets_expand.sh && dotnet PharmacyAPI.dll']    
     expose:
       - "8080"
     ports:
       - "5110:8080"
-    restart: on-failure
-    #extra hosts can be used for standalone SQL Server or services at the dev PC
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
     depends_on:
       - database-pharmacy
 
@@ -48,28 +54,33 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/patients-portal-back:latest
+    volumes:
+      - ./data:/data/
     networks:
       - patients_database_net
       - patients-application_net
-    container_name: Patients_Portal_Back
     environment:
        SERVER: "database-patients"
        DB_PORT: "5432"
        DB_NAME: "psw_database"
-       DB_USER: "postgres"
-       DB_PASSWORD: "wasd"
+       DB_USER: DOCKER-SECRET->db_user_patients
+       DB_PASSWORD: DOCKER-SECRET->db_pass_patients
+    entrypoint: ['/bin/bash', '-c' ,  '/data/wait-for-it.sh database-patients:5432 -t 60 && source /data/env_secrets_expand.sh && dotnet HospitalAPI.dll']    
+    secrets:
+      - db_pass_patients
+      - db_user_patients
     expose:
       - "8080"
     ports:
       - "5111:8080"
-    restart: on-failure
-    #extra hosts can be used for standalone SQL Server or services at the dev PC
+    deploy:
+      restart_policy:
+        condition: on-failure
     depends_on:
       - database-patients
   
   rabbitmq:
         image: rabbitmq:3-management-alpine
-        container_name: rabbitmq
         hostname: "rabbitmq"
         labels:
           NAME: "rabbitmq"
@@ -87,79 +98,105 @@ services:
     sysctls:
       - net.ipv4.ip_unprivileged_port_start=1024
     image: psw8org/integration-app:latest
+    volumes:
+      - ./data:/data/
     networks:
       - integrations_database_net
       - integrations-application_net
-    container_name: Integrations_Back
     environment:
        RabbitHostName: "rabbitmq"
        SERVER: "database-integration"
        DB_PORT: "5432"
        DB_NAME: "Integration"
-       DB_USER: "postgres"
-       DB_PASSWORD: "root"
+       DB_USER: DOCKER-SECRET->db_user_integration
+       DB_PASSWORD: DOCKER-SECRET->db_pass_integration
+    entrypoint: ['/bin/bash', '-c' , ' /data/wait-for-it.sh database-integration:5432 -t 60 && source /data/env_secrets_expand.sh && dotnet IntegrationAPI.dll']    
+    secrets:
+      - db_pass_integration
+      - db_user_integration
     expose:
       - "8080"
     ports:
       - "5112:8080"
-    restart: on-failure
-    #extra hosts can be used for standalone SQL Server or services at the dev PC
+    deploy:
+      restart_policy:
+        condition: on-failure
     depends_on:
       - database-integration
 
   
   database-patients:
     image: postgres:13
-    restart: always
-    container_name: Patients_Portal_Database
+    deploy:
+      restart_policy:
+        condition: on-failure
     networks:
       - patients_database_net
+    secrets:
+      - db_user_patients
+      - db_pass_patients
     environment:
-      POSTGRES_PASSWORD: "wasd"
-      POSTGRES_USER: "postgres"
+      - POSTGRES_USER_FILE=/run/secrets/db_user_patients
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_pass_patients
     ports:
       - "7083:5432"
 
   database-pharmacy:
     image: postgres:13
-    restart: always
-    container_name: Pharmacy_Database
+    deploy:
+      restart_policy:
+        condition: on-failure
     networks:
       - pharmacy_database_net
+    secrets:
+      - db_user_pharmacy
+      - db_pass_pharmacy
     environment:
-      POSTGRES_PASSWORD: "root"
-      POSTGRES_USER: "postgres"
+      - POSTGRES_USER_FILE=/run/secrets/db_user_pharmacy
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_pass_pharmacy
     ports:
       - "7081:5432"
 
   database-integration:
     image: postgres:13
-    restart: always
-    container_name: Integrations_Database
+    deploy:
+      restart_policy:
+        condition: on-failure
     networks:
       - integrations_database_net
+    secrets:
+      - db_user_integration
+      - db_pass_integration
     environment:
-      POSTGRES_PASSWORD: "root"
-      POSTGRES_USER: "postgres"
+      - POSTGRES_USER_FILE=/run/secrets/db_user_integration
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db_pass_integration
     ports:
       - "7082:5432"
 
 networks:
   pharmacy_database_net:
-    name: pharmacy_database_net
-    driver: bridge
+    driver: overlay
   patients_database_net:
-    name: patients_database_net
-    driver: bridge
+    driver: overlay
   integrations_database_net:
-    name: integrations_database_net
-    driver: bridge
+    driver: overlay
   pharmacy-application_net:
-    name: pharmacy-application_net
-    driver: bridge
+    driver: overlay
   patients-application_net:
-    name: patients-application_net
-    driver: bridge
+    driver: overlay
   integrations-application_net:
-    name: integrations-application_net
-    driver: bridge
+    driver: overlay
+
+secrets:
+  db_user_pharmacy:
+    external: true
+  db_user_patients:
+    external: true
+  db_user_integration:
+    external: true
+  db_pass_pharmacy:
+    external: true
+  db_pass_patients:
+    external: true
+  db_pass_integration:
+    external: true
