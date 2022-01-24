@@ -38,14 +38,15 @@ namespace PharmacyClassLib
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             String server = Environment.GetEnvironmentVariable("SERVER") ?? "localhost";
-            String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+            String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "8080";
             String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
             String username = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "root";
+            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "wasd";
 
 
             String connectionString = $"Server={server}; Port ={port}; Database ={databaseName}; User Id = {username}; Password ={password};";
             optionsBuilder.UseNpgsql(connectionString);
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,11 @@ namespace PharmacyClassLib
             modelBuilder.ApplyConfiguration(new NewsConfiguration());
             modelBuilder.ApplyConfiguration(new MedicationPromotionConfiguration());
 
+            modelBuilder.Entity<MedicationPromotion>().HasData(
+                 new MedicationPromotion { Id = 1, Title = "Promocija 1", Description = "Lek 1 Lek2 Lek3" },
+                 new MedicationPromotion { Id = 2, Title = "Promocija 2", Description = "Lek 1 Lek2 Lek3" },
+                 new MedicationPromotion { Id = 3, Title = "Promocija 3", Description = "Lek 1 Lek2 Lek3" }
+                 );
 
             modelBuilder.Entity<Pharmacy>().HasData(
                  new Pharmacy(1, "Janković", "Novi Sad", "Rumenačka", "15"),

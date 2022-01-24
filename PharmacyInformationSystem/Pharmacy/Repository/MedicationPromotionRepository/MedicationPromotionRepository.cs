@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PharmacyClassLib.Repository.MedicationPromotionRepository
 {
-    class MedicationPromotionRepository : AbstractSqlRepository<MedicationPromotion, long>, IMedicationPromotionRepository
+    public class MedicationPromotionRepository : AbstractSqlRepository<MedicationPromotion, long>, IMedicationPromotionRepository
     {
 
         public MedicationPromotionRepository(MyDbContext dbContext) : base(dbContext)

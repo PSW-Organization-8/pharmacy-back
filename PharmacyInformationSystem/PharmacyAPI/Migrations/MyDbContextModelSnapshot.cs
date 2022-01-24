@@ -50,6 +50,26 @@ namespace PharmacyAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MedicationPromotion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Description = "Lek 1 Lek2 Lek3",
+                            Title = "Promocija 1"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Description = "Lek 1 Lek2 Lek3",
+                            Title = "Promocija 2"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Description = "Lek 1 Lek2 Lek3",
+                            Title = "Promocija 3"
+                        });
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.Medication", b =>
@@ -594,20 +614,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 3, 14, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(7797),
+                            EndDate = new DateTime(2022, 3, 15, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(3864),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 23, 17, 30, 14, 950, DateTimeKind.Local).AddTicks(4642)
+                            StartDate = new DateTime(2022, 1, 24, 15, 14, 36, 759, DateTimeKind.Local).AddTicks(5002)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 22, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9960),
+                            EndDate = new DateTime(2022, 2, 23, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5707),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 23, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9944)
+                            StartDate = new DateTime(2022, 1, 24, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5693)
                         });
                 });
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using PharmacyAPI.Filters;
 using PharmacyClassLib.Service.Interface;
 using PharmacyAPI.Dto;
+using PharmacyClassLib.Model.Commercials;
 
 namespace PharmacyAPI.Controllers
 {
@@ -17,11 +18,13 @@ namespace PharmacyAPI.Controllers
     {
         private readonly IPharmacyService pharmacyService;
         private readonly IInventoryLogService inventoryLogService;
+        private readonly IMedicationPromotionService medicationPromotionService;
 
-        public PharmacyController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService)
+        public PharmacyController(IPharmacyService pharmacyService, IInventoryLogService inventoryLogService, IMedicationPromotionService medicationPromotionService)
         {
             this.pharmacyService = pharmacyService;
             this.inventoryLogService = inventoryLogService;
+            this.medicationPromotionService = medicationPromotionService;
         }
 
         [HttpGet]
@@ -44,6 +47,13 @@ namespace PharmacyAPI.Controllers
             TenderCommunicationRabbitMQ tenderCommunication = new TenderCommunicationRabbitMQ();
             
             return Ok(tenderCommunication.ReceiveNewTenders());
+        }
+
+        [HttpGet]
+        [Route("promotions")]
+        public IActionResult GetMedicationPromotions()
+        {
+            return Ok(medicationPromotionService.Get());
         }
     }
 }
