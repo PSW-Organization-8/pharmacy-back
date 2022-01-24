@@ -26,17 +26,21 @@ namespace PharmacyAPI.Controllers
         }
 
         [HttpPost]
-        public Response Add(ObjectionWithResponseDto objectionWithResponse)
+        public IActionResult Add(ObjectionWithResponseDto objectionWithResponse)
         {
             Response newResponse = new Response(objectionWithResponse.Id, objectionWithResponse.TextResponse, objectionWithResponse.HospitalName);
+            Response savedResponse = responseService.Add(newResponse);
+            if (savedResponse == null) return StatusCode(500, "Error! Response not recorded!");
             ResponseDto responseDto = new ResponseDto(objectionWithResponse.TextResponse, objectionWithResponse.Id.ToString());
             RegisteredHospital registeredHospital = hospitalRegistrationService.GetByName(objectionWithResponse.HospitalName);
             RestClient restClient = new RestClient(registeredHospital.Url + "/api/Response");
             RestRequest request = new RestRequest();
             request.AddJsonBody(responseDto);
             request.AddHeader("ApiKey", registeredHospital.ApiKey);
-            restClient.Post(request);
-            return responseService.Add(newResponse);
+            var data = restClient.Post<IActionResult>(request);
+            if (data.StatusCode != System.Net.HttpStatusCode.OK) return StatusCode(502, "Error! Response not sent to hospital!");
+            return Ok();
+
         }
     }
 }

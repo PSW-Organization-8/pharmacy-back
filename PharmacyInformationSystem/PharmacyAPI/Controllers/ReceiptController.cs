@@ -22,15 +22,20 @@ namespace PharmacyAPI.Controllers
             filePath = Path.Combine(filePath, @"..\DataFiles\Prescriptions");
             string localFile = Path.Combine(filePath, fileName);
             string fileServer = @"\public\"+fileName;
-
-            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
+            try
             {
-                client.Connect();
-                using (Stream stream = System.IO.File.OpenWrite(localFile))
+                using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
                 {
-                    client.DownloadFile(fileServer, stream, null);
+                    client.Connect();
+                    using (Stream stream = System.IO.File.OpenWrite(localFile))
+                    {
+                        client.DownloadFile(fileServer, stream, null);
+                    }
+                    client.Disconnect();
                 }
-                client.Disconnect();
+            }
+            catch(Exception) {
+                return BadRequest("Error! Receipt not sent to pharmacy!");
             }
             return Ok();
 
@@ -39,14 +44,20 @@ namespace PharmacyAPI.Controllers
         [HttpPost]
         public IActionResult SaveQRReceipt([FromBody] string file)
         {
-            string filePath = Directory.GetCurrentDirectory();
-            filePath = Path.Combine(filePath, @"..\DataFiles\Prescriptions");
-            IEnumerable<string> headers = Request.Headers["fileName"];
-            var fileName = headers.FirstOrDefault();
-            string localFile = Path.Combine(filePath, fileName);
-            Byte[] bytes = Convert.FromBase64String(file);
-            System.IO.File.WriteAllBytes(localFile, bytes);
-            return Ok();
+            try
+            {
+                string filePath = Directory.GetCurrentDirectory();
+                filePath = Path.Combine(filePath, @"..\DataFiles\Prescriptions");
+                IEnumerable<string> headers = Request.Headers["fileName"];
+                var fileName = headers.FirstOrDefault();
+                string localFile = Path.Combine(filePath, fileName);
+                Byte[] bytes = Convert.FromBase64String(file);
+                System.IO.File.WriteAllBytes(localFile, bytes);
+                return Ok();
+            }
+            catch(Exception) {
+                return BadRequest();
+            }
         }
     }
 }
