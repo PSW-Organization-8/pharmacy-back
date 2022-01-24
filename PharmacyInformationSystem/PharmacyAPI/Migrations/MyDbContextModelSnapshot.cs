@@ -55,20 +55,38 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            Description = "Lek 1 Lek2 Lek3",
-                            Title = "Promocija 1"
+                            Description = "Diazepam 1.5$ JUST TODAY",
+                            Title = "BENU PHARMACY"
                         },
                         new
                         {
                             Id = 2L,
-                            Description = "Lek 1 Lek2 Lek3",
-                            Title = "Promocija 2"
+                            Description = "Candesartan 1.5$ JUST TODAY",
+                            Title = "GALEN PHARMACY"
                         },
                         new
                         {
                             Id = 3L,
-                            Description = "Lek 1 Lek2 Lek3",
-                            Title = "Promocija 3"
+                            Description = "Nitrofurantoin 8$ JUST TODAY",
+                            Title = "FREDI PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Description = "Azithromycin 1$ JUST TODAY",
+                            Title = "GALENIUS PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Description = "Paracetamol for adults 2.5$ JUST TODAY",
+                            Title = "GODWILL PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Description = "Lansoprazole 8$ JUST TODAY",
+                            Title = "DR. MAX PHARMACY"
                         });
                 });
 
@@ -614,20 +632,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 3, 15, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(3864),
+                            EndDate = new DateTime(2022, 3, 15, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(5222),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 24, 15, 14, 36, 759, DateTimeKind.Local).AddTicks(5002)
+                            StartDate = new DateTime(2022, 1, 24, 22, 37, 43, 548, DateTimeKind.Local).AddTicks(888)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 23, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5707),
+                            EndDate = new DateTime(2022, 2, 23, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6996),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 24, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5693)
+                            StartDate = new DateTime(2022, 1, 24, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6982)
                         });
                 });
 

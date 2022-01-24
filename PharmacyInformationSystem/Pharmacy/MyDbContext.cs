@@ -55,9 +55,12 @@ namespace PharmacyClassLib
             modelBuilder.ApplyConfiguration(new MedicationPromotionConfiguration());
 
             modelBuilder.Entity<MedicationPromotion>().HasData(
-                 new MedicationPromotion { Id = 1, Title = "Promocija 1", Description = "Lek 1 Lek2 Lek3" },
-                 new MedicationPromotion { Id = 2, Title = "Promocija 2", Description = "Lek 1 Lek2 Lek3" },
-                 new MedicationPromotion { Id = 3, Title = "Promocija 3", Description = "Lek 1 Lek2 Lek3" }
+                 new MedicationPromotion { Id = 1, Title = "BENU PHARMACY", Description = "Diazepam 1.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 2, Title = "GALEN PHARMACY", Description = "Candesartan 1.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 3, Title = "FREDI PHARMACY", Description = "Nitrofurantoin 8$ JUST TODAY" },
+                 new MedicationPromotion { Id = 4, Title = "GALENIUS PHARMACY", Description = "Azithromycin 1$ JUST TODAY" },
+                 new MedicationPromotion { Id = 5, Title = "GODWILL PHARMACY", Description = "Paracetamol for adults 2.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 6, Title = "DR. MAX PHARMACY", Description = "Lansoprazole 8$ JUST TODAY" }
                  );
 
             modelBuilder.Entity<Pharmacy>().HasData(

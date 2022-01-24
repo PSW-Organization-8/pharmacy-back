@@ -314,9 +314,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "MedicationId", "Name" },
                 values: new object[,]
                 {
-                    { 1L, null, "Vitamin C" },
+                    { 3L, null, "Calcium" },
                     { 2L, null, "Phosphorus" },
-                    { 3L, null, "Calcium" }
+                    { 1L, null, "Vitamin C" }
                 });
 
             migrationBuilder.InsertData(
@@ -324,9 +324,12 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Description", "Title" },
                 values: new object[,]
                 {
-                    { 1L, "Lek 1 Lek2 Lek3", "Promocija 1" },
-                    { 3L, "Lek 1 Lek2 Lek3", "Promocija 3" },
-                    { 2L, "Lek 1 Lek2 Lek3", "Promocija 2" }
+                    { 6L, "Lansoprazole 8$ JUST TODAY", "DR. MAX PHARMACY" },
+                    { 5L, "Paracetamol for adults 2.5$ JUST TODAY", "GODWILL PHARMACY" },
+                    { 4L, "Azithromycin 1$ JUST TODAY", "GALENIUS PHARMACY" },
+                    { 3L, "Nitrofurantoin 8$ JUST TODAY", "FREDI PHARMACY" },
+                    { 2L, "Candesartan 1.5$ JUST TODAY", "GALEN PHARMACY" },
+                    { 1L, "Diazepam 1.5$ JUST TODAY", "BENU PHARMACY" }
                 });
 
             migrationBuilder.InsertData(
@@ -354,8 +357,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Adress", "AdressNumber", "City", "Name" },
                 values: new object[,]
                 {
-                    { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" },
                     { 2L, "Bulevar oslobođenja", "135", "Novi Sad", "Janković" },
+                    { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" },
                     { 1L, "Rumenačka", "15", "Novi Sad", "Janković" }
                 });
 
@@ -383,8 +386,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 3, 15, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(3864), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 24, 15, 14, 36, 759, DateTimeKind.Local).AddTicks(5002) },
-                    { 2L, new DateTime(2022, 2, 23, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5707), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 24, 15, 14, 36, 762, DateTimeKind.Local).AddTicks(5693) }
+                    { 1L, new DateTime(2022, 3, 15, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(5222), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 24, 22, 37, 43, 548, DateTimeKind.Local).AddTicks(888) },
+                    { 2L, new DateTime(2022, 2, 23, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6996), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 24, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6982) }
                 });
 
             migrationBuilder.InsertData(
