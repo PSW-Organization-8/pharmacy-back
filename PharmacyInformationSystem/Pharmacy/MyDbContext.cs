@@ -38,14 +38,15 @@ namespace PharmacyClassLib
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             String server = Environment.GetEnvironmentVariable("SERVER") ?? "localhost";
-            String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+            String port = Environment.GetEnvironmentVariable("DB_PORT") ?? "8080";
             String databaseName = Environment.GetEnvironmentVariable("DB_NAME") ?? "Pharmacy";
             String username = Environment.GetEnvironmentVariable("DB_USER") ?? "postgres";
-            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "root";
+            String password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "wasd";
 
 
             String connectionString = $"Server={server}; Port ={port}; Database ={databaseName}; User Id = {username}; Password ={password};";
             optionsBuilder.UseNpgsql(connectionString);
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +54,14 @@ namespace PharmacyClassLib
             modelBuilder.ApplyConfiguration(new NewsConfiguration());
             modelBuilder.ApplyConfiguration(new MedicationPromotionConfiguration());
 
+            modelBuilder.Entity<MedicationPromotion>().HasData(
+                 new MedicationPromotion { Id = 1, Title = "BENU PHARMACY", Description = "Diazepam 1.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 2, Title = "GALEN PHARMACY", Description = "Candesartan 1.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 3, Title = "FREDI PHARMACY", Description = "Nitrofurantoin 8$ JUST TODAY" },
+                 new MedicationPromotion { Id = 4, Title = "GALENIUS PHARMACY", Description = "Azithromycin 1$ JUST TODAY" },
+                 new MedicationPromotion { Id = 5, Title = "GODWILL PHARMACY", Description = "Paracetamol for adults 2.5$ JUST TODAY" },
+                 new MedicationPromotion { Id = 6, Title = "DR. MAX PHARMACY", Description = "Lansoprazole 8$ JUST TODAY" }
+                 );
 
             modelBuilder.Entity<Pharmacy>().HasData(
                  new Pharmacy(1, "Janković", "Novi Sad", "Rumenačka", "15"),

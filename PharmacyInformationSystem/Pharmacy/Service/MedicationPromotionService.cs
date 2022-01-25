@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PharmacyClassLib.Service
 {
-    class MedicationPromotionService : IMedicationPromotionService
+    public class MedicationPromotionService : IMedicationPromotionService
     {
         private readonly IMedicationPromotionRepository medicationPromotionRepository;
 
@@ -31,7 +31,7 @@ namespace PharmacyClassLib.Service
 
         public List<MedicationPromotion> Get()
         {
-            return this.medicationPromotionRepository.GetAll();
+            return medicationPromotionRepository.GetAll();
         }
     }
 }

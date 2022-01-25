@@ -17,11 +17,11 @@
         "EMAIL_PASSWORD": "pswFtnOrganisation8",
         "DB_USER": "postgres",
         "DB_NAME": "Pharmacy",
-        "DB_PORT": "5432",
-        "DB_PASSWORD": "pass",
+        "DB_PORT": "8080",
+        "DB_PASSWORD": "wasd",
         "SERVER": "localhost",
         "EMAIL_HOST": "smtp-mail.outlook.com",
-        "EMAIL_PORT": "587",
+        "EMAIL_PORT": "8080",
         "EMAIL_USERNAME": "psworganisation8@outlook.com",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

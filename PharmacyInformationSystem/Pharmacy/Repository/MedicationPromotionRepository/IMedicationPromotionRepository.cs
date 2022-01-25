@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PharmacyClassLib.Repository.MedicationPromotionRepository
 {
-    interface IMedicationPromotionRepository : IGenericRepository<MedicationPromotion,long>
+    public interface IMedicationPromotionRepository : IGenericRepository<MedicationPromotion,long>
     {
     }
 }

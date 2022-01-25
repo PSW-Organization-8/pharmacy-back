@@ -30,6 +30,7 @@ using PharmacyAPI.Filters;
 using PharmacyClassLib.Repository.PharmacyOfferRepository;
 using PharmacyClassLib.Repository.NotificationRepository;
 using PharmacyClassLib.ModelConfiguration;
+using PharmacyClassLib.Repository.MedicationPromotionRepository;
 
 namespace WebApplication1
 {
@@ -56,7 +57,8 @@ namespace WebApplication1
 
             services.AddMvc();
 
-            services.AddDbContext<MyDbContext>(options => options.UseNpgsql(x => x.MigrationsAssembly("PharmacyAPI")));
+            services.AddDbContext<MyDbContext>(options => 
+            options.UseNpgsql(x => x.MigrationsAssembly("PharmacyAPI")));
 
             services.AddTransient<IPharmacyRepository, PharmacyRepository>();
             services.AddTransient<IMedicationIngredientRepository, MedicationIngredientRepository>();
@@ -71,6 +73,7 @@ namespace WebApplication1
             services.AddTransient<IPharmacyOfferComponentRepository, PharmacyOfferComponentRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
             services.AddTransient<ITenderingRepository, TenderingRepository>();
+            services.AddTransient<IMedicationPromotionRepository, MedicationPromotionRepository>();
 
             services.AddScoped<IIngredientInMedicationService, IngredientInMedicationService>();
             services.AddScoped<IMedicationService, MedicationService>();
@@ -89,8 +92,11 @@ namespace WebApplication1
             services.AddScoped<TenderCommunicationRabbitMQ>();
             services.AddScoped<ITenderingService, TenderingService>();
             services.AddScoped<EmailService>();
+            services.AddScoped<IMedicationPromotionService, MedicationPromotionService>();
 
             services.AddHostedService<CompressionOfOldFiles>();
+
+
         }
 
         private Server server;

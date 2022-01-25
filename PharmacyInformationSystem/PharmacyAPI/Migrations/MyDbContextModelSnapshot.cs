@@ -50,6 +50,44 @@ namespace PharmacyAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MedicationPromotion");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Description = "Diazepam 1.5$ JUST TODAY",
+                            Title = "BENU PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Description = "Candesartan 1.5$ JUST TODAY",
+                            Title = "GALEN PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Description = "Nitrofurantoin 8$ JUST TODAY",
+                            Title = "FREDI PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Description = "Azithromycin 1$ JUST TODAY",
+                            Title = "GALENIUS PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Description = "Paracetamol for adults 2.5$ JUST TODAY",
+                            Title = "GODWILL PHARMACY"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Description = "Lansoprazole 8$ JUST TODAY",
+                            Title = "DR. MAX PHARMACY"
+                        });
                 });
 
             modelBuilder.Entity("PharmacyClassLib.Model.Medication", b =>
@@ -594,20 +632,20 @@ namespace PharmacyAPI.Migrations
                         new
                         {
                             Id = 1L,
-                            EndDate = new DateTime(2022, 3, 14, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(7797),
+                            EndDate = new DateTime(2022, 3, 15, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(5222),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za Bolnicu zdravo",
-                            StartDate = new DateTime(2022, 1, 23, 17, 30, 14, 950, DateTimeKind.Local).AddTicks(4642)
+                            StartDate = new DateTime(2022, 1, 24, 22, 37, 43, 548, DateTimeKind.Local).AddTicks(888)
                         },
                         new
                         {
                             Id = 2L,
-                            EndDate = new DateTime(2022, 2, 22, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9960),
+                            EndDate = new DateTime(2022, 2, 23, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6996),
                             HospitalName = "Bolnica1",
                             IdInHospital = 0L,
                             Name = "Tender za neku drugu Bolnicu",
-                            StartDate = new DateTime(2022, 1, 23, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9944)
+                            StartDate = new DateTime(2022, 1, 24, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6982)
                         });
                 });
 

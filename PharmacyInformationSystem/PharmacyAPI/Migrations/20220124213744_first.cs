@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace PharmacyAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -292,8 +292,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "IngredientID", "MedicationID" },
                 values: new object[,]
                 {
-                    { 3L, 2L, 1L },
                     { 2L, 2L, 2L },
+                    { 3L, 2L, 1L },
                     { 1L, 1L, 1L }
                 });
 
@@ -302,10 +302,10 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "MedicationID", "PharmacyID", "Quantity" },
                 values: new object[,]
                 {
+                    { 1L, 1L, 1L, 65L },
                     { 2L, 2L, 1L, 85L },
                     { 3L, 1L, 2L, 20L },
                     { 4L, 3L, 2L, 120L },
-                    { 1L, 1L, 1L, 65L },
                     { 5L, 1L, 3L, 14L }
                 });
 
@@ -314,9 +314,22 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "MedicationId", "Name" },
                 values: new object[,]
                 {
-                    { 1L, null, "Vitamin C" },
+                    { 3L, null, "Calcium" },
                     { 2L, null, "Phosphorus" },
-                    { 3L, null, "Calcium" }
+                    { 1L, null, "Vitamin C" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MedicationPromotion",
+                columns: new[] { "Id", "Description", "Title" },
+                values: new object[,]
+                {
+                    { 6L, "Lansoprazole 8$ JUST TODAY", "DR. MAX PHARMACY" },
+                    { 5L, "Paracetamol for adults 2.5$ JUST TODAY", "GODWILL PHARMACY" },
+                    { 4L, "Azithromycin 1$ JUST TODAY", "GALENIUS PHARMACY" },
+                    { 3L, "Nitrofurantoin 8$ JUST TODAY", "FREDI PHARMACY" },
+                    { 2L, "Candesartan 1.5$ JUST TODAY", "GALEN PHARMACY" },
+                    { 1L, "Diazepam 1.5$ JUST TODAY", "BENU PHARMACY" }
                 });
 
             migrationBuilder.InsertData(
@@ -324,9 +337,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Manufacturer", "Name", "PotentialDangers", "Precautions", "Quantity", "Status", "Usage" },
                 values: new object[,]
                 {
-                    { 1L, "J&J", "Synthroid", "None.", "None.", 150, 0, "Taken once per day" },
                     { 3L, "Pfizer Inc.", "Januvia", "Not advised for children.", "None.", 750, 0, "Taken once once every 5 hours" },
-                    { 2L, "Merck & Co. Inc.", "Ventolin", "Not advised for pregnant women.", "None.", 200, 2, "Taken twice per day" }
+                    { 2L, "Merck & Co. Inc.", "Ventolin", "Not advised for pregnant women.", "None.", 200, 2, "Taken twice per day" },
+                    { 1L, "J&J", "Synthroid", "None.", "None.", 150, 0, "Taken once per day" }
                 });
 
             migrationBuilder.InsertData(
@@ -344,9 +357,9 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "Adress", "AdressNumber", "City", "Name" },
                 values: new object[,]
                 {
-                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" },
+                    { 2L, "Bulevar oslobođenja", "135", "Novi Sad", "Janković" },
                     { 3L, "Olge Jovanović", "18a", "Beograd", "Janković" },
-                    { 2L, "Bulevar oslobođenja", "135", "Novi Sad", "Janković" }
+                    { 1L, "Rumenačka", "15", "Novi Sad", "Janković" }
                 });
 
             migrationBuilder.InsertData(
@@ -373,8 +386,8 @@ namespace PharmacyAPI.Migrations
                 columns: new[] { "Id", "EndDate", "HospitalName", "IdInHospital", "Name", "StartDate" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2022, 3, 14, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(7797), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 23, 17, 30, 14, 950, DateTimeKind.Local).AddTicks(4642) },
-                    { 2L, new DateTime(2022, 2, 22, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9960), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 23, 17, 30, 14, 953, DateTimeKind.Local).AddTicks(9944) }
+                    { 1L, new DateTime(2022, 3, 15, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(5222), "Bolnica1", 0L, "Tender za Bolnicu zdravo", new DateTime(2022, 1, 24, 22, 37, 43, 548, DateTimeKind.Local).AddTicks(888) },
+                    { 2L, new DateTime(2022, 2, 23, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6996), "Bolnica1", 0L, "Tender za neku drugu Bolnicu", new DateTime(2022, 1, 24, 22, 37, 43, 552, DateTimeKind.Local).AddTicks(6982) }
                 });
 
             migrationBuilder.InsertData(
